@@ -1,4 +1,5 @@
 #include "wind.h"
+#include "xo.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
