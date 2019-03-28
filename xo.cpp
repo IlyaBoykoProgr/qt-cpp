@@ -7,6 +7,8 @@ void XO::clicked(){
       if(myStatus->currentMessage()=="Ходят Х")this->setX();
       else this->setO();
       myBut->setDisabled(true);
+      myBut->setFlat(true);
+      emit butChanged();
 }
 void XO::setBut(QPushButton *parent, QStatusBar *bar){
       myBut=parent; myStatus=bar;
@@ -16,6 +18,7 @@ void XO::setBut(QPushButton *parent, QStatusBar *bar){
 void XO::start(){
       myBut->setText(" ");
       myBut->setDisabled(false);
+      myBut->setFlat(false);
       myStatus->showMessage("Ходят Х");
 }
 void XO::setX(){

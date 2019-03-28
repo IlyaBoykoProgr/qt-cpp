@@ -16,7 +16,7 @@ public:
     void setO();
     void setBut(QPushButton *parent, QStatusBar *bar);
 signals:
-
+    void butChanged();
 public slots:
     void clicked();
 };
