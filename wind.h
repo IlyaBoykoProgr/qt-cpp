@@ -18,7 +18,6 @@ public:
 private slots:
     void on_action_triggered();
     void paintEvent(QPaintEvent *event);
-    void on_but();
 };
 
 #endif // WIND_H
