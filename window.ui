@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>180</width>
+    <width>265</width>
     <height>260</height>
    </rect>
   </property>
@@ -115,7 +115,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>180</width>
+     <width>265</width>
      <height>34</height>
     </rect>
    </property>
@@ -139,6 +139,9 @@
   <action name="action">
    <property name="text">
     <string>Новая</string>
+   </property>
+   <property name="shortcut">
+    <string>F5</string>
    </property>
   </action>
  </widget>

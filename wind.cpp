@@ -40,12 +40,19 @@ void wind::isWinner(){
     if((x[0]&&x[1]&&x[2])||(x[0]&&x[3]&&x[6])||
        (x[3]&&x[4]&&x[5])||(x[1]&&x[4]&&x[7])||
        (x[6]&&x[7]&&x[8])||(x[2]&&x[5]&&x[8])||(x[2]&&x[4]&&x[6])||(x[0]&&x[4]&&x[8])
-    )QMessageBox::information(this,"Крестики!","Поздравляю победившего!\n\n\n\n                       (c)System");
+    ){
+        QMessageBox::information(this,"Крестики!","Поздравляю победившего!\n\n\n\n                       (c)System");
+        on_action_triggered();
+
+    }
     for(int i=0; i<9; i++) x[i]=(buts[i].myBut->text()=="O");
     if((x[0]&&x[1]&&x[2])||(x[0]&&x[3]&&x[6])||
        (x[3]&&x[4]&&x[5])||(x[1]&&x[4]&&x[7])||
        (x[6]&&x[7]&&x[8])||(x[2]&&x[5]&&x[8])||(x[2]&&x[4]&&x[6])||(x[0]&&x[4]&&x[8])
-    )QMessageBox::information(this,"Нолики!","Поздравляю победившего!\n\n\n\n                          (c)System");
+    ){
+        QMessageBox::information(this,"Нолики!","Поздравляю победившего!\n\n\n\n                          (c)System");
+        on_action_triggered();
+    }
 }
 
 void wind::paintEvent(QPaintEvent *event){

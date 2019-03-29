@@ -23,11 +23,11 @@ void XO::start(){
 }
 void XO::setX(){
       myBut->setText("X");
-      myBut->setStyleSheet("color:red");
+      myBut->setStyleSheet("color:red;");
       myStatus->showMessage("Ходят О");
 }
 void XO::setO(){
       myBut->setText("O");
-      myBut->setStyleSheet("color:blue");
+      myBut->setStyleSheet("color:blue;");
       myStatus->showMessage("Ходят Х");
 }
