@@ -53,6 +53,11 @@ void wind::isWinner(){
         QMessageBox::information(this,"Нолики!","Поздравляю победившего!\n\n\n\n                          (c)System");
         on_action_triggered();
     }
+    for(int i=0; i<9; i++) x[i]=(buts[i].myBut->text()!=" ");
+    if(x[0]&&x[1]&&x[2]&&x[3]&&x[4]&&x[5]&&x[6]&&x[7]&&x[8]){
+        QMessageBox::information(this,"Ничья...","  Кто выиграл?    ");
+        on_action_triggered();
+    }
 }
 
 void wind::paintEvent(QPaintEvent *event){
