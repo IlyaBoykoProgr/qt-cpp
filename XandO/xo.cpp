@@ -1,5 +1,5 @@
 #include "xo.h"
-
+#include <QThread>
 XO::XO(QObject *parent) : QObject(parent)
 {}
 void XO::clicked(){
