@@ -6,52 +6,62 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>161</width>
-    <height>196</height>
+    <width>272</width>
+    <height>202</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>table</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
-     <layout class="QGridLayout" name="gridLayout"/>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>161</width>
-     <height>28</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menu">
-    <property name="title">
-     <string>Игра</string>
-    </property>
-    <addaction name="action"/>
-   </widget>
-   <addaction name="menu"/>
+   <layout class="QVBoxLayout" name="verticalLayout"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
+    <enum>BottomToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
     <bool>true</bool>
    </attribute>
+   <addaction name="Up"/>
+   <addaction name="Down"/>
+   <addaction name="Left"/>
+   <addaction name="Right"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="action">
+  <action name="Up">
    <property name="text">
-    <string>Выйти красиво</string>
+    <string>Up</string>
    </property>
    <property name="shortcut">
-    <string>Esc</string>
+    <string>Up</string>
+   </property>
+  </action>
+  <action name="Down">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Down</string>
+   </property>
+   <property name="shortcut">
+    <string>Down</string>
+   </property>
+  </action>
+  <action name="Left">
+   <property name="text">
+    <string>Left</string>
+   </property>
+   <property name="shortcut">
+    <string>Left</string>
+   </property>
+  </action>
+  <action name="Right">
+   <property name="text">
+    <string>Right</string>
+   </property>
+   <property name="shortcut">
+    <string>Right</string>
    </property>
   </action>
  </widget>
