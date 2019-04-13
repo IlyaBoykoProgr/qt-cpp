@@ -10,12 +10,6 @@
     <height>246</height>
    </rect>
   </property>
-  <property name="font">
-   <font>
-    <family>Serif</family>
-    <italic>true</italic>
-   </font>
-  </property>
   <property name="windowTitle">
    <string>2048</string>
   </property>

@@ -16,7 +16,6 @@ public:
     int short scores[4][4];
     QLabel *myNum[4][4];
     explicit table(QWidget *parent = 0);
-    void paintEvent(QPaintEvent *e);
     void setScore(int score,int col,int row);
     void create();
     void up(int c, int r);
