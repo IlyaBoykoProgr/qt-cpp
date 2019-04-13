@@ -2,7 +2,7 @@
 #define TABLE_H
 
 #include <QMainWindow>
-#include <QLabel>
+#include <QPushButton>
 
 namespace Ui {
 class table;
@@ -14,7 +14,7 @@ class table : public QMainWindow
 
 public:
     int short scores[4][4];
-    QLabel *myNum[4][4];
+    QPushButton *myNum[4][4];
     explicit table(QWidget *parent = 0);
     void setScore(int score,int col,int row);
     void create();

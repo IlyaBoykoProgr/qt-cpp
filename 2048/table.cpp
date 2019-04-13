@@ -11,10 +11,9 @@ table::table(QWidget *parent) :
     ui->setupUi(this);
     show();
     for(int r=0; r<4; r++)for(int c=0; c<4; c++){
-        myNum[c][r]= new QLabel(this);
+        myNum[c][r]= new QPushButton(this);
         myNum[c][r]->resize(80,80);
         myNum[c][r]->move(c*80,r*80);
-        myNum[c][r]->setAlignment(Qt::AlignCenter);
         myNum[c][r]->show();
         setScore(0,c,r);
     }
@@ -28,28 +27,35 @@ void table::setScore(int score, int col, int row){
     scores[col][row]=score;
     if(score==0){
         myNum[col][row]->setStyleSheet("");
+        myNum[col][row]->setFlat(true);
         myNum[col][row]->setText("");
         return;
     }
+    myNum[col][row]->setFlat(false);
     myNum[col][row]->setText(QString::number(score));
-    QString color=QString::number(255.0-score/2);
-    myNum[col][row]->setStyleSheet("background:rgb("+color+","+color+","+color+");font-size:30px;");
+    QString color=QString::number(255.0-score/8);
+    myNum[col][row]->setStyleSheet("\
+        background:rgb("+color+","+color+","+color+");\
+        font-size:30px;\
+    ");
 }
 
 void table::create(){
     int add=2;
     if((qrand()%4)==0)add=4;
-    int row=qrand()%4,col=qrand()%4;
+    int row=0,col=0;
     int gameOver=0;
     while(scores[row][col]!=0){
-        row=qrand()%4;
-        col=qrand()%4;
-        if(gameOver==15){
-            QMessageBox::critical(this,"Big ERROR!!!","You have losed!                                 ");
-            for(int i=0;i<30;i++)moveWidget(this,qrand()%800,qrand()%400,20);
-            break;
+        for(col=col;col<4;col++){
+            if(gameOver==15){
+                QMessageBox::critical(this,"Big ERROR!!!","You have losed!                                 ");
+                for(int i=0;i<30;i++)moveWidget(this,qrand()%800,qrand()%400,20);
+                break;
+            }
         }
         gameOver++;
+        row++;
+        col=0;
     }
     setScore(add,row,col);
     if(gameOver==15)QApplication::exit(100);
