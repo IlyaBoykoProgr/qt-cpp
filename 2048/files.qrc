@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>gem5.png</file>
+    </qresource>
+</RCC>

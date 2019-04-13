@@ -1,54 +1,8 @@
 #include "table.h"
 #include "ui_table.h"
-#include <QThread>
 #include <QScreen>
-
-void moveWidget(QWidget* moving,int x,int y,long msTime,int repCount=700){
-    float wait=msTime/repCount;
-    if(repCount>x)repCount=x;
-    if(repCount>y)repCount=y;
-    double xChange=x - moving->x(); xChange/=repCount;
-    double yChange=y - moving->y(); yChange/=repCount;
-    while(repCount>=0){
-        moving->move(moving->x()+xChange,moving->y()+yChange);
-        QThread::msleep(wait);
-        repCount--;
-    }
-    moving->move(x,y);
-}
-
-int scores[4][4];
-QPushButton *myNum[4][4];
-class num{
-    int r, c;
-public:
-    num(int row,int col){
-        r=row; c=col;
-        setScore(0);
-        if((qrand()%6)==0)setScore(2);
-        else scores[r][c]=0;
-    }
-    void setScore(int score){
-        scores[r][c]=score;
-        if(score==0){
-            myNum[r][c]->setStyleSheet("");
-            myNum[r][c]->setText("");
-            return;
-        }
-        myNum[r][c]->setText(QString::number(score));
-        QString color=QString::number((2048-score)/409);
-        myNum[r][c]->setStyleSheet("background:rgb(255,"+color+","+color+");");
-    }
-    void up(){
-    }
-    void down(){
-    }
-    void left(){
-    }
-    void right(){
-    }
-};
-num* nums[4][4];
+#include <QMessageBox>
+#include "../animate.h"
 
 table::table(QWidget *parent) :
     QMainWindow(parent),
@@ -57,60 +11,110 @@ table::table(QWidget *parent) :
     ui->setupUi(this);
     show();
     for(int r=0; r<4; r++)for(int c=0; c<4; c++){
-        myNum[r][c]= new QPushButton(this);
-        myNum[r][c]->setFixedSize(90,90);
-        myNum[r][c]->move(r*100,c*100);
-        nums[r][c]= new num(r,c);
+        myNum[c][r]= new QLabel(this);
+        myNum[c][r]->resize(80,80);
+        myNum[c][r]->move(c*80,r*80);
+        myNum[c][r]->setAlignment(Qt::AlignCenter);
+        myNum[c][r]->show();
+        setScore(0,c,r);
     }
-    setFixedSize(400,400);
 }
 
 void table::paintEvent(QPaintEvent *e){
+    resize(0,0);
     QSize screen=QApplication::screens().at(0)->availableSize();
-    moveWidget(this,screen.width()/2-100, screen.height()/2-100, 200);
+    moveWidget(this,screen.width()/2-200, screen.height()/2-200, 200);
+    setFixedSize(320,360);
+}
+
+void table::setScore(int score, int col, int row){
+    scores[col][row]=score;
+    if(score==0){
+        myNum[col][row]->setStyleSheet("");
+        myNum[col][row]->setText("");
+        return;
+    }
+    myNum[col][row]->setText(QString::number(score));
+    QString color=QString::number(255.0-score/4);
+    myNum[col][row]->setStyleSheet("background:rgb("+color+","+color+","+color+");font-size:30px;");
 }
 
 void table::create(){
     int add=2;
-    if((qrand()%6)==0)add=4;
+    if((qrand()%4)==0)add=4;
     int row=qrand()%4,col=qrand()%4;
-    while(scores[row][col]!=0){row=qrand()%4;col=qrand()%4;}
-    nums[row][col]->setScore(add);
+    int gameOver=0;
+    while(scores[row][col]!=0){
+        row=qrand()%4;
+        col=qrand()%4;
+        if(gameOver==15){
+            QMessageBox::critical(this,"Big ERROR!!!","You have losed!                                 ");
+            for(int i=0;i<30;i++)moveWidget(this,qrand()%800,qrand()%400,20);
+            break;
+        }
+        gameOver++;
+    }
+    setScore(add,row,col);
+    if(gameOver==15)QApplication::exit(100);
 }
 
-table::~table()
+ table::~table()
 {
     delete ui;
+}
+void table::up(int c, int r){
+    while(/*c>0 &&*/ scores[c-1][r]==0){
+        setScore(scores[c][r],c-1,r);
+        setScore(0,c,r);
+    }
+}
+void table::down(int c, int r){
+    while(/*c<3 && */scores[c+1][r]==0){
+        setScore(scores[c][r],c+1,r);
+        setScore(0,c,r);
+    }
+}
+void table::left(int c, int r){
+    while(/*r>0 &&*/ scores[c][r-1]==0){
+        setScore(scores[c][r],c,r-1);
+        setScore(0,c,r);
+    }
+}
+void table::right(int c, int r){
+    while(/*r<3 && */scores[c][r+1]==0){
+        setScore(scores[c][r],c,r+1);
+        setScore(0,c,r);
+    }
 }
 
 void table::on_Up_triggered()
 {
-    for(int r=0; r<4; r++)for(int c=0; c<4; c++){
-        nums[r][c]->up();
+    for(int c=1; c<4; c++)for(int r=0; r<4; r++){
+        //up(c,r);
     }
     create();
 }
 
 void table::on_Down_triggered()
 {
-    for(int r=3; r>=0; r--)for(int c=0; c<4; c++){
-        nums[r][c]->down();
+    for(int c=3; c>=0; c--)for(int r=3; r>=0; r--){
+        //down(c,r);
     }
     create();
 }
 
 void table::on_Left_triggered()
 {
-    for(int r=0; r<4; r++)for(int c=0; c<4; c++){
-        nums[r][c]->left();
+    for(int r=1; r<4; r++)for(int c=0; c<4; c++){
+        //left(c,r);
     }
     create();
 }
 
 void table::on_Right_triggered()
 {
-    for(int r=0; r<4; r++)for(int c=3; c>=0; c--){
-        nums[r][c]->right();
+    for(int r=2; r>=0; r--)for(int c=3; c>=0; c--){
+        //right(c,r);
     }
     create();
 }

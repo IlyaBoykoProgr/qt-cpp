@@ -29,3 +29,6 @@ SOURCES += main.cpp\
 HEADERS  += table.h
 
 FORMS    += table.ui
+
+RESOURCES += \
+    files.qrc
