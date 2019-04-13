@@ -33,32 +33,49 @@ void table::setScore(int score, int col, int row){
     }
     myNum[col][row]->setFlat(false);
     myNum[col][row]->setText(QString::number(score));
-    QString color=QString::number(255.0-score/8);
-    myNum[col][row]->setStyleSheet("\
-        background:rgb("+color+","+color+","+color+");\
-        font-size:30px;\
-    ");
+    QString backg="background:";
+    switch (score){
+    case 2:backg.append("red");break;
+    case 4:backg.append("orange");break;
+    case 8:backg.append("yellow");break;
+    case 16:backg.append("lime");break;
+    case 32:backg.append("green");break;
+    case 64:backg.append("aqua");break;
+    case 128:backg.append("blue");break;
+    case 256:backg.append("purple");break;
+    case 512:backg.append("qconicalgradient:(cx:0.5, cy:0.5, angle:0, stop:0 rgba(35, 40, 3, 255), stop:0.16 rgba(136, 106, 22, 255), stop:0.225 rgba(166, 140, 41, 255), stop:0.285 rgba(204, 181, 74, 255), stop:0.345 rgba(235, 219, 102, 255), stop:0.415 rgba(245, 236, 112, 255), stop:0.52 rgba(209, 190, 76, 255), stop:0.57 rgba(187, 156, 51, 255), stop:0.635 rgba(168, 142, 42, 255), stop:0.695 rgba(202, 174, 68, 255), stop:0.75 rgba(218, 202, 86, 255), stop:0.815 rgba(208, 187, 73, 255), stop:0.88 rgba(187, 156, 51, 255), stop:0.935 rgba(137, 108, 26, 255), stop:1 rgba(35, 40, 3, 255))");break;
+    case 1024:backg.append("qlineargradient:(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(245, 224, 176, 255), stop:0.09 rgba(246, 189, 237, 255), stop:0.14 rgba(194, 207, 246, 255), stop:0.19 rgba(184, 160, 168, 255), stop:0.25 rgba(171, 186, 248, 255), stop:0.32 rgba(243, 248, 224, 255), stop:0.385 rgba(249, 162, 183, 255), stop:0.47 rgba(100, 115, 124, 255), stop:0.58 rgba(251, 205, 202, 255), stop:0.65 rgba(170, 128, 185, 255), stop:0.75 rgba(252, 222, 204, 255), stop:0.805 rgba(206, 122, 218, 255), stop:0.86 rgba(254, 223, 175, 255), stop:0.91 rgba(254, 236, 244, 255), stop:1 rgba(255, 191, 221, 255))");break;
+    case 2048:
+        backg.append("qlineargradient:(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 red, stop:0.166 rgba(255, 255, 0, 255), stop:0.333 green, stop:0.5 rgba(0, 255, 255, 255), stop:0.666 blue, stop:0.833 purple, stop:1 red)");
+        int answer=
+                QMessageBox::question(this,"2048 found winner!","My congratulations!!!\nYou have been played for a long time I think.\nDo you want to exit or continue?","Continue","Exit");
+        if(answer==1)QApplication::exit();
+        break;
+    }
+    myNum[col][row]->setStyleSheet(backg+";font-size:30px;");
 }
 
 void table::create(){
     int add=2;
     if((qrand()%4)==0)add=4;
-    int row=0,col=0;
-    int gameOver=0;
-    while(scores[row][col]!=0){
-        for(col=col;col<4;col++){
-            if(gameOver==15){
+    bool complete=0;
+    for(int r=0; r<4; r++){
+        for(int c=0; c<4; c++){
+            if(c==3 && r==3){
                 QMessageBox::critical(this,"Big ERROR!!!","You have losed!                                 ");
                 for(int i=0;i<30;i++)moveWidget(this,qrand()%800,qrand()%400,20);
+                QApplication::exit(100);
+                break;
+            }
+            int col,row; col=qrand()%4;row=qrand()%4;
+            if(scores[col][row]==0){
+                setScore(add,col,row);
+                complete=1;
                 break;
             }
         }
-        gameOver++;
-        row++;
-        col=0;
+        if(complete)break;
     }
-    setScore(add,row,col);
-    if(gameOver==15)QApplication::exit(100);
 }
 
  table::~table()
