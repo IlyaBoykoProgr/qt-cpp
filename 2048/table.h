@@ -29,6 +29,8 @@ private slots:
     void on_Left_triggered();
     void on_Right_triggered();
 
+    void on_cheat_triggered();
+
 private:
     Ui::table *ui;
 };
