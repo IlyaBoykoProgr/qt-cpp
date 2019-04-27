@@ -153,8 +153,8 @@ void table::on_Right_triggered()
 
 void table::on_cheat_triggered()
 {
-    w.setScore(1024,0,0);
-    w.setScore(512,0,1);
-    w.setScore(256,0,2);
-    w.setScore(256,0,3);
+    setScore(1024,0,0);
+    setScore(512,0,1);
+    setScore(256,0,2);
+    setScore(256,0,3);
 }
