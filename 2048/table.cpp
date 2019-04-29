@@ -8,17 +8,17 @@ table::table(QWidget *parent) :
 {
     ui->setupUi(this);
     resize(0,0);show();
-    cols= QInputDialog::getInt(this,"How many columns?","How many columns?",4,2);
-    rows= QInputDialog::getInt(this,"How many rows?","How many rows?",4,2);
-    setFixedSize(cols*80,rows*80+20);
+    cols= QInputDialog::getInt(this,"How many columns?","How many columns?",4,4);
+    rows= QInputDialog::getInt(this,"How many rows?","How many rows?",4,4);
+    setFixedSize(cols*50,rows*50+20);
     scores= new short int*[cols];
     for(int i=0; i<cols; i++)scores[i]= new short int[rows];
     myNum= new QPushButton*[cols];
     for(int i=0; i<rows; i++)myNum[i]= new QPushButton[rows];
-    for(int r=0; r<rows-1; r++)for(int c=0; c<cols-1; c++){
+    for(int c=0; c<cols; c++)for(int r=0; r<rows; r++){
         myNum[c][r].setParent(this);
-        myNum[c][r].resize(80,80);
-        myNum[c][r].move(c*80,r*80);
+        myNum[c][r].resize(50,50);
+        myNum[c][r].move(c*50,r*50);
         myNum[c][r].show();
         setScore(0,c,r);
     }
@@ -125,7 +125,7 @@ void table::right(int c, int r){
 
 void table::on_Up_triggered()
 {
-    for(int how=0;how<(int)(cols+rows)/2;how++)for(int c=0; c<cols; c++)for(int r=0; r<rows; r++){
+    for(int how=0;how<rows;how++)for(int c=0; c<cols; c++)for(int r=0; r<rows; r++){
         up(c,r);
     }
     create();
@@ -133,7 +133,7 @@ void table::on_Up_triggered()
 
 void table::on_Down_triggered()
 {
-    for(int how=0;how<(int)(cols+rows)/2;how++)for(int c=cols-1; c>=0; c--)for(int r=rows-1; r>=0; r--){
+    for(int how=0;how<rows;how++)for(int c=cols-1; c>=0; c--)for(int r=rows-1; r>=0; r--){
         down(c,r);
     }
     create();
@@ -141,14 +141,14 @@ void table::on_Down_triggered()
 
 void table::on_Left_triggered()
 {
-    for(int how=0;how<(int)(cols+rows)/2;how++)for(int r=0; r<rows; r++)for(int c=0; c<cols; c++){
+    for(int how=0;how<cols;how++)for(int r=0; r<rows; r++)for(int c=0; c<cols; c++){
         left(c,r);
     }
     create();
 }
 void table::on_Right_triggered()
 {
-    for(int how=0;how<(int)(cols+rows)/2;how++)for(int r=rows-1; r>=0; r--)for(int c=cols-1; c>=0; c--){
+    for(int how=0;how<cols;how++)for(int r=rows-1; r>=0; r--)for(int c=cols-1; c>=0; c--){
         right(c,r);
     }
     create();
