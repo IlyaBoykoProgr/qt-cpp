@@ -8,17 +8,24 @@ table::table(QWidget *parent) :
 {
     ui->setupUi(this);
     resize(0,0);show();
-    cols= QInputDialog::getInt(this,"How many columns?","How many columns?",4,4);
-    rows= QInputDialog::getInt(this,"How many rows?","How many rows?",4,4);
-    setFixedSize(cols*50,rows*50+20);
+    cols= QInputDialog::getInt(this,"How many columns?","How many columns?",4,2,350);
+    rows= QInputDialog::getInt(this,"How many rows?","How many rows?",4,2,350);
+    float coff;
+    if(cols<6 && rows<6)coff=0.5;
+    else if(cols<10 && rows<10)coff=1;
+    else if(cols<15 && rows<15)coff=2;
+    else if(cols<50 && rows<50)coff=5;
+    else if(cols<100 && rows<100)coff=10;
+    else if(cols<350 && rows<350)coff=35;
+    setFixedSize(cols*70/coff,rows*70/coff+30);
     scores= new short int*[cols];
     for(int i=0; i<cols; i++)scores[i]= new short int[rows];
     myNum= new QPushButton*[cols];
     for(int i=0; i<rows; i++)myNum[i]= new QPushButton[rows];
     for(int c=0; c<cols; c++)for(int r=0; r<rows; r++){
         myNum[c][r].setParent(this);
-        myNum[c][r].resize(50,50);
-        myNum[c][r].move(c*50,r*50);
+        myNum[c][r].resize(70/coff,70/coff);
+        myNum[c][r].move(c*70/coff,r*70/coff);
         myNum[c][r].show();
         setScore(0,c,r);
     }
@@ -96,10 +103,10 @@ void table::up(int c, int r){
     }
 }
 void table::down(int c, int r){
-    if(r<3 && scores[c][r+1]==0){
+    if(r<rows-1 && scores[c][r+1]==0){
         setScore(scores[c][r],c,r+1);
         setScore(0,c,r);
-    }else if(r<3 && scores[c][r+1]==scores[c][r]){
+    }else if(r<rows-1 && scores[c][r+1]==scores[c][r]){
         setScore(scores[c][r]*2,c,r+1);
         setScore(0,c,r);
     }
@@ -114,10 +121,10 @@ void table::left(int c, int r){
     }
 }
 void table::right(int c, int r){
-    if(c<3 && scores[c+1][r]==0){
+    if(c<cols-1 && scores[c+1][r]==0){
         setScore(scores[c][r],c+1,r);
         setScore(0,c,r);
-    }else if(c<3 && scores[c+1][r]==scores[c][r]){
+    }else if(c<cols-1 && scores[c+1][r]==scores[c][r]){
         setScore(scores[c][r]*2,c+1,r);
         setScore(0,c,r);
     }
