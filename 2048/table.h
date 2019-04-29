@@ -1,8 +1,10 @@
 #ifndef TABLE_H
 #define TABLE_H
-
 #include <QMainWindow>
 #include <QPushButton>
+#include <QScreen>
+#include <QMessageBox>
+#include <QInputDialog>
 
 namespace Ui {
 class table;
@@ -11,10 +13,11 @@ class table;
 class table : public QMainWindow
 {
     Q_OBJECT
-
 public:
-    int short scores[4][4];
-    QPushButton *myNum[4][4];
+    short int cols;
+    short int rows;
+    int short** scores;
+    QPushButton **myNum;
     explicit table(QWidget *parent = 0);
     void setScore(int score,int col,int row);
     void create();
@@ -28,9 +31,6 @@ private slots:
     void on_Down_triggered();
     void on_Left_triggered();
     void on_Right_triggered();
-
-    void on_cheat_triggered();
-
 private:
     Ui::table *ui;
 };
