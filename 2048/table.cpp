@@ -10,7 +10,7 @@ table::table(QWidget *parent) :
     resize(0,0);show();
     cols= QInputDialog::getInt(this,"How many columns?","How many columns?",4,2,350);
     rows= QInputDialog::getInt(this,"How many rows?","How many rows?",4,2,350);
-    float coff;
+    float coff=1;
     if(cols<6 && rows<6)coff=0.5;
     else if(cols<10 && rows<10)coff=1;
     else if(cols<15 && rows<15)coff=2;
@@ -67,7 +67,7 @@ void table::setScore(int score, int col, int row){
 
 void table::create(){
     int add=2;
-    if((qrand()%4)==0)add=4;
+    if((qrand()%10)==0)add=4;
     bool complete=0;
     for(int r=0; r<rows; r++){
         for(int c=0; c<cols; c++){

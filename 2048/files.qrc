@@ -2,4 +2,5 @@
     <qresource prefix="/icons">
         <file>gem5.png</file>
     </qresource>
+    <qresource prefix="/audio"/>
 </RCC>
