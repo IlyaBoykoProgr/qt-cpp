@@ -132,31 +132,36 @@ void table::right(int c, int r){
 
 void table::on_Up_triggered()
 {
-    for(int how=0;how<rows;how++)for(int c=0; c<cols; c++)for(int r=0; r<rows; r++){
-        up(c,r);
+    for(int how=0;how<rows;how++)for(int c=0; c<cols; c++){
+        for(int r=0; r<rows; r++)up(c,r);
+        QThread::msleep(50);
     }
     create();
 }
 
 void table::on_Down_triggered()
 {
-    for(int how=0;how<rows;how++)for(int c=cols-1; c>=0; c--)for(int r=rows-1; r>=0; r--){
-        down(c,r);
+    for(int how=0;how<rows;how++)for(int c=cols-1; c>=0; c--){
+        for(int r=rows-1; r>=0; r--)down(c,r);
+        QThread::msleep(50);
     }
     create();
 }
 
 void table::on_Left_triggered()
 {
-    for(int how=0;how<cols;how++)for(int r=0; r<rows; r++)for(int c=0; c<cols; c++){
-        left(c,r);
+    for(int how=0;how<cols;how++)for(int r=0; r<rows; r++){
+        for(int c=0; c<cols; c++)left(c,r);
+        QThread::msleep(50);
     }
     create();
 }
+
 void table::on_Right_triggered()
 {
-    for(int how=0;how<cols;how++)for(int r=rows-1; r>=0; r--)for(int c=cols-1; c>=0; c--){
-        right(c,r);
+    for(int how=0;how<cols;how++)for(int r=rows-1; r>=0; r--){
+        for(int c=cols-1; c>=0; c--)right(c,r);
+        QThread::msleep(50);
     }
     create();
 }

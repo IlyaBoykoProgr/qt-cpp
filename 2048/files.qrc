@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/icons">
-        <file>gem5.png</file>
+        <file>2048.ico</file>
     </qresource>
     <qresource prefix="/audio"/>
 </RCC>
