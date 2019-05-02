@@ -7,10 +7,9 @@ table::table(QWidget *parent) :
     ui(new Ui::table)
 {
     ui->setupUi(this);
-    resize(0,0);show();
+    resize(0,0);
     cols= QInputDialog::getInt(this,"How many columns?","How many columns?",4,2,350);
     rows= QInputDialog::getInt(this,"How many rows?","How many rows?",4,2,350);
-    float coff=1;
     if(cols<6 && rows<6)coff=0.5;
     else if(cols<10 && rows<10)coff=1;
     else if(cols<15 && rows<15)coff=2;
@@ -18,17 +17,21 @@ table::table(QWidget *parent) :
     else if(cols<100 && rows<100)coff=10;
     else if(cols<350 && rows<350)coff=35;
     setFixedSize(cols*70/coff,rows*70/coff+30);
-    scores= new short int*[cols];
-    for(int i=0; i<cols; i++)scores[i]= new short int[rows];
-    myNum= new QPushButton*[cols];
-    for(int i=0; i<rows; i++)myNum[i]= new QPushButton[rows];
-    for(int c=0; c<cols; c++)for(int r=0; r<rows; r++){
-        myNum[c][r].setParent(this);
-        myNum[c][r].resize(70/coff,70/coff);
-        myNum[c][r].move(c*70/coff,r*70/coff);
-        myNum[c][r].show();
-        setScore(0,c,r);
-    }
+     move(qrand()%2000,qrand()%1000);
+        scores= new short int*[cols];
+        for(int i=0; i<cols; i++)scores[i]= new short int[rows];
+        myNum= new QPushButton**[cols];
+        for(int i=0; i<rows; i++)myNum[i]= new QPushButton*[rows];
+        for(int c=0; c<cols; c++)for(int r=0; r<rows; r++){
+            myNum[c][r]=new QPushButton(this);
+            myNum[c][r]->resize(70/coff,70/coff);
+            myNum[c][r]->move(c*70/coff,r*70/coff);
+            myNum[c][r]->show();
+            setScore(0,c,r);
+        }
+        create();
+        create();
+        show();
     QSize screen=QApplication::screens().at(0)->availableSize();
     moveWidget(this,screen.width()/2-400, screen.height()/2-400, 400);
 }
@@ -36,13 +39,13 @@ table::table(QWidget *parent) :
 void table::setScore(int score, int col, int row){
     scores[col][row]=score;
     if(score==0){
-        myNum[col][row].setStyleSheet("");
-        myNum[col][row].setFlat(true);
-        myNum[col][row].setText("");
+        myNum[col][row]->setStyleSheet("");
+        myNum[col][row]->setFlat(true);
+        myNum[col][row]->setText("");
         return;
     }
-    myNum[col][row].setFlat(false);
-    myNum[col][row].setText(QString::number(score));
+    myNum[col][row]->setFlat(false);
+    myNum[col][row]->setText(QString::number(score));
     QString backg="background:";
     switch (score){
     case 2:backg.append("red");break;
@@ -62,7 +65,18 @@ void table::setScore(int score, int col, int row){
         if(answer==1)QApplication::exit();
         break;
     }
-    myNum[col][row].setStyleSheet(backg+";font-size:30px;");
+    backg.append(";background-image:url(");
+    switch (score){
+    case 2:backg.append(":/gems/gem3.png)");break;
+    case 4:backg.append(":/gems/gem7.png)");break;
+    case 8:backg.append(":/gems/gem4.png)");break;
+    case 16:backg.append(":/gems/gem2.png)");break;
+    case 32:backg.append(":/gems/gem2.png)");break;
+    case 64:backg.append(":/gems/gem6.png)");break;
+    case 128:backg.append(":/gems/gem1.png)");break;
+    case 256:backg.append(":/gems/gem5.png)");break;
+    }
+    myNum[col][row]->setStyleSheet(backg+";font-size:30px;");
 }
 
 void table::create(){
@@ -100,6 +114,10 @@ void table::up(int c, int r){
     }else if(r>0 && scores[c][r-1]==scores[c][r]){
         setScore(scores[c][r]*2,c,r-1);
         setScore(0,c,r);
+        for(short i=2;i<=scores[c][r]*2;i*=2){
+            setScore(i,c,r);QThread::msleep(1500);
+            myNum[c][r]->repaint();
+        }
     }
 }
 void table::down(int c, int r){
@@ -132,31 +150,31 @@ void table::right(int c, int r){
 
 void table::on_Up_triggered()
 {
-    for(int how=0;how<rows;how++)for(int c=0; c<cols; c++)for(int r=0; r<rows; r++){
-        up(c,r);
+    for(int how=0;how<rows;how++)for(int c=0; c<cols; c++){
+        for(int r=0; r<rows; r++)up(c,r);
     }
     create();
 }
 
 void table::on_Down_triggered()
 {
-    for(int how=0;how<rows;how++)for(int c=cols-1; c>=0; c--)for(int r=rows-1; r>=0; r--){
-        down(c,r);
+    for(int how=0;how<rows;how++)for(int c=cols-1; c>=0; c--){
+        for(int r=rows-1; r>=0; r--)down(c,r);
     }
     create();
 }
 
 void table::on_Left_triggered()
 {
-    for(int how=0;how<cols;how++)for(int r=0; r<rows; r++)for(int c=0; c<cols; c++){
-        left(c,r);
+    for(int how=0;how<cols;how++)for(int r=0; r<rows; r++){
+        for(int c=0; c<cols; c++)left(c,r);
     }
     create();
 }
 void table::on_Right_triggered()
 {
-    for(int how=0;how<cols;how++)for(int r=rows-1; r>=0; r--)for(int c=cols-1; c>=0; c--){
-        right(c,r);
+    for(int how=0;how<cols;how++)for(int r=rows-1; r>=0; r--){
+        for(int c=cols-1; c>=0; c--)right(c,r);
     }
     create();
 }
