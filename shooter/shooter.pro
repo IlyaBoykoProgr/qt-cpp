@@ -29,3 +29,5 @@ SOURCES += main.cpp\
 HEADERS  += turrel.h
 
 FORMS    += turrel.ui
+
+RESOURCES +=
