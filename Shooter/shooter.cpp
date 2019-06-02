@@ -9,7 +9,7 @@ shooter::shooter(QWidget *parent) :
   setFixedSize(500,600);
   connect(this,SIGNAL(pif_paf(int)),this,SLOT(shoot(int)));
   kirpich=new block*[5];
-  for(short i=0;i<=4;i++)kirpich[i]=new block(i*100,400,i+1,this);
+  for(short i=0;i<=4;i++)kirpich[i]=new block(i*100,400,rand()%10,this);
 }
 
 void shooter::keyPressEvent(QKeyEvent *ev){
@@ -41,7 +41,7 @@ void shooter::shoot(int x){
       pula.move(x-3,i);
       repaint();
       for(short k=0;k<=4;k++)
-        if(kirpich[k]->y()==i && kirpich[k]->x()<x && kirpich[k]->x()+100>x)
+        if((kirpich[k]->y()==i ||kirpich[k]->y()==i-5) && kirpich[k]->x()<x && kirpich[k]->x()+100>x)
           {kirpich[k]->destroy();i=590;break;}
   }
 }

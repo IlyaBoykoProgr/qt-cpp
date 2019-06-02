@@ -4,30 +4,11 @@
 #include <QMainWindow>
 #include <QKeyEvent>
 #include <QLabel>
+class block;
 
 namespace Ui {
   class shooter;
 }
-
-class block: public QLabel{
-  Q_OBJECT
-  short h;
-public:
-  block(int x, int y,int health,QWidget* parent){
-    setParent(parent);
-    setStyleSheet("background:#F50;border:2px solid #666;");
-    setGeometry(x+3,y,94,40);
-    show();
-    h=health;
-    setNum(h);
-  }
-  void destroy(){
-    if(h==1)move(-200,0);
-    h--;
-    setNum(h);
-  }
-};
-
 class shooter : public QMainWindow{
   Q_OBJECT
 public:
@@ -42,6 +23,30 @@ signals:
 private:
   Ui::shooter *ui;
   block** kirpich;
+};
+
+class block: public QLabel{
+  Q_OBJECT
+  short h;
+public:
+  block(int x, int y,int health,shooter* parent){
+    setParent(parent);
+    connect(parent,SIGNAL(pif_paf(int)),this,SLOT(update()));
+    setStyleSheet("background:#F50;border:2px solid #666;");
+    setGeometry(x+3,y,94,40);
+    show();
+    h=health;
+    setNum(h);
+  }
+  void destroy(){
+    if(h==1)move(-200,0);
+    h--;
+    setNum(h);
+  }
+public slots:
+  void update(){
+    move(x(),y()-5);
+  }
 };
 
 #endif // SHOOTER_H
