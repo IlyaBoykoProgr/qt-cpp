@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/images">
         <file>turrel.png</file>
+        <file>kosmos.jpg</file>
     </qresource>
 </RCC>
