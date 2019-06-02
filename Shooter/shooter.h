@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QKeyEvent>
 #include <QLabel>
+#include <QProgressBar>
 class block;
 
 namespace Ui {
@@ -28,6 +29,7 @@ private:
 class block: public QLabel{
   Q_OBJECT
   short h;
+  QProgressBar* heal= new QProgressBar(this);
 public:
   block(int x, int y,int health,shooter* parent){
     setParent(parent);
@@ -36,16 +38,19 @@ public:
     setGeometry(x+3,y,94,40);
     show();
     h=health;
-    setNum(h);
+    heal->setGeometry(5,5,84,10);
+    heal->setTextVisible(false); heal->setStyleSheet("QProgressBar::chunk{background:green}");
+    heal->setRange(0,h);heal->show();
   }
   void destroy(){
     if(h==1)move(-200,0);
     h--;
-    setNum(h);
+    heal->setValue(h);
   }
 public slots:
   void update(){
     move(x(),y()-5);
+    if(y()<45)setText("LoSe!");
   }
 };
 

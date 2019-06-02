@@ -1,5 +1,6 @@
 #include "shooter.h"
 #include "ui_shooter.h"
+#define BLOCKS 5
 
 shooter::shooter(QWidget *parent) :
   QMainWindow(parent),
@@ -8,8 +9,8 @@ shooter::shooter(QWidget *parent) :
   ui->setupUi(this);
   setFixedSize(500,600);
   connect(this,SIGNAL(pif_paf(int)),this,SLOT(shoot(int)));
-  kirpich=new block*[5];
-  for(short i=0;i<=4;i++)kirpich[i]=new block(i*100,400,rand()%10,this);
+  kirpich=new block*[BLOCKS];
+  for(short i=0;i<BLOCKS;i++)kirpich[i%4]=new block(i*100,rand()%20*5+400,rand()%15,this);
 }
 
 void shooter::keyPressEvent(QKeyEvent *ev){
@@ -36,12 +37,12 @@ void shooter::keyPressEvent(QKeyEvent *ev){
 void shooter::shoot(int x){
   QLabel pula(this);
   pula.setGeometry(x-3,40,6,20);
-  pula.show(); pula.setStyleSheet("background:yellow;");
+  pula.show(); pula.setStyleSheet("background:yellow");
   for(short i=40;i<590;i+=10){
       pula.move(x-3,i);
       repaint();
-      for(short k=0;k<=4;k++)
-        if((kirpich[k]->y()==i ||kirpich[k]->y()==i-5) && kirpich[k]->x()<x && kirpich[k]->x()+100>x)
+      for(short k=0;k<BLOCKS-1;k++)
+        if( (kirpich[k]->y()==i ||kirpich[k]->y()==i-5) && kirpich[k]->x()<x && kirpich[k]->x()+100>x)
           {kirpich[k]->destroy();i=590;break;}
   }
 }
