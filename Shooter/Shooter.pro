@@ -29,3 +29,6 @@ SOURCES += main.cpp\
 HEADERS  += shooter.h
 
 FORMS    += shooter.ui
+
+RESOURCES += \
+    sources.qrc
