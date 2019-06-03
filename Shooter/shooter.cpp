@@ -1,17 +1,19 @@
 #include "shooter.h"
 #include "ui_shooter.h"
-#define BLOCKS 20
+#include <QInputDialog>
+int BLOCKS;
 
 shooter::shooter(QString programm,QWidget *parent) :
   QMainWindow(parent),
   ui(new Ui::shooter)
 {
+  BLOCKS=QInputDialog::getInt(this,"Difficulty","How many blocks do you want to break?",20,20);
   ui->setupUi(this);
   setFixedSize(500,600);
   connect(this,SIGNAL(pif_paf(int)),this,SLOT(shoot(int)));
   progPath=programm;
   kirpich=new block*[BLOCKS];
-  for(short i=0;i<BLOCKS;i++)kirpich[i]=new block(i%5*100,rand()%(21-i%5*5)*30+460,rand()%9+1,this);
+  for(short i=0;i<BLOCKS;i++)kirpich[i]=new block(i%5*100,rand()%(21-i%5*5)*40+460,rand()%9+1,this);
 }
 
 void shooter::keyPressEvent(QKeyEvent *ev){
