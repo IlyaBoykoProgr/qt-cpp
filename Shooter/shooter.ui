@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>508</width>
+    <height>544</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>shooter</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-image: url(:/images/kosmos.jpg);</string>
+   <string notr="true">background-image: url(:/images/kosmos.jpg);color:white;</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QLabel" name="tank">

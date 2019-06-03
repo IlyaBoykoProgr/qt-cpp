@@ -7,8 +7,8 @@ shooter::shooter(QString programm,QWidget *parent) :
   QMainWindow(parent),
   ui(new Ui::shooter)
 {
-  BLOCKS=QInputDialog::getInt(this,"Difficulty","How many blocks do you want to break?",20,20);
   ui->setupUi(this);
+  BLOCKS=QInputDialog::getInt(this,"Difficulty","How many blocks do you want to break?",20,10);
   setFixedSize(500,600);
   connect(this,SIGNAL(pif_paf(int)),this,SLOT(shoot(int)));
   progPath=programm;
@@ -49,7 +49,7 @@ void shooter::shoot(int x){
           {kirpich[k]->destroy();i=590;break;}
   }
   if(rushed>=BLOCKS){
-      repaint();
+      QMessageBox::information(this,"You won!","You already broke all\n"+QString::number(BLOCKS)+" BLOCKS!!!");
       system("sleep 2");
       system((progPath+"&").toLocal8Bit().data());
       exit(0);

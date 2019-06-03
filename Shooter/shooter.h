@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QKeyEvent>
 #include <QLabel>
+#include <QMessageBox>
 
 class block;
 
@@ -54,6 +55,7 @@ public slots:
     move(x(),y()-5);
     if(this->y()<45){
         shooter* par=((shooter*)parent());
+        QMessageBox::critical(par,"Lose","GAME OVER");
         system((par->progPath+"&").toLocal8Bit().data());
         exit(0);
     }
