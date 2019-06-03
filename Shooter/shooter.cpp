@@ -1,6 +1,6 @@
 #include "shooter.h"
 #include "ui_shooter.h"
-#define BLOCKS 15
+#define BLOCKS 20
 
 shooter::shooter(QString programm,QWidget *parent) :
   QMainWindow(parent),
@@ -11,7 +11,7 @@ shooter::shooter(QString programm,QWidget *parent) :
   connect(this,SIGNAL(pif_paf(int)),this,SLOT(shoot(int)));
   progPath=programm;
   kirpich=new block*[BLOCKS];
-  for(short i=0;i<BLOCKS;i++)kirpich[i]=new block(i%5*100,rand()%(21-i%5*5)*5+400,rand()%15,this);
+  for(short i=0;i<BLOCKS;i++)kirpich[i]=new block(i%5*100,rand()%(21-i%5*5)*30+460,rand()%9  +1,this);
 }
 
 void shooter::keyPressEvent(QKeyEvent *ev){
