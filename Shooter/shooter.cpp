@@ -11,7 +11,7 @@ shooter::shooter(QString programm,QWidget *parent) :
   connect(this,SIGNAL(pif_paf(int)),this,SLOT(shoot(int)));
   progPath=programm;
   kirpich=new block*[BLOCKS];
-  for(short i=0;i<BLOCKS;i++)kirpich[i]=new block(i%5*100,rand()%(21-i%5*5)*30+460,rand()%9  +1,this);
+  for(short i=0;i<BLOCKS;i++)kirpich[i]=new block(i%5*100,rand()%(21-i%5*5)*30+460,rand()%9+1,this);
 }
 
 void shooter::keyPressEvent(QKeyEvent *ev){
@@ -45,6 +45,12 @@ void shooter::shoot(int x){
       for(short k=0;k<BLOCKS;k++)
         if( (kirpich[k]->y()==i ||kirpich[k]->y()==i-5) && kirpich[k]->x()<x && kirpich[k]->x()+100>x)
           {kirpich[k]->destroy();i=590;break;}
+  }
+  if(rushed>=BLOCKS){
+      repaint();
+      system("sleep 2");
+      system((progPath+"&").toLocal8Bit().data());
+      exit(0);
   }
 }
 
