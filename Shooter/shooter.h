@@ -5,6 +5,7 @@
 #include <QKeyEvent>
 #include <QLabel>
 #include <QProgressBar>
+
 class block;
 
 namespace Ui {
@@ -13,7 +14,8 @@ namespace Ui {
 class shooter : public QMainWindow{
   Q_OBJECT
 public:
-  explicit shooter(QWidget *parent = 0);
+  QString progPath;
+  explicit shooter(QString programm,QWidget *parent = 0);
   ~shooter();
   void keyPressEvent(QKeyEvent* ev);
 
@@ -43,14 +45,19 @@ public:
     heal->setRange(0,h);heal->show();
   }
   void destroy(){
-    if(h==1)move(-200,0);
+    if(h==1)move(-200,600);
     h--;
     heal->setValue(h);
   }
 public slots:
   void update(){
     move(x(),y()-5);
-    if(y()<45)setText("LoSe!");
+    if(this->y()<45){
+        setText("lose!");
+        system("sleep 2");
+        system( ( ((shooter*)parent())->progPath+"&").toLocal8Bit().data());
+        exit(0);
+    }
   }
 };
 
