@@ -2,19 +2,23 @@
 #define BIN_FILE
 #include <fstream>
 class bstream{
-	std::fstream* bfile;
+	std::fstream bfile;
 public:
 	bstream(char file[]){
-		bfile=new std::fstream(file,ios_base::binary);
+		bfile.open(file,std::ios::binary);
 	}
-	template <typename T>
-	void operator<<(T what){
+	void operator<(int what){
 		bfile<<sizeof(what);
 	}
-	template <typename T>
-	void operator>>(T &where){
+	void operator>(int& where){
 		int bug;
 		bfile>>bug>>where;
+	}
+	bool is_open(){
+	   return bfile.is_open();
+	}
+	~bstream(){
+	   bfile.close();
 	}
 };
 #endif
