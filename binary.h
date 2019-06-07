@@ -6,6 +6,11 @@ class bstream{
 public:
 	bstream(char file[]){
 		bfile.open(file,std::ios::binary);
+		if(!bfile.is_open()){
+		 std::ofstream creat("shooter_data",std::ios::binary);
+		 creat<<sizeof(1);
+		 creat.close();
+		}
 	}
 	void operator<(int what){
 		bfile<<sizeof(what);
@@ -13,9 +18,6 @@ public:
 	void operator>(int& where){
 		int bug;
 		bfile>>bug>>where;
-	}
-	bool is_open(){
-	   return bfile.is_open();
 	}
 	~bstream(){
 	   bfile.close();
