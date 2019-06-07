@@ -2,10 +2,10 @@
 #define BIN_FILE
 #include <fstream>
 class bstream{
-	fstream* bfile;
+	std::fstream* bfile;
 public:
 	bstream(char file[]){
-		bfile=new fstream(file,ios_base::binary);
+		bfile=new std::fstream(file,ios_base::binary);
 	}
 	template <typename T>
 	void operator<<(T what){
