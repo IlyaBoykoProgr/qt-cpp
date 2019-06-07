@@ -5,6 +5,8 @@
 #include <QKeyEvent>
 #include <QLabel>
 #include <QMessageBox>
+#include <fstream>
+using namespace std;
 
 class block;
 
@@ -44,11 +46,23 @@ public:
   void destroy(){
     if(h<1){
      move(-200,1000);
+     ifstream kills("shooter_data",ios_base::binary);
+     if(!kills.is_open()){
+         ofstream creat("shooter_data",ios_base::binary);
+         creat.write((char*)1,sizeof(1));
+         creat.close();
+     }
+     int i;
+     kills>>i;
+     kills.close();
+     ofstream oneMore("shooter_data",ios_base::trunc);
+     oneMore<<sizeof(i+1);
      ((shooter*)parent())->rushed++;
-    }
+    }else{
     h--;
     setNum(h);
-    setStyleSheet("background:rgba(255,"+QString::number(h*25)+",0,240);border:4px solid #666;");
+    setStyleSheet("background:rgba(255,"+QString::number(h*20)+",0,230);border:4px solid #666;");
+    }
   }
 public slots:
   void update(){

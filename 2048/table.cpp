@@ -8,14 +8,11 @@ table::table(QWidget *parent) :
 {
     ui->setupUi(this);
     resize(0,0);
-    cols= QInputDialog::getInt(this,"How many columns?","How many columns?",4,2,350);
-    rows= QInputDialog::getInt(this,"How many rows?","How many rows?",4,2,350);
+    cols= QInputDialog::getInt(this,"How many columns?","How many columns?",4,2,30);
+    rows= QInputDialog::getInt(this,"How many rows?","How many rows?",4,2,30);
     if(cols<6 && rows<6)coff=0.5;
     else if(cols<10 && rows<10)coff=1;
     else if(cols<15 && rows<15)coff=2;
-    else if(cols<50 && rows<50)coff=5;
-    else if(cols<100 && rows<100)coff=10;
-    else if(cols<350 && rows<350)coff=35;
     setFixedSize(cols*70/coff,rows*70/coff+30);
      move(qrand()%2000,qrand()%1000);
         scores= new short int*[cols];
@@ -38,15 +35,17 @@ table::table(QWidget *parent) :
 
 void table::setScore(int score, int col, int row){
     scores[col][row]=score;
+    QString border="border:10px solid #CF9E52;";
     if(score==0){
-        myNum[col][row]->setStyleSheet("");
+        myNum[col][row]->setStyleSheet(border+"background:#EFBE72;");
         myNum[col][row]->setFlat(true);
         myNum[col][row]->setText("");
         return;
     }
     myNum[col][row]->setFlat(false);
     myNum[col][row]->setText(QString::number(score));
-    QString backg="background:";
+    QString backg=border+
+            "background:";
     switch (score){
     case 2:backg.append("red");break;
     case 4:backg.append("orange");break;
@@ -114,9 +113,9 @@ void table::up(int c, int r){
     }else if(r>0 && scores[c][r-1]==scores[c][r]){
         setScore(scores[c][r]*2,c,r-1);
         setScore(0,c,r);
-        for(short i=2;i<=scores[c][r]*2;i*=2){
-            setScore(i,c,r);QThread::msleep(1500);
-            myNum[c][r]->repaint();
+        for(short i=2;i<=(scores[c][r]*2);i+=i){
+            setScore(i,c,r-1);QThread::msleep(500);
+            repaint();
         }
     }
 }

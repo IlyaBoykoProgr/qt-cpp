@@ -1,8 +1,6 @@
 #include <QWidget>
 #include <QThread>
 void moveWidget(QWidget* moving,int x,int y,long msTime){
-    //Qt::WindowFlags flag= moving->windowFlags();
-    //moving->setWindowFlags(Qt::Window);
     int repCount=msTime;
     if(repCount>x)repCount=x;
     if(repCount>y)repCount=y;
@@ -14,13 +12,10 @@ void moveWidget(QWidget* moving,int x,int y,long msTime){
         QThread::msleep(1);
         repCount--;
     }
-    //moving->setWindowFlags(flag);
     moving->move(x,y);
 }
 
 void sizeWidget(QWidget *sizing,int w,int h,long msTime){
-   Qt::WindowFlags flag= sizing->windowFlags();
-    sizing->setWindowFlags(Qt::Window);
     int repCount=msTime/5;
     if(repCount>w)repCount=w;
     if(repCount>h)repCount=h;
@@ -32,6 +27,5 @@ void sizeWidget(QWidget *sizing,int w,int h,long msTime){
 	 QThread::msleep(5);
         repCount--;
     }
-   sizing->setWindowFlags(flag);
     sizing->resize(w,h);
 }

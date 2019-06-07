@@ -9,7 +9,7 @@ shooter::shooter(QString programm,QWidget *parent) :
 {
   ui->setupUi(this);
   BLOCKS=QInputDialog::getInt(this,"Difficulty","How many blocks do you want to break?",20,10);
-  setFixedSize(500,600);
+  setFixedSize(500,600+ui->statusBar->height());
   connect(this,SIGNAL(pif_paf(int)),this,SLOT(shoot(int)));
   progPath=programm;
   kirpich=new block*[BLOCKS];
@@ -54,6 +54,11 @@ void shooter::shoot(int x){
       system((progPath+"&").toLocal8Bit().data());
       exit(0);
   }
+  ifstream data("shooter_data",ios_base::binary);
+  int bug,kills=0;
+  data>>bug;
+  data.read((char*)&kills,sizeof(kills));
+  ui->statusBar->showMessage(QString::number(kills)+" blocks have broken");
 }
 
 shooter::~shooter()

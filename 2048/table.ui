@@ -14,7 +14,7 @@
    <string>2048</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="files.qrc">
+   <iconset>
     <normaloff>:/icons/gem5.png</normaloff>:/icons/gem5.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -69,8 +69,6 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="files.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
