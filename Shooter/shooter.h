@@ -5,8 +5,6 @@
 #include <QKeyEvent>
 #include <QLabel>
 #include <QMessageBox>
-#include <fstream>
-using namespace std;
 
 class block;
 
@@ -46,17 +44,6 @@ public:
   void destroy(){
     if(h<1){
      move(-200,1000);
-     ifstream kills("shooter_data",ios_base::binary);
-     if(!kills.is_open()){
-         ofstream creat("shooter_data",ios_base::binary);
-         creat.write((char*)1,sizeof(1));
-         creat.close();
-     }
-     int i;
-     kills>>i;
-     kills.close();
-     ofstream oneMore("shooter_data",ios_base::trunc);
-     oneMore<<sizeof(i+1);
      ((shooter*)parent())->rushed++;
     }else{
     h--;

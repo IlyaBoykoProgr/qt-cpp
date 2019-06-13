@@ -54,11 +54,6 @@ void shooter::shoot(int x){
       system((progPath+"&").toLocal8Bit().data());
       exit(0);
   }
-  ifstream data("shooter_data",ios_base::binary);
-  int bug,kills=0;
-  data>>bug;
-  data.read((char*)&kills,sizeof(kills));
-  ui->statusBar->showMessage(QString::number(kills)+" blocks have broken");
 }
 
 shooter::~shooter()
