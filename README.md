@@ -10,6 +10,8 @@ Enjoy!<br/>
  download and install <a href="http://download.qt.io/official_releases/qt/5.12/5.12.4/qt-opensource-windows-x86-5.12.4.exe">it</a><br/>
 <hr/><hr/>
 Then, open .pro file via QtCreator and press ctrl+R<br/>
+<head>
 <style>
 
 </style>
+</head>
