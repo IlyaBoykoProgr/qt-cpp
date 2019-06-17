@@ -1,4 +1,5 @@
 # Qt-C++
+<style></style>
 <hr width="100px" style="color:green"/>
 my projects on QtC++<br/>
 There in this folders are games and apps,writen using QtC++.<br/>
