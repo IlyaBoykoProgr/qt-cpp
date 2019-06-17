@@ -1,5 +1,5 @@
 <h1>Qt-C++</h1>
-<article></article>
+<article style="width:100px;height:100px;background:green;"></article>
 my projects on QtC++<br/>
 There in this folders are games and apps,writen using QtC++.<br/>
 Enjoy!<br/>
