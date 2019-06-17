@@ -1,5 +1,5 @@
 # Qt-C++
-<div width="100px" height="100px" style="background:green"></div>
+<span width="100px" height="100px" style="background:green"></span>
 my projects on QtC++<br/>
 There in this folders are games and apps,writen using QtC++.<br/>
 Enjoy!<br/>
