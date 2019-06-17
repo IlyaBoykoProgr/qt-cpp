@@ -1,5 +1,5 @@
 <h1>Qt-C++</h1>
-<hr width="100px" onload="this.style.width='200px';"/>
+<hr onload="this.style.width='200px';"/>
 my projects on QtC++<br/>
 There in this folders are games and apps,writen using QtC++.<br/>
 Enjoy!<br/>
