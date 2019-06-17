@@ -1,5 +1,5 @@
 <h1>Qt-C++</h1>
-<hr width="100px"/>
+<hr width="100px" onload="this.width='200px';"/>
 my projects on QtC++<br/>
 There in this folders are games and apps,writen using QtC++.<br/>
 Enjoy!<br/>
@@ -10,5 +10,3 @@ Enjoy!<br/>
  download and install <a href="http://download.qt.io/official_releases/qt/5.12/5.12.4/qt-opensource-windows-x86-5.12.4.exe">it</a><br/>
 <hr/><hr/>
 Then, open .pro file via QtCreator and press ctrl+R<br/>
-<script>
-</script>
