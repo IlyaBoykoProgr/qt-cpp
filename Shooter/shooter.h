@@ -51,6 +51,13 @@ public:
      int n=0;
      //открываем существующий двоичный файл в режиме чтения
      f=fopen("shooter-data", "rb");
+     if(f==NULL){
+      fclose(f);
+      f=fopen("shooter-data", "wb");
+      fwrite(&n, sizeof(int), 1, f);
+      fclose(f);
+      f=fopen("shooter-data", "rb");
+     }
      //считываем из файла одно целое число в переменную n
      fread(&n, sizeof(int), 1, f);
      fclose(f);
@@ -60,7 +67,9 @@ public:
      fwrite(&n, sizeof(int), 1, f);
      fclose(f);
      ((shooter*)parent())->rushed++;
-     emit message(QString::number(n)+" blocks broken yet. "+QString::number(((shooter*)parent())->rushed)+" blocks broken this game",300);
+     emit message(QString::number(n)+" blocks broken. "+QString::number(((shooter*)parent())->rushed)+" blocks broken this game",300);
+     if(n>=50){((shooter*)parent())->setWindowIcon(QIcon(":/images/icon.jpg"));}
+     if(n==50)QMessageBox::information(this,"YaaaaY","You have just broken 100th block!\nNow you can see window icon!");
     }else{
     h--;
     setNum(h);
@@ -72,9 +81,11 @@ public slots:
     move(x(),y()-5);
     if(this->y()<45){
         shooter* par=((shooter*)parent());
-        QMessageBox::critical(par,"Lose","GAME OVER");
+      if(QMessageBox::question(par,"Lose","GAME OVER",QMessageBox::Retry,QMessageBox::Ok)
+           ==QMessageBox::Retry){
         system((par->progPath+"&").toLocal8Bit().data());
-        exit(0);
+      }
+      exit(0);
     }
   }
 signals:

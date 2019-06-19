@@ -14,7 +14,7 @@ shooter::shooter(QString programm,QWidget *parent) :
   progPath=programm;
   kirpich=new block*[BLOCKS];
   for(short i=0;i<BLOCKS;i++){
-      kirpich[i]=new block(i%5*100,rand()%(21-i%5*5)*40+460,rand()%9+1,this);
+      kirpich[i]=new block(i%5*100,rand()%(i+1)*50+200,rand()%9+1,this);
       connect(kirpich[i],SIGNAL(message(QString,int)),ui->statusBar,SLOT(showMessage(QString,int)));
   }
 }
