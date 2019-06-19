@@ -8,12 +8,15 @@ shooter::shooter(QString programm,QWidget *parent) :
   ui(new Ui::shooter)
 {
   ui->setupUi(this);
-  BLOCKS=QInputDialog::getInt(this,"Difficulty","How many blocks do you want to break?",20,10);
+  BLOCKS=QInputDialog::getInt(this,"Difficulty","How many blocks do you want to break?",30,10);
   setFixedSize(500,600+ui->statusBar->height());
   connect(this,SIGNAL(pif_paf(int)),this,SLOT(shoot(int)));
   progPath=programm;
   kirpich=new block*[BLOCKS];
-  for(short i=0;i<BLOCKS;i++)kirpich[i]=new block(i%5*100,rand()%(21-i%5*5)*40+460,rand()%9+1,this);
+  for(short i=0;i<BLOCKS;i++){
+      kirpich[i]=new block(i%5*100,rand()%(21-i%5*5)*40+460,rand()%9+1,this);
+      connect(kirpich[i],SIGNAL(message(QString,int)),ui->statusBar,SLOT(showMessage(QString,int)));
+  }
 }
 
 void shooter::keyPressEvent(QKeyEvent *ev){

@@ -14,6 +14,7 @@ namespace Ui {
 class shooter : public QMainWindow{
   Q_OBJECT
 public:
+  Ui::shooter *ui;
   QString progPath;
   short rushed=0;
   explicit shooter(QString programm,QWidget *parent = 0);
@@ -25,9 +26,11 @@ public slots:
 signals:
   void pif_paf(int x);
 private:
-  Ui::shooter *ui;
   block** kirpich;
 };
+
+
+
 
 class block: public QLabel{
   Q_OBJECT
@@ -44,7 +47,20 @@ public:
   void destroy(){
     if(h<1){
      move(-200,1000);
+     FILE *f; //описываем файловую переменную
+     int n=0;
+     //открываем существующий двоичный файл в режиме чтения
+     f=fopen("shooter-data", "rb");
+     //считываем из файла одно целое число в переменную n
+     fread(&n, sizeof(int), 1, f);
+     fclose(f);
+     //создаем двоичный файл в режиме записи
+     f=fopen("shooter-data", "wb");
+     n++;
+     fwrite(&n, sizeof(int), 1, f);
+     fclose(f);
      ((shooter*)parent())->rushed++;
+     emit message(QString::number(n)+" blocks broken yet. "+QString::number(((shooter*)parent())->rushed)+" blocks broken this game",300);
     }else{
     h--;
     setNum(h);
@@ -61,6 +77,8 @@ public slots:
         exit(0);
     }
   }
+signals:
+  void message(QString,int);
 };
 
 #endif // SHOOTER_H
