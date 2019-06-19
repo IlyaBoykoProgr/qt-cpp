@@ -23,6 +23,7 @@ public:
 
 public slots:
   void shoot(int x);
+  void unlockAch(int broken);
 signals:
   void pif_paf(int x);
 private:
@@ -51,13 +52,6 @@ public:
      int n=0;
      //открываем существующий двоичный файл в режиме чтения
      f=fopen("shooter-data", "rb");
-     if(f==NULL){
-      fclose(f);
-      f=fopen("shooter-data", "wb");
-      fwrite(&n, sizeof(int), 1, f);
-      fclose(f);
-      f=fopen("shooter-data", "rb");
-     }
      //считываем из файла одно целое число в переменную n
      fread(&n, sizeof(int), 1, f);
      fclose(f);
@@ -67,9 +61,8 @@ public:
      fwrite(&n, sizeof(int), 1, f);
      fclose(f);
      ((shooter*)parent())->rushed++;
-     emit message(QString::number(n)+" blocks broken. "+QString::number(((shooter*)parent())->rushed)+" blocks broken this game",300);
-     if(n>=50){((shooter*)parent())->setWindowIcon(QIcon(":/images/icon.jpg"));}
-     if(n==50)QMessageBox::information(this,"YaaaaY","You have just broken 100th block!\nNow you can see window icon!");
+     emit message(QString::number(n)+" blocks broken. "+QString::number(((shooter*)parent())->rushed)+" blocks broken this game",600);
+     emit achieve(n);
     }else{
     h--;
     setNum(h);
@@ -90,6 +83,7 @@ public slots:
   }
 signals:
   void message(QString,int);
+  void achieve(int);
 };
 
 #endif // SHOOTER_H

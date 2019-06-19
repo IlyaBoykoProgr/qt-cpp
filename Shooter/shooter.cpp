@@ -9,13 +9,14 @@ shooter::shooter(QString programm,QWidget *parent) :
 {
   ui->setupUi(this);
   BLOCKS=QInputDialog::getInt(this,"Difficulty","How many blocks do you want to break?",30,10);
-  setFixedSize(500,600+ui->statusBar->height());
+  setFixedSize(500,600+ui->statusBar->height()+ui->menuBar->height());
   connect(this,SIGNAL(pif_paf(int)),this,SLOT(shoot(int)));
   progPath=programm;
   kirpich=new block*[BLOCKS];
   for(short i=0;i<BLOCKS;i++){
-      kirpich[i]=new block(i%5*100,rand()%(i+1)*50+200,rand()%9+1,this);
+      kirpich[i]=new block(i%5*100,rand()%(i+1)*50+300,rand()%9+1,this);
       connect(kirpich[i],SIGNAL(message(QString,int)),ui->statusBar,SLOT(showMessage(QString,int)));
+      connect(kirpich[i],SIGNAL(achieve(int)),this,SLOT(unlockAch(int)));
   }
 }
 
@@ -57,6 +58,11 @@ void shooter::shoot(int x){
       system((progPath+"&").toLocal8Bit().data());
       exit(0);
   }
+}
+
+void shooter::unlockAch(int broken){
+  if(broken>=50)setWindowIcon(QIcon(":/images/icon.jpg"));
+  if(broken==50)QMessageBox::information(this,"YaaaaY","You have just broken 100th block!\nNow you can see window icon!");
 }
 
 shooter::~shooter()
