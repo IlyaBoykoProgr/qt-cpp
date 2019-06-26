@@ -62,10 +62,22 @@ void shooter::shoot(int x){
 
 void shooter::unlockAch(int broken){
   if(broken>=50)setWindowIcon(QIcon(":/images/icon.jpg"));
-  if(broken==50)QMessageBox::information(this,"YaaaaY","You have just broken 100th block!\nNow you can see window icon!");
+  if(broken==50)QMessageBox::information(this,"YaaaaY","You have just broken 50th block!\nNow you can see window icon!");
+  if(broken>=100)ui->menuGame->setDisabled(false);
+  if(broken==100)QMessageBox::information(this,"YaaaaY","You have just broken 100th block!\nMenu Game is unlocked!");
+  if(broken>=130)ui->actionAchievements->setDisabled(false);
+  if(broken==130)QMessageBox::information(this,"YaaaaY","130th block!\nNow you can see all achievements in the menu!");
 }
 
 shooter::~shooter()
 {
   delete ui;
+}
+
+void shooter::on_actionAchievements_triggered()
+{
+    QMessageBox::information(this,"Achievements","What   -- blocks\n"
+    "1.Icon   50\n"
+    "2.Game menu  100\n"
+    "3.Game->Achievements 130\n");
 }

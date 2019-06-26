@@ -26,6 +26,9 @@ public slots:
   void unlockAch(int broken);
 signals:
   void pif_paf(int x);
+private slots:
+  void on_actionAchievements_triggered();
+
 private:
   block** kirpich;
 };

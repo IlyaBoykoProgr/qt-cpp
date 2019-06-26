@@ -56,22 +56,6 @@
      <string>&amp;Options</string>
     </property>
    </widget>
-   <widget class="QMenu" name="menuNextAchievemnts">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
-    <property name="title">
-     <string>&amp;Achievements</string>
-    </property>
-   </widget>
-   <widget class="QMenu" name="menuStats">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
-    <property name="title">
-     <string>&amp;Stats</string>
-    </property>
-   </widget>
    <widget class="QMenu" name="menuGame">
     <property name="enabled">
      <bool>false</bool>
@@ -79,12 +63,34 @@
     <property name="title">
      <string>&amp;Game</string>
     </property>
+    <addaction name="actionAchievements"/>
+    <addaction name="actionNew_Game"/>
+    <addaction name="actionStatistic"/>
    </widget>
-   <addaction name="menuOptions"/>
-   <addaction name="menuNextAchievemnts"/>
-   <addaction name="menuStats"/>
    <addaction name="menuGame"/>
+   <addaction name="menuOptions"/>
   </widget>
+  <action name="actionAchievements">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Achievements</string>
+   </property>
+  </action>
+  <action name="actionNew_Game">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>New Game</string>
+   </property>
+  </action>
+  <action name="actionStatistic">
+   <property name="text">
+    <string>Statistic</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
