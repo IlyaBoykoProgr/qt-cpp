@@ -1,5 +1,6 @@
 #include "shooter.h"
 #include "ui_shooter.h"
+#include "database.h"
 #include <QInputDialog>
 int BLOCKS;
 
@@ -17,6 +18,8 @@ shooter::shooter(QString programm,QWidget *parent) :
       kirpich[i]=new block(i%5*100,rand()%(i+1)*50+300,rand()%9+1,this);
       connect(kirpich[i],SIGNAL(achieve(int)),this,SLOT(unlockAch(int)));
   }
+  int n= data::brokenBlocks();
+  unlockAch(n);
 }
 
 void shooter::keyPressEvent(QKeyEvent *ev){
@@ -54,21 +57,7 @@ void shooter::shoot(int x){
   }
   if(rushed>=BLOCKS){
       QMessageBox::information(this,"You won!","You already broke all\n"+QString::number(BLOCKS)+" BLOCKS!!!");
-      FILE *f; //описываем файловую переменную
-      int n=0, c=0;
-      //открываем существующий двоичный файл в режиме чтения
-      f=fopen("shooter-data", "rb");
-      //считываем из файла одно целое число в переменную n
-      fread(&n, sizeof(int), 1, f);
-      //считываем из файла одно целое число в переменную c
-      fread(&c, sizeof(int), 1, f);
-      fclose(f);
-      //создаем двоичный файл в режиме записи
-      f=fopen("shooter-data", "wb");
-      c++;
-      fwrite(&n, sizeof(int), 1, f);
-      fwrite(&c, sizeof(int), 1, f);
-      fclose(f);
+      data::set(data::brokenBlocks(), data::mazesComplete()+1);
       system("sleep 1");
       system((progPath+"&").toLocal8Bit().data());
       exit(0);
@@ -102,14 +91,7 @@ void shooter::on_actionAchievements_triggered()
 
 void shooter::on_actionProgress_triggered()
 {
-  int n=0, c=0;
-  FILE *f;
-  //открываем существующий двоичный файл в режиме чтения
-  f=fopen("shooter-data", "rb");
-  //считываем из файла одно целое число в переменную n
-  fread(&n, sizeof(int), 1, f);
-  //считываем из файла одно целое число в переменную c
-  fread(&c, sizeof(int), 1, f);
-  fclose(f);
-  QMessageBox::information(this,"Your Progress:","Blocks broken:"+QString::number(n)+"\nLevels complete:"+c);
+  QMessageBox::information(this,"Your Progress:",
+    "Blocks broken:"+data::brokenBlocks()+"\nLevels complete:"+data::mazesComplete()
+  );
 }

@@ -26,7 +26,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += main.cpp\
         shooter.cpp
 
-HEADERS  += shooter.h
+HEADERS  += shooter.h \
+    database.h
 
 FORMS    += shooter.ui
 

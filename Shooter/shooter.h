@@ -5,6 +5,7 @@
 #include <QKeyEvent>
 #include <QLabel>
 #include <QMessageBox>
+#include "database.h"
 
 class block;
 
@@ -52,24 +53,10 @@ public:
   }
   void destroy(){
     if(h<1){
-     move(-200,1000);
-     FILE *f; //описываем файловую переменную
-     int n=0, c=0;
-     //открываем существующий двоичный файл в режиме чтения
-     f=fopen("shooter-data", "rb");
-     //считываем из файла одно целое число в переменную n
-     fread(&n, sizeof(int), 1, f);
-     //считываем из файла одно целое число в переменную c
-     fread(&c, sizeof(int), 1, f);
-     fclose(f);
-     //создаем двоичный файл в режиме записи
-     f=fopen("shooter-data", "wb");
-     n++;
-     fwrite(&n, sizeof(int), 1, f);
-     fwrite(&c, sizeof(int), 1, f);
-     fclose(f);
+     move(-200,0);
+     data::set(data::brokenBlocks()+1, data::mazesComplete());
      ((shooter*)parent())->rushed++;
-     emit achieve(n);
+     emit achieve(data::brokenBlocks());
     }else{
     h--;
     setNum(h);
@@ -79,7 +66,7 @@ public:
 public slots:
   void update(){
     move(x(),y()-5);
-    if(this->y()<45){
+    if(this->y()<45&& this->x()> -200){
         shooter* par=((shooter*)parent());
       if(QMessageBox::question(par,"Lose","GAME OVER",QMessageBox::Retry,QMessageBox::Ok)
            ==QMessageBox::Retry){
