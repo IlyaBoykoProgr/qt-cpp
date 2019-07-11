@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 {
   QApplication a(argc, argv);
   srand(QTime::currentTime().msec());
-  std::ifstream is("shooter-data",std::ios::nocreate);
+  std::ifstream is("shooter-data");
   if(! is.is_open() ){
   is.close();
   std::ofstream data("shooter-data");

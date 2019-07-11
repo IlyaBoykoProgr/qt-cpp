@@ -15,7 +15,6 @@ shooter::shooter(QString programm,QWidget *parent) :
   kirpich=new block*[BLOCKS];
   for(short i=0;i<BLOCKS;i++){
       kirpich[i]=new block(i%5*100,rand()%(i+1)*50+300,rand()%9+1,this);
-      connect(kirpich[i],SIGNAL(message(QString,int)),ui->statusBar,SLOT(showMessage(QString,int)));
       connect(kirpich[i],SIGNAL(achieve(int)),this,SLOT(unlockAch(int)));
   }
 }
@@ -36,6 +35,7 @@ void shooter::keyPressEvent(QKeyEvent *ev){
       ui->tank->move(ui->tank->x()-6,0);
     break;
     case 32:
+    case Qt::Key_Down:
       emit pif_paf(ui->tank->x()+20);
     break;
   }
@@ -54,19 +54,36 @@ void shooter::shoot(int x){
   }
   if(rushed>=BLOCKS){
       QMessageBox::information(this,"You won!","You already broke all\n"+QString::number(BLOCKS)+" BLOCKS!!!");
-      system("sleep 2");
+      FILE *f; //описываем файловую переменную
+      int n=0, c=0;
+      //открываем существующий двоичный файл в режиме чтения
+      f=fopen("shooter-data", "rb");
+      //считываем из файла одно целое число в переменную n
+      fread(&n, sizeof(int), 1, f);
+      //считываем из файла одно целое число в переменную c
+      fread(&c, sizeof(int), 1, f);
+      fclose(f);
+      //создаем двоичный файл в режиме записи
+      f=fopen("shooter-data", "wb");
+      c++;
+      fwrite(&n, sizeof(int), 1, f);
+      fwrite(&c, sizeof(int), 1, f);
+      fclose(f);
+      system("sleep 1");
       system((progPath+"&").toLocal8Bit().data());
       exit(0);
   }
 }
 
 void shooter::unlockAch(int broken){
-  if(broken>=50)setWindowIcon(QIcon(":/images/icon.jpg"));
-  if(broken==50)QMessageBox::information(this,"YaaaaY","You have just broken 50th block!\nNow you can see window icon!");
-  if(broken>=100)ui->menuGame->setDisabled(false);
-  if(broken==100)QMessageBox::information(this,"YaaaaY","You have just broken 100th block!\nMenu Game is unlocked!");
-  if(broken>=130)ui->actionAchievements->setDisabled(false);
-  if(broken==130)QMessageBox::information(this,"YaaaaY","130th block!\nNow you can see all achievements in the menu!");
+  if(broken>=10)setWindowIcon(QIcon(":/images/icon.jpg"));
+  if(broken==10)QMessageBox::information(this,"YaaaaY","You have just broken 10th block!\nNow you can see window icon!");
+  if(broken>=50)ui->menuGame->setDisabled(false);
+  if(broken==50)QMessageBox::information(this,"YaaaaY","You have just broken 50th block!\nMenu Game is unlocked!");
+  if(broken>=100)ui->actionAchievements->setDisabled(false);
+  if(broken==100)QMessageBox::information(this,"YaaaaY","100th block!\nNow you can see all achievements at the menu!");
+  if(broken>=140)ui->actionProgress->setDisabled(false);
+  if(broken==140)QMessageBox::information(this,"YaaaaY","140th block!\nNow you can see your progress at the menu!");
 }
 
 shooter::~shooter()
@@ -76,8 +93,23 @@ shooter::~shooter()
 
 void shooter::on_actionAchievements_triggered()
 {
-    QMessageBox::information(this,"Achievements","What   -- blocks\n"
-    "1.Icon   50\n"
-    "2.Game menu  100\n"
-    "3.Game->Achievements 130\n");
+    QMessageBox::information(this,"Achievements","Prize   -- price\n"
+    "1.Icon   10\n"
+    "2.Game menu  50\n"
+    "3.Game->Achievements 100\n"
+    "4.Game->Progress 140\n");
+}
+
+void shooter::on_actionProgress_triggered()
+{
+  int n=0, c=0;
+  FILE *f;
+  //открываем существующий двоичный файл в режиме чтения
+  f=fopen("shooter-data", "rb");
+  //считываем из файла одно целое число в переменную n
+  fread(&n, sizeof(int), 1, f);
+  //считываем из файла одно целое число в переменную c
+  fread(&c, sizeof(int), 1, f);
+  fclose(f);
+  QMessageBox::information(this,"Your Progress:","Blocks broken:"+QString::number(n)+"\nLevels complete:"+c);
 }

@@ -29,6 +29,8 @@ signals:
 private slots:
   void on_actionAchievements_triggered();
 
+  void on_actionProgress_triggered();
+
 private:
   block** kirpich;
 };
@@ -52,19 +54,21 @@ public:
     if(h<1){
      move(-200,1000);
      FILE *f; //описываем файловую переменную
-     int n=0;
+     int n=0, c=0;
      //открываем существующий двоичный файл в режиме чтения
      f=fopen("shooter-data", "rb");
      //считываем из файла одно целое число в переменную n
      fread(&n, sizeof(int), 1, f);
+     //считываем из файла одно целое число в переменную c
+     fread(&c, sizeof(int), 1, f);
      fclose(f);
      //создаем двоичный файл в режиме записи
      f=fopen("shooter-data", "wb");
      n++;
      fwrite(&n, sizeof(int), 1, f);
+     fwrite(&c, sizeof(int), 1, f);
      fclose(f);
      ((shooter*)parent())->rushed++;
-     emit message(QString::number(n)+" blocks broken. "+QString::number(((shooter*)parent())->rushed)+" blocks broken this game",600);
      emit achieve(n);
     }else{
     h--;
@@ -85,7 +89,6 @@ public slots:
     }
   }
 signals:
-  void message(QString,int);
   void achieve(int);
 };
 

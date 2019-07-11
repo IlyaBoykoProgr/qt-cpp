@@ -65,7 +65,7 @@
     </property>
     <addaction name="actionAchievements"/>
     <addaction name="actionNew_Game"/>
-    <addaction name="actionStatistic"/>
+    <addaction name="actionProgress"/>
    </widget>
    <addaction name="menuGame"/>
    <addaction name="menuOptions"/>
@@ -75,7 +75,7 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Achievements</string>
+    <string>&amp;Achievements</string>
    </property>
   </action>
   <action name="actionNew_Game">
@@ -83,12 +83,15 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>New Game</string>
+    <string>&amp;New Game</string>
    </property>
   </action>
-  <action name="actionStatistic">
+  <action name="actionProgress">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
-    <string>Statistic</string>
+    <string>&amp;Progress</string>
    </property>
   </action>
  </widget>
