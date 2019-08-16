@@ -7,4 +7,8 @@ Window{
     title: qsTr("2048 playing")
     height: width
     width: 400
+
+    Component.onCompleted: {
+        Logic.begin();
+    }
 }

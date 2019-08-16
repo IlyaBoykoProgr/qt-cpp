@@ -12,4 +12,7 @@ Rectangle{
         text: score.toString()
         anchors.centerIn: parent
     }
+    function moveTo(x,y){
+
+    }
 }
