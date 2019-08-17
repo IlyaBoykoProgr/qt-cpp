@@ -6,10 +6,11 @@ var gameArea;
 
 function newCell(){
     var x,y;
-    while(isEmpty(x,y)){
+    x=0; y=0;
+   while(!isEmpty(x,y)){
         x=getRandomRound(0,4);
         y=getRandomRound(0,4);
-    }
+   }
     cells[x][y]=cell.createObject(gameArea, {"row": x, "col": y, "score": 2})
 }
 
@@ -22,6 +23,10 @@ function begin(where){
 
 function isEmpty(x,y)
 {
+    if(cells[x][y] == undefined){
+        return false;
+    }
+
     if (cells[x][y] == null) {
         return true;
     } else {

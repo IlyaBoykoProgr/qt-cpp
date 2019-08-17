@@ -36,6 +36,7 @@ Window {
             onClicked: {
                 board.visible = true
                 mainMenu.visible = false
+                Logic.begin(board);
             }
         }
     }
@@ -45,13 +46,11 @@ Window {
         title: qsTr("2048 playing")
         height: width
         width: 400
+        onWidthChanged: height=width
+        onHeightChanged: width=height
         visible: false
         x: mainMenu.x
         y: mainMenu.y
-
-        Component.onCompleted: {
-            Logic.begin(board);
-        }
     }
 
 }

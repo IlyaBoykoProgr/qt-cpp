@@ -1,23 +1,60 @@
 import QtQuick 2.0
+import "Logic.js" as Logic
 
 Rectangle{
     property int row//0-4
-    property int cell//0-4
+    property int col//0-4
     property int score
     color: "yellow"
     height: parent.height/4
     width: parent.width/4
+    border.color: "orange"
+    border.width: 5
+    radius: 10
     x: row* width
-    y: row* height
+    y: col* height
     Text{
         text: score.toString()
-        anchors.fill: parent
+        anchors.centerIn: parent
     }
-    function moveTo(x,y){
-
+    function move(where){
+        switch(where){
+        case "down":
+            if(Logic.isEmpty(col,row+1)){
+                row++;
+                Logic.cells[col][row]=cell.createObject(gameArea, {"row": row, "col": col, "score": score});
+                Logic.cells[col][row-1]=null;
+            }
+        break;
+        case "up":
+            if(Logic.isEmpty(col,row-1)){
+                row--;
+                Logic.cells[col][row]=cell.createObject(gameArea, {"row": row, "col": col, "score": score});
+                Logic.cells[col][row+1]=null;
+            }
+        break;
+        case "right":
+            if(Logic.isEmpty(col+1,row)){
+                col++;
+                Logic.cells[col][row]=cell.createObject(gameArea, {"row": row, "col": col, "score": score});
+                Logic.cells[col-1][row]=null;
+            }
+        break;
+        case "left":
+            if(Logic.isEmpty(col-1,row)){
+                col--;
+                Logic.cells[col][row]=cell.createObject(gameArea, {"row": row, "col": col, "score": score});
+                Logic.cells[col+1][row]=null;
+            }
+        break;
+        }
+        Logic.newCell();
     }
+    Behavior on row{NumberAnimation{duration:400}}
+    Behavior on col{NumberAnimation{duration:400}}
+    Behavior on score{NumberAnimation{duration:400;easing:Easing.InBounce}}
     MouseArea{
         anchors.fill: parent
-        onClicked: console.info("i'm here")
+
     }
 }
