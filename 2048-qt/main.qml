@@ -1,5 +1,6 @@
 import QtQuick 2.3
 import QtQuick.Window 2.2
+import "Logic.js" as Logic
 
 Window {
     id: mainMenu
@@ -7,22 +8,13 @@ Window {
     width: 500
     height: 300
     title: qsTr("2048 menu")
-    SequentialAnimation{
+    SequentialAnimation on color{
         loops: Animation.Infinite
-        running: true
         ColorAnimation {
-            target: mainMenu
-            properties: "color"
-            from: "white"
-            to: "pink"
-            duration: 1000
+            from: "white";to: "pink";duration: 1000
         }
         ColorAnimation {
-            target: mainMenu
-            properties: "color"
-            from: "pink"
-            to: "white"
-            duration: 1000
+            from: "pink";to: "white";duration: 1000
         }
     }
 
@@ -48,9 +40,18 @@ Window {
         }
     }
 
-    GameBoard{
-     id: board
-     visible: false
+    Window{
+        id: board
+        title: qsTr("2048 playing")
+        height: width
+        width: 400
+        visible: false
+        x: mainMenu.x
+        y: mainMenu.y
+
+        Component.onCompleted: {
+            Logic.begin(board);
+        }
     }
 
 }

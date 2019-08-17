@@ -5,8 +5,6 @@
 #include <QKeyEvent>
 #include <QLabel>
 #include <QMessageBox>
-#include "database.h"
-
 class block;
 
 namespace Ui {
@@ -38,7 +36,7 @@ private:
 
 
 
-
+#include "database.h"
 class block: public QLabel{
   Q_OBJECT
   short h;
@@ -54,9 +52,9 @@ public:
   void destroy(){
     if(h<1){
      move(-200,0);
-     data::set(data::brokenBlocks()+1, data::mazesComplete());
+     bin::set(bin::brokenBlocks()+1, bin::mazesComplete());
      ((shooter*)parent())->rushed++;
-     emit achieve(data::brokenBlocks());
+     emit achieve(bin::brokenBlocks());
     }else{
     h--;
     setNum(h);

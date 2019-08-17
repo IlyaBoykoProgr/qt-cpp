@@ -7,6 +7,9 @@ int main(int argc, char *argv[])
 
   QQmlApplicationEngine engine;
   engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+  app.setApplicationName("2048-qml");
+  app.setApplicationVersion("-1.0");
+  app.setWindowIcon(QIcon(":/2048.png"));
 
   return app.exec();
 }

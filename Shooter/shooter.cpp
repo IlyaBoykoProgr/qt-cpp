@@ -1,6 +1,5 @@
 #include "shooter.h"
 #include "ui_shooter.h"
-#include "database.h"
 #include <QInputDialog>
 int BLOCKS;
 
@@ -18,7 +17,7 @@ shooter::shooter(QString programm,QWidget *parent) :
       kirpich[i]=new block(i%5*100,rand()%(i+1)*50+300,rand()%9+1,this);
       connect(kirpich[i],SIGNAL(achieve(int)),this,SLOT(unlockAch(int)));
   }
-  int n= data::brokenBlocks();
+  int n= bin::brokenBlocks();
   unlockAch(n);
 }
 
@@ -57,7 +56,7 @@ void shooter::shoot(int x){
   }
   if(rushed>=BLOCKS){
       QMessageBox::information(this,"You won!","You already broke all\n"+QString::number(BLOCKS)+" BLOCKS!!!");
-      data::set(data::brokenBlocks(), data::mazesComplete()+1);
+      bin::set(bin::brokenBlocks(), bin::mazesComplete()+1);
       system("sleep 1");
       system((progPath+"&").toLocal8Bit().data());
       exit(0);
@@ -91,7 +90,9 @@ void shooter::on_actionAchievements_triggered()
 
 void shooter::on_actionProgress_triggered()
 {
-  QMessageBox::information(this,"Your Progress:",
-    "Blocks broken:"+data::brokenBlocks()+"\nLevels complete:"+data::mazesComplete()
-  );
+  QString text="Blocks broken:";
+  text+=QString::number(bin::brokenBlocks());
+  text+="\nLevels complete:";
+  text+=QString::number(bin::mazesComplete());
+  QMessageBox::information(this,"Your Progress:",text);
 }
