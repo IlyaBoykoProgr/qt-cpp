@@ -104,9 +104,9 @@ Rectangle{
     function is0(){
         return score==0;
     }
-    Behavior on color{ColorAnimation{duration:500}}
+    Behavior on color{ColorAnimation{duration:1000}}
     onScoreChanged:SequentialAnimation{
-        RotationAnimation{target:me;from:0;to:360;duration:500;easing.type:Easing.InOutBack}
+        RotationAnimation{target:me;from:0;to:360;duration:1000;easing.type:Easing.InBounce}
         PropertyAction{target:me;property:"rotation";value:0}
     }
 }

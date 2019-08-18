@@ -34,10 +34,8 @@ function isEmpty(xa,ya)
         return false;
     }
     if (cells[xa][ya].is0() == true) {
-        console.log("its empty");
         return true;
     } else {
-        console.log("just no");
         return false;
     }
 }
