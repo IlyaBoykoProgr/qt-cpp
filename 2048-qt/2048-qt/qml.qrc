@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>2048.png</file>
+        <file>Logic.js</file>
+        <file>Cell.qml</file>
+    </qresource>
+</RCC>
