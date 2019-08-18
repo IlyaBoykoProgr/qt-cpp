@@ -53,25 +53,25 @@ Window {
         y: mainMenu.y
             Button{
                 height: 20
-                x:50
+                x:0
                 anchors.bottom: parent.bottom
                 text:"up"
                 onClicked: Logic.up()
             }Button{
-                x:150
+                x:100
                 height: 20
                 anchors.bottom: parent.bottom
                 text:"down"
                 onClicked: Logic.down()
             }Button{
-                x:250
+                x:200
                 height: 20
                 anchors.bottom: parent.bottom
                 text:"left"
                 onClicked: Logic.left()
             }Button{
                 height: 20
-                x:350
+                x:300
                 anchors.bottom: parent.bottom
                 text:"right"
                 onClicked: Logic.right()

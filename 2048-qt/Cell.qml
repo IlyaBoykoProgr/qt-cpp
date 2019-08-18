@@ -24,28 +24,28 @@ Rectangle{
             if(Logic.isEmpty(col,row+1)){
                 row++;
                 Logic.cells[col][row]=Logic.cell.createObject(Logic.gameArea, {"row": row, "col": col, "score": score});
-                Logic.cells[col][row-1]=null;
+                Logic.cells[col][row-1].destroy();Logic.cells[col][row-1]=null;
             }
         break;
         case "left":
             if(Logic.isEmpty(col,row-1)){
                 row--;
                 Logic.cells[col][row]=Logic.cell.createObject(Logic.gameArea, {"row": row, "col": col, "score": score});
-                Logic.cells[col][row+1]=null;
+                Logic.cells[col][row+1].destroy();Logic.cells[col][row+1]=null;
             }
         break;
         case "down":
             if(Logic.isEmpty(col+1,row)){
                 col++;
                 Logic.cells[col][row]=Logic.cell.createObject(Logic.gameArea, {"row": row, "col": col, "score": score});
-                Logic.cells[col-1][row]=null;
+                Logic.cells[col-1][row].destroy();Logic.cells[col-1][row]=null;
             }
         break;
         case "up":
             if(Logic.isEmpty(col-1,row)){
                 col--;
                 Logic.cells[col][row]=Logic.cell.createObject(Logic.gameArea, {"row": row, "col": col, "score": score});
-                Logic.cells[col+1][row]=null;
+                Logic.cells[col+1][row].destroy();Logic.cells[col+1][row]=null;
             }
         break;
         }
