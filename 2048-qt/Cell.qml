@@ -6,10 +6,46 @@ Rectangle{
     property int row:0//0-4
     property int col:0//0-4
     property int score
-    color: score==0 ? "white":"yellow"
+    color: switch(score){
+           case 0:
+            "white"
+           break;
+           case 2:
+            "red"
+           break;
+           case 4:
+            "orange"
+           break;
+           case 8:
+            "yellow"
+           break;
+           case 16:
+            "lime"
+           break;
+           case 32:
+            "green"
+           break;
+           case 64:
+            "aqua"
+           break;
+           case 128:
+            "blue"
+           break;
+           case 256:
+            "magenta"
+           break;
+           case 512:
+            "purple"
+           break;
+           case 1024:
+            "pink"
+           break;
+           case 2048:
+            "maroon"
+           break;
+           }
     height: parent.height/4
     width: parent.width/4
-    border.color: "orange"
     border.width: score==0 ? 0 : 5
     radius: 10
     x: row* width
@@ -50,8 +86,7 @@ Rectangle{
         return score==0;
     }
     Behavior on score{PropertyAnimation{
-            from:0
-            duration:400;
+            duration:200;
             easing.type:Easing.InCubic
     }}
 }
