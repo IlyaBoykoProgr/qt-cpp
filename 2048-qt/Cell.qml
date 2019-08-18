@@ -2,19 +2,20 @@ import QtQuick 2.0
 import "Logic.js" as Logic
 
 Rectangle{
+    id: me
     property int row:0//0-4
     property int col:0//0-4
-    property int score:0
-    color: "yellow"
+    property int score
+    color: score==0 ? "white":"yellow"
     height: parent.height/4
     width: parent.width/4
     border.color: "orange"
-    border.width: 5
+    border.width: score==0 ? 0 : 5
     radius: 10
     x: row* width
     y: col* height-20
     Text{
-        text: score.toString()
+        text: parent.score==0 ? "" : parent.score.toString()
         anchors.centerIn: parent
     }
     function move(where){
@@ -22,35 +23,39 @@ Rectangle{
         switch(where){
         case "right":
             if(Logic.isEmpty(col,row+1)){
-                row++;
-                Logic.cells[col][row]=Logic.cell.createObject(Logic.gameArea, {"row": row, "col": col, "score": score});
-                Logic.cells[col][row-1].destroy();Logic.cells[col][row-1]=null;
+                Logic.setScore(score,row+1,col);
+                Logic.setScore(0,row,col);
             }
         break;
         case "left":
             if(Logic.isEmpty(col,row-1)){
-                row--;
-                Logic.cells[col][row]=Logic.cell.createObject(Logic.gameArea, {"row": row, "col": col, "score": score});
-                Logic.cells[col][row+1].destroy();Logic.cells[col][row+1]=null;
+                Logic.setScore(score,row-1,col)
+                Logic.setScore(0,row,col)
             }
         break;
         case "down":
             if(Logic.isEmpty(col+1,row)){
-                col++;
-                Logic.cells[col][row]=Logic.cell.createObject(Logic.gameArea, {"row": row, "col": col, "score": score});
-                Logic.cells[col-1][row].destroy();Logic.cells[col-1][row]=null;
+                Logic.setScore(score,row,col+1)
+                Logic.setScore(0,row,col)
             }
         break;
         case "up":
             if(Logic.isEmpty(col-1,row)){
-                col--;
-                Logic.cells[col][row]=Logic.cell.createObject(Logic.gameArea, {"row": row, "col": col, "score": score});
-                Logic.cells[col+1][row].destroy();Logic.cells[col+1][row]=null;
+                Logic.setScore(score,row,col-1);
+                Logic.setScore(0,row,col-1);
             }
         break;
         }
     }
-    Behavior on x{NumberAnimation{duration:400;easing.type:Easing.InCubic}}
-    Behavior on y{NumberAnimation{duration:400;easing.type:Easing.InCubic}}
-    Behavior on score{NumberAnimation{duration:400;easing.type:Easing.InCubic}}
+    function is0(){
+        return score==0;
+    }
+
+    Component.onCompleted: PropertyAnimation{
+        target: me; properties: "scale"
+        from: 0; to: 1
+        duration: 300
+    }
+    Behavior on score{PropertyAnimation{duration:400;easing.type:Easing.InCubic}}
+    Behavior on score{PropertyAnimation{to:0;duration:0}}
 }
