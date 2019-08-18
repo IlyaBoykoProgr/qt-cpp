@@ -56,41 +56,45 @@ Rectangle{
     function move(where){
         switch(where){
         case "right":
+            if(row+1==4)return;
             if(Logic.isEmpty(row+1,col)){
                 Logic.setScore(score,row+1,col);
                 Logic.setScore(0,row,col);
             }
-            if(Logic.cells[row+1][col].score===score && (!(row>3||row<0||col>3||col<0))){
+            if(Logic.cells[row+1][col].score===score){
                 Logic.setScore(score*2,row+1,col);
                 Logic.setScore(0,row,col);
             }
         break;
         case "left":
+            if(row-1==-1)return;
             if(Logic.isEmpty(row-1,col)){
                 Logic.setScore(score,row-1,col)
                 Logic.setScore(0,row,col)
             }
-            if(Logic.cells[row-1][col].score===score && (!(row>3||row<0||col>3||col<0))){
+            if(Logic.cells[row-1][col].score===score){
                 Logic.setScore(score*2,row-1,col);
                 Logic.setScore(0,row,col);
             }
         break;
         case "down":
+            if(col+1==4)return;
             if(Logic.isEmpty(row,col+1)){
                 Logic.setScore(score,row,col+1)
                 Logic.setScore(0,row,col)
             }
-            if(Logic.cells[row][col+1].score===score && (!(row>3||row<0||col>3||col<0))){
+            if(Logic.cells[row][col+1].score===score){
                 Logic.setScore(score*2,row,col+1);
                 Logic.setScore(0,row,col);
             }
         break;
         case "up":
+            if(col-1==0)return;
             if(Logic.isEmpty(row,col-1)){
                 Logic.setScore(score,row,col-1);
                 Logic.setScore(0,row,col);
             }
-            if(Logic.cells[row][col-1].score===score && (!(row>3||row<0||col>3||col<0))){
+            if(Logic.cells[row][col-1].score===score){
                 Logic.setScore(score*2,row,col-1);
                 Logic.setScore(0,row,col);
             }
@@ -100,8 +104,5 @@ Rectangle{
     function is0(){
         return score==0;
     }
-    Behavior on score{PropertyAnimation{
-            from: 0.0
-            duration:200;
-    }}
+    Behavior on color{ColorAnimation{duration:300}}
 }
