@@ -89,7 +89,7 @@ Rectangle{
             }
         break;
         case "up":
-            if(col-1==0)return;
+            if(col-1==-1)return;
             if(Logic.isEmpty(row,col-1)){
                 Logic.setScore(score,row,col-1);
                 Logic.setScore(0,row,col);
@@ -104,5 +104,9 @@ Rectangle{
     function is0(){
         return score==0;
     }
-    Behavior on color{ColorAnimation{duration:300}}
+    Behavior on color{ColorAnimation{duration:500}}
+    onScoreChanged:SequentialAnimation{
+        RotationAnimation{target:me;from:0;to:360;duration:500;easing.type:Easing.InOutBack}
+        PropertyAction{target:me;property:"rotation";value:0}
+    }
 }
