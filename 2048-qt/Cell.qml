@@ -106,7 +106,7 @@ Rectangle{
     }
     Behavior on color{ColorAnimation{duration:1000}}
     onScoreChanged:SequentialAnimation{
-        RotationAnimation{target:me;from:0;to:360;duration:1000;easing.type:Easing.InBounce}
+        RotationAnimation{target:me;from:0;to:360;duration:1000;easing.type:Easing.InExpo}
         PropertyAction{target:me;property:"rotation";value:0}
     }
 }
