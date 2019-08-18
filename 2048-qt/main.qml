@@ -35,8 +35,8 @@ Window {
             Text{text:"Play"; anchors.centerIn: parent}
             onClicked: {
                 board.visible = true
-                mainMenu.visible = false
                 Logic.begin(board);
+                mainMenu.visible = false
             }
         }
     }
@@ -51,6 +51,27 @@ Window {
         visible: false
         x: mainMenu.x
         y: mainMenu.y
+        Rectangle{
+            anchors.fill: parent
+            z:-1
+            Keys.enabled: true
+            Keys.onPressed:{
+                switch(event.key){
+                case Qt.Key_Up:
+                    Logic.up();
+                break;
+                case Qt.Key_Down:
+                    Logic.down();
+                break;
+                case Qt.Key_Left:
+                    Logic.left();
+                break;
+                case Qt.Key_Right:
+                    Logic.right();
+                break;
+                }
+            }
+        }
     }
 
 }
