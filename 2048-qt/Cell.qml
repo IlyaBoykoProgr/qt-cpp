@@ -60,7 +60,7 @@ Rectangle{
                 Logic.setScore(score,row+1,col);
                 Logic.setScore(0,row,col);
             }
-            if(Logic.cells[row+1][col].score===score){
+            if(Logic.cells[row+1][col].score===score && (!(row>3||row<0||col>3||col<0))){
                 Logic.setScore(score*2,row+1,col);
                 Logic.setScore(0,row,col);
             }
@@ -70,7 +70,7 @@ Rectangle{
                 Logic.setScore(score,row-1,col)
                 Logic.setScore(0,row,col)
             }
-            if(Logic.cells[row-1][col].score===score){
+            if(Logic.cells[row-1][col].score===score && (!(row>3||row<0||col>3||col<0))){
                 Logic.setScore(score*2,row-1,col);
                 Logic.setScore(0,row,col);
             }
@@ -80,7 +80,7 @@ Rectangle{
                 Logic.setScore(score,row,col+1)
                 Logic.setScore(0,row,col)
             }
-            if(Logic.cells[row][col+1].score===score){
+            if(Logic.cells[row][col+1].score===score && (!(row>3||row<0||col>3||col<0))){
                 Logic.setScore(score*2,row,col+1);
                 Logic.setScore(0,row,col);
             }
@@ -90,7 +90,7 @@ Rectangle{
                 Logic.setScore(score,row,col-1);
                 Logic.setScore(0,row,col);
             }
-            if(Logic.cells[row][col-1].score===score){
+            if(Logic.cells[row][col-1].score===score && (!(row>3||row<0||col>3||col<0))){
                 Logic.setScore(score*2,row,col-1);
                 Logic.setScore(0,row,col);
             }
@@ -101,7 +101,7 @@ Rectangle{
         return score==0;
     }
     Behavior on score{PropertyAnimation{
+            from: 0.0
             duration:200;
-            easing.type:Easing.InCubic
     }}
 }
