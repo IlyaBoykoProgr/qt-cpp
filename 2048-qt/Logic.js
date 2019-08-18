@@ -12,7 +12,7 @@ function newCell(){
         x=getRandomRound(0,4);
         y=getRandomRound(0,4);
    }
-   setScore(2,x,y);
+   setScore(getRandomRound(1,4)>3?4:2,x,y);
 }
 
 function setScore(sco, xa,ya){
