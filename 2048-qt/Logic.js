@@ -8,9 +8,14 @@ var x,y;
 function newCell(){
     x=getRandomRound(0,4);
     y=getRandomRound(0,4);
+    var c=0;
    while(!isEmpty(x,y)){
         x=getRandomRound(0,4);
         y=getRandomRound(0,4);
+       c++;
+       if(c>50){
+           gameArea.lose();
+       }
    }
    setScore(getRandomRound(1,4)>3?4:2,x,y);
 }

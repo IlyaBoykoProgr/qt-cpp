@@ -43,6 +43,27 @@ Window {
     }
 
     Window{
+     id: errorDialog
+     visible: false
+     width: 200
+     height: 300
+     Text {
+         id: loseText
+         anchors.fill: parent
+         anchors.bottom: quit.top
+         text: qsTr("You losed! :(")
+         color: red
+     }
+     Button{
+         id: quit
+         anchors.fill: parent
+         anchors.top: loseText.bottom
+         text: "Quit, haha"
+         onClicked: Qt.quit();
+     }
+    }
+
+    Window{
         id: board
         title: qsTr("2048forPRO playing")
         height: width+20
@@ -51,6 +72,9 @@ Window {
         visible: false
         x: mainMenu.x
         y: mainMenu.y
+        function lose(){
+            errorDialog.visible=true;
+        }
             Button{
                 height: 20
                 x:0
