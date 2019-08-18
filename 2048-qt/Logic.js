@@ -6,7 +6,8 @@ var gameArea;
 var x,y;
 
 function newCell(){
-    x=0; y=0;
+    x=getRandomRound(0,4);
+    y=getRandomRound(0,4);
    while(!isEmpty(x,y)){
         x=getRandomRound(0,4);
         y=getRandomRound(0,4);

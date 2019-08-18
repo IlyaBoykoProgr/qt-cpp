@@ -19,7 +19,6 @@ Rectangle{
         anchors.centerIn: parent
     }
     function move(where){
-        console.log("moving ",where," on ",row," ",col);
         switch(where){
         case "right":
             if(Logic.isEmpty(col,row+1)){
@@ -50,12 +49,9 @@ Rectangle{
     function is0(){
         return score==0;
     }
-
-    Component.onCompleted: PropertyAnimation{
-        target: me; properties: "scale"
-        from: 0; to: 1
-        duration: 300
-    }
-    Behavior on score{PropertyAnimation{duration:400;easing.type:Easing.InCubic}}
-    Behavior on score{PropertyAnimation{to:0;duration:0}}
+    Behavior on score{PropertyAnimation{
+            from:0
+            duration:400;
+            easing.type:Easing.InCubic
+    }}
 }
