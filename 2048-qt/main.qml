@@ -36,6 +36,7 @@ Window {
             onClicked: {
                 board.visible = true
                 Logic.begin(board);
+                Logic.down();
                 mainMenu.visible = false
             }
         }
@@ -44,34 +45,37 @@ Window {
     Window{
         id: board
         title: qsTr("2048 playing")
-        height: width
+        height: width+20
         width: 400
-        onWidthChanged: height=width
-        onHeightChanged: width=height
+        onHeightChanged: width=height-20
         visible: false
         x: mainMenu.x
         y: mainMenu.y
-        Rectangle{
-            anchors.fill: parent
-            z:-1
-            Keys.enabled: true
-            Keys.onPressed:{
-                switch(event.key){
-                case Qt.Key_Up:
-                    Logic.up();
-                break;
-                case Qt.Key_Down:
-                    Logic.down();
-                break;
-                case Qt.Key_Left:
-                    Logic.left();
-                break;
-                case Qt.Key_Right:
-                    Logic.right();
-                break;
-                }
+            MouseArea{
+                height: 20
+                x:50
+                anchors.bottom: parent.bottom
+                Text{text:"up";anchors.fill:parent;color:"orange"}
+                onClicked: Logic.up()
+            }MouseArea{
+                x:150
+                height: 20
+                anchors.bottom: parent.bottom
+                Text{text:"down";anchors.fill:parent;color:"orange"}
+                onClicked: Logic.down()
+            }MouseArea{
+                x:250
+                height: 20
+                anchors.bottom: parent.bottom
+                Text{text:"left";anchors.fill:parent;color:"orange"}
+                onClicked: Logic.left()
+            }MouseArea{
+                height: 20
+                x:350
+                anchors.bottom: parent.bottom
+                Text{text:"right";anchors.fill:parent;color:"orange"}
+                onClicked: Logic.right()
             }
-        }
     }
 
 }

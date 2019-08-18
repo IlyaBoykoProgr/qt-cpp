@@ -3,9 +3,9 @@
 var cells= [];
 var cell = Qt.createComponent("Cell.qml");
 var gameArea;
+var x,y;
 
 function newCell(){
-    var x,y;
     x=0; y=0;
    while(!isEmpty(x,y)){
         x=getRandomRound(0,4);
@@ -37,26 +37,27 @@ function getRandomRound(min, max)
 }
 
 function up(){
-    var x,y;
     for(x=0;x<4;x++)
         for(y=0;y<4;y++)
             if(!isEmpty(x,y))cells[x][y].move("up");
+    newCell();
 }
 function down(){
-    var x,y;
     for(x=3;x>=0;x--)
         for(y=0;y<4;y++)
             if(!isEmpty(x,y))cells[x][y].move("down");
+    newCell();
 }
 function left(){
-    var x,y;
     for(y=0;y<4;y++)
         for(x=0;x<4;x++)
             if(!isEmpty(x,y))cells[x][y].move("left");
+    newCell();
 }
 function right(){
     var x,y;
     for(y=3;y>=0;y--)
         for(x=0;x<4;x++)
             if(!isEmpty(x,y))cells[x][y].move("right");
+    newCell();
 }
