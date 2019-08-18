@@ -31,7 +31,6 @@ function begin(where){
 
 function isEmpty(xa,ya)
 {   if(xa>3||xa<0||ya>3||ya<0) {
-        console.log("no here");
         return false;
     }
     if (cells[xa][ya].is0() == true) {

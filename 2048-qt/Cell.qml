@@ -46,8 +46,7 @@ Rectangle{
            }
     height: parent.height/4
     width: parent.width/4
-    border.width: score==0 ? 0 : 5
-    radius: 10
+    radius: 12
     x: row* width
     y: col* height-20
     Text{
@@ -57,27 +56,43 @@ Rectangle{
     function move(where){
         switch(where){
         case "right":
-            if(Logic.isEmpty(col,row+1)){
+            if(Logic.isEmpty(row+1,col)){
                 Logic.setScore(score,row+1,col);
+                Logic.setScore(0,row,col);
+            }
+            if(Logic.cells[row+1][col].score===score){
+                Logic.setScore(score*2,row+1,col);
                 Logic.setScore(0,row,col);
             }
         break;
         case "left":
-            if(Logic.isEmpty(col,row-1)){
+            if(Logic.isEmpty(row-1,col)){
                 Logic.setScore(score,row-1,col)
                 Logic.setScore(0,row,col)
             }
+            if(Logic.cells[row-1][col].score===score){
+                Logic.setScore(score*2,row-1,col);
+                Logic.setScore(0,row,col);
+            }
         break;
         case "down":
-            if(Logic.isEmpty(col+1,row)){
+            if(Logic.isEmpty(row,col+1)){
                 Logic.setScore(score,row,col+1)
                 Logic.setScore(0,row,col)
             }
+            if(Logic.cells[row][col+1].score===score){
+                Logic.setScore(score*2,row,col+1);
+                Logic.setScore(0,row,col);
+            }
         break;
         case "up":
-            if(Logic.isEmpty(col-1,row)){
+            if(Logic.isEmpty(row,col-1)){
                 Logic.setScore(score,row,col-1);
-                Logic.setScore(0,row,col-1);
+                Logic.setScore(0,row,col);
+            }
+            if(Logic.cells[row][col-1].score===score){
+                Logic.setScore(score*2,row,col-1);
+                Logic.setScore(0,row,col);
             }
         break;
         }
