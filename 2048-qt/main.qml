@@ -56,7 +56,7 @@ Window {
                 x:0
                 anchors.bottom: parent.bottom
                 text:"up"
-                onClicked: Logic.up()
+                onClicked: Logic.up();
             }Button{
                 x:100
                 height: 20

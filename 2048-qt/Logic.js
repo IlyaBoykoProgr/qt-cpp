@@ -48,25 +48,28 @@ function getRandomRound(min, max)
 }
 
 function up(){
+    for(var loop=0;loop<5;loop++)
     for(y=0;y<4;y++)
         for(x=0;x<4;x++)
             if(!isEmpty(x,y))cells[x][y].move("up");
    newCell();
 }
 function down(){
+    for(var loop=0;loop<5;loop++)
     for(y=3;y>=0;y--)
         for(x=0;x<4;x++)
             if(!isEmpty(x,y))cells[x][y].move("down");
    newCell();
 }
 function left(){
+    for(var loop=0;loop<5;loop++)
     for(x=0;x<4;x++)
         for(y=0;y<4;y++)
             if(!isEmpty(x,y))cells[x][y].move("left");
    newCell();
 }
 function right(){
-    var x,y;
+    for(var loop=0;loop<5;loop++)
     for(x=3;x>=0;x--)
         for(y=0;y<4;y++)
             if(!isEmpty(x,y))cells[x][y].move("right");
