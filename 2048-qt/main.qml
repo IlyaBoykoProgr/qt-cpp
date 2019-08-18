@@ -1,5 +1,6 @@
 import QtQuick 2.3
 import QtQuick.Window 2.2
+import QtQuick.Controls 1.4
 import "Logic.js" as Logic
 
 Window {
@@ -26,17 +27,16 @@ Window {
             id: logo
             source: "2048.png"
         }
-        MouseArea{
+        Button{
             id: play
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: logo.bottom
             anchors.bottom: parent.bottom
-            Text{text:"Play"; anchors.centerIn: parent}
+            text:"Play"
             onClicked: {
                 board.visible = true
                 Logic.begin(board);
-                Logic.down();
                 mainMenu.visible = false
             }
         }
@@ -51,29 +51,29 @@ Window {
         visible: false
         x: mainMenu.x
         y: mainMenu.y
-            MouseArea{
+            Button{
                 height: 20
                 x:50
                 anchors.bottom: parent.bottom
-                Text{text:"up";anchors.fill:parent;color:"orange"}
+                text:"up"
                 onClicked: Logic.up()
-            }MouseArea{
+            }Button{
                 x:150
                 height: 20
                 anchors.bottom: parent.bottom
-                Text{text:"down";anchors.fill:parent;color:"orange"}
+                text:"down"
                 onClicked: Logic.down()
-            }MouseArea{
+            }Button{
                 x:250
                 height: 20
                 anchors.bottom: parent.bottom
-                Text{text:"left";anchors.fill:parent;color:"orange"}
+                text:"left"
                 onClicked: Logic.left()
-            }MouseArea{
+            }Button{
                 height: 20
                 x:350
                 anchors.bottom: parent.bottom
-                Text{text:"right";anchors.fill:parent;color:"orange"}
+                text:"right"
                 onClicked: Logic.right()
             }
     }

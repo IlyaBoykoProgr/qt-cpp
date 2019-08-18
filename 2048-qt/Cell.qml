@@ -20,28 +20,28 @@ Rectangle{
     function move(where){
         console.log("moving ",where," on ",row," ",col);
         switch(where){
-        case "down":
+        case "right":
             if(Logic.isEmpty(col,row+1)){
                 row++;
                 Logic.cells[col][row]=Logic.cell.createObject(Logic.gameArea, {"row": row, "col": col, "score": score});
                 Logic.cells[col][row-1]=null;
             }
         break;
-        case "up":
+        case "left":
             if(Logic.isEmpty(col,row-1)){
                 row--;
                 Logic.cells[col][row]=Logic.cell.createObject(Logic.gameArea, {"row": row, "col": col, "score": score});
                 Logic.cells[col][row+1]=null;
             }
         break;
-        case "right":
+        case "down":
             if(Logic.isEmpty(col+1,row)){
                 col++;
                 Logic.cells[col][row]=Logic.cell.createObject(Logic.gameArea, {"row": row, "col": col, "score": score});
                 Logic.cells[col-1][row]=null;
             }
         break;
-        case "left":
+        case "up":
             if(Logic.isEmpty(col-1,row)){
                 col--;
                 Logic.cells[col][row]=Logic.cell.createObject(Logic.gameArea, {"row": row, "col": col, "score": score});
@@ -50,7 +50,7 @@ Rectangle{
         break;
         }
     }
-    Behavior on x{NumberAnimation{duration:400}}
-    Behavior on y{NumberAnimation{duration:400}}
-    Behavior on score{NumberAnimation{duration:400;easing:Easing.InElastic}}
+    Behavior on x{NumberAnimation{duration:400;easing.type:Easing.InCubic}}
+    Behavior on y{NumberAnimation{duration:400;easing.type:Easing.InCubic}}
+    Behavior on score{NumberAnimation{duration:400;easing.type:Easing.InCubic}}
 }

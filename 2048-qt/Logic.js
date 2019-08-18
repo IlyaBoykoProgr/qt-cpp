@@ -17,7 +17,7 @@ function newCell(){
 function begin(where){
     gameArea=where;
     for(var i=0; i<4; i++)cells[i] =[];
-    newCell();newCell();
+    newCell();
 }
 
 function isEmpty(x,y)
@@ -40,24 +40,24 @@ function up(){
     for(x=0;x<4;x++)
         for(y=0;y<4;y++)
             if(!isEmpty(x,y))cells[x][y].move("up");
-    newCell();
+   // newCell();
 }
 function down(){
     for(x=3;x>=0;x--)
         for(y=0;y<4;y++)
             if(!isEmpty(x,y))cells[x][y].move("down");
-    newCell();
+   // newCell();
 }
 function left(){
     for(y=0;y<4;y++)
         for(x=0;x<4;x++)
             if(!isEmpty(x,y))cells[x][y].move("left");
-    newCell();
+    //newCell();
 }
 function right(){
     var x,y;
     for(y=3;y>=0;y--)
         for(x=0;x<4;x++)
             if(!isEmpty(x,y))cells[x][y].move("right");
-    newCell();
+   // newCell();
 }
