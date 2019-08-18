@@ -8,7 +8,7 @@ Window {
     visible: true
     width: 500
     height: 300
-    title: qsTr("2048 menu")
+    title: qsTr("2048forPRO menu")
     SequentialAnimation on color{
         loops: Animation.Infinite
         ColorAnimation {
@@ -44,7 +44,7 @@ Window {
 
     Window{
         id: board
-        title: qsTr("2048 playing")
+        title: qsTr("2048forPRO playing")
         height: width+20
         width: 400
         onHeightChanged: width=height-20
