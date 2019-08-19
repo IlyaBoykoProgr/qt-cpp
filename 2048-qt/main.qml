@@ -99,6 +99,7 @@ Window {
         y:mainMenu.y
         width: 400
         height: 300
+        title: qsTr("2048forPRO help")
         Text {
             text: qsTr("This.. is.. Help!\n\nYou need to move plates using arrows.\n2 same plates joins to 1 bigger.\nGet the 2048 plate!")
         }
