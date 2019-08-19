@@ -52,7 +52,7 @@ Window {
          anchors.fill: parent
          anchors.bottom: quit.top
          text: qsTr("You losed! :(")
-         color: red
+         color: "red"
      }
      Button{
          id: quit
