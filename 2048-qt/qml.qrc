@@ -4,5 +4,6 @@
         <file>2048.png</file>
         <file>Logic.js</file>
         <file>Cell.qml</file>
+        <file>errorDialog.qml</file>
     </qresource>
 </RCC>
