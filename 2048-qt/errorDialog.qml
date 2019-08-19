@@ -7,6 +7,10 @@ Window{
  visible: false
  width: 200
  height: 200
+ function lose(){
+     visible=true;
+ }
+
  Text {
      id: loseText
 

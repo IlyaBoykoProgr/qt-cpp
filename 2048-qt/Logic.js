@@ -17,7 +17,7 @@ function newCell(){
    }
    if(c>=50){
        console.error("you losed");
-       errorDialog.visible=true;
+       errorDialog.createObject().lose();
        return;
    }
    setScore(getRandomRound(1,4)>3?4:2,x,y);
