@@ -3,7 +3,7 @@
 var cells= [];
 var cell = Qt.createComponent("Cell.qml");
 var gameArea;
-var errorDialog = Qt.createComponent("errorDialog.qml");
+var errorDialog = Qt.createComponent("errorDialog.qml").createObject();
 var x,y;
 
 function newCell(){
@@ -17,7 +17,7 @@ function newCell(){
    }
    if(c>=50){
        console.error("you losed");
-       errorDialog.createObject().lose();
+       errorDialog.lose();
        return;
    }
    setScore(getRandomRound(1,4)>3?4:2,x,y);

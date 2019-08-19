@@ -34,6 +34,12 @@ Window {
             anchors.top: logo.bottom
             anchors.bottom: parent.bottom
             text:"Play"
+            focus: true
+            Keys.onReturnPressed:{
+                board.visible = true
+                Logic.begin(board);
+                mainMenu.visible = false
+            }
             onClicked: {
                 board.visible = true
                 Logic.begin(board);
