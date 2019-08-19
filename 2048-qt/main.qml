@@ -20,6 +20,7 @@ Window {
     }
 
     Column{
+        id: buttons
         height: parent.height
         width: parent.width/3
         anchors.centerIn: parent
@@ -29,10 +30,10 @@ Window {
         }
         Button{
             id: play
-            anchors.left: parent.left
-            anchors.right: parent.right
+            anchors.left: buttons.left
+            anchors.right: buttons.right
             anchors.top: logo.bottom
-            anchors.bottom: parent.bottom
+            anchors.bottom: help.top
             text:"Play"
             focus: true
             Keys.onReturnPressed:{
@@ -45,6 +46,15 @@ Window {
                 Logic.begin(board);
                 mainMenu.visible = false
             }
+        }
+        Button{
+            id: help
+            height: buttons.height/3
+            anchors.left: buttons.left
+            anchors.right: buttons.right
+            anchors.bottom: buttons.bottom
+            text: "Help (how to play)"
+            onClicked: helpWindow.show();
         }
     }
 
@@ -83,5 +93,15 @@ Window {
                 onClicked: Logic.right()
             }
     }
-
+    Window{
+        id:helpWindow
+        x:mainMenu.x
+        y:mainMenu.y
+        width: 400
+        height: 300
+        Text {
+            text: qsTr("This.. is.. Help!\n\nYou need to move plates using arrows.\n2 same plates joins to 1 bigger.\nGet the 2048 plate!")
+        }
+    }
 }
+
