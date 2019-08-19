@@ -46,18 +46,22 @@ Window {
      id: errorDialog
      visible: false
      width: 200
-     height: 300
+     height: 200
      Text {
          id: loseText
-         anchors.fill: parent
-         anchors.bottom: quit.top
+
+         anchors.top: parent.top
+         anchors.left: parent.left
+         anchors.right: parent.right
          text: qsTr("You losed! :(")
          color: "red"
      }
      Button{
          id: quit
-         anchors.fill: parent
          anchors.top: loseText.bottom
+         anchors.left: parent.left
+         anchors.right: parent.right
+         anchors.bottom: parent.bottom
          text: "Quit, haha"
          onClicked: Qt.quit();
      }
