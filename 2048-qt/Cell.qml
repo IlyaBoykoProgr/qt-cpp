@@ -1,4 +1,6 @@
 import QtQuick 2.0
+import QtQuick.Window 2.2
+import QtQuick.Controls 1.4
 import "Logic.js" as Logic
 
 Rectangle{
@@ -110,4 +112,26 @@ Rectangle{
     Keys.onLeftPressed: Logic.left();
     Keys.onRightPressed: Logic.right();
     Behavior on color{ColorAnimation{duration:300}}
+    onScoreChanged: if(score==2048 && !Logic.win){winDialog.show();Logic.win=true}
+    Window{
+        id: winDialog
+        visible: false
+        Text {
+            id: winText
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.right: parent.right
+            text: qsTr("You win! :)")
+            color: "green"
+        }
+        Button{
+            id: quit
+            anchors.top: winText.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            text: "Quit?"
+            onClicked: Qt.quit();
+        }
+    }
 }

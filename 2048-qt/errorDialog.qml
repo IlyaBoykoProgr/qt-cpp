@@ -7,13 +7,9 @@ Window{
  visible: false
  width: 200
  height: 200
- function lose(){
-     visible=true;
- }
 
  Text {
      id: loseText
-
      anchors.top: parent.top
      anchors.left: parent.left
      anchors.right: parent.right
@@ -26,7 +22,7 @@ Window{
      anchors.left: parent.left
      anchors.right: parent.right
      anchors.bottom: parent.bottom
-     text: "Quit, haha"
+     text: "Quit"
      onClicked: Qt.quit();
  }
 }
