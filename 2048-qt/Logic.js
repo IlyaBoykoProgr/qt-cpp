@@ -2,7 +2,7 @@
 
 var cells= [];
 var cell = Qt.createComponent("Cell.qml");
-var gameArea;
+var gameArea,scoreView;
 var errorDialog = Qt.createComponent("errorDialog.qml").createObject();
 var x,y,win=false;
 
@@ -27,12 +27,12 @@ function setScore(sco, xa,ya){
     cells[xa][ya].score = sco;
 }
 
-function begin(where,error){
+function begin(where,scoreB){
     gameArea=where;
     for(var i=0; i<4; i++){
         cells[i] =[];
         for(var j=0; j<4; j++)
-            cells[i][j]=cell.createObject(gameArea, {"row": i, "col": j, "score": 0})
+            cells[i][j]=cell.createObject(gameArea, {"row": i, "col": j, "score": 0});
     }
     newCell();
 }

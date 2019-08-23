@@ -50,7 +50,7 @@ Rectangle{
     width: parent.width/4
     radius: 12
     x: row* width
-    y: col* height-20
+    y: col* height+20
     Text{
         text: parent.score==0 ? "" : parent.score.toString()
         anchors.centerIn: parent
@@ -98,6 +98,7 @@ Rectangle{
             }
             if(Logic.cells[row][col-1].score===score){
                 Logic.setScore(score*2,row,col-1);
+                Logic.scoreView.sc+=score*2;
                 Logic.setScore(0,row,col);
             }
         break;
@@ -118,18 +119,18 @@ Rectangle{
         visible: false
         Text {
             id: winText
-            anchors.top: parent.top
-            anchors.left: parent.left
-            anchors.right: parent.right
+            anchors.top: winDialog.top
+            anchors.left: winDialog.left
+            anchors.right: winDialog.right
             text: qsTr("You win! :)")
             color: "green"
         }
         Button{
             id: quit
             anchors.top: winText.bottom
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.bottom: parent.bottom
+            anchors.left: winDialog.left
+            anchors.right: winDialog.right
+            anchors.bottom: winDialog.bottom
             text: "Quit?"
             onClicked: Qt.quit();
         }

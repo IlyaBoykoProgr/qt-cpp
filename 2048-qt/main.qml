@@ -38,7 +38,7 @@ Window {
             focus: true
             Keys.onReturnPressed:{
                 board.visible = true
-                Logic.begin(board);
+                Logic.begin(board,scoreBoard);
                 mainMenu.visible = false
             }
             onClicked: {
@@ -53,7 +53,7 @@ Window {
             anchors.left: buttons.left
             anchors.right: buttons.right
             anchors.bottom: buttons.bottom
-            text: "Help (how to play)"
+            text: "How to play"
             onClicked: helpWindow.show();
         }
     }
@@ -61,37 +61,18 @@ Window {
     Window{
         id: board
         title: qsTr("2048forPRO playing")
-        height: width+20
+        height: width+40
         width: 400
-        onHeightChanged: width=height-20
+        onHeightChanged: width=height-40
         visible: false
         x: mainMenu.x
         y: mainMenu.y
-            Button{
-                height: 20
-                x:0
-                anchors.bottom: parent.bottom
-                text:"up"
-                onClicked: Logic.up();
-            }Button{
-                x:100
-                height: 20
-                anchors.bottom: parent.bottom
-                text:"down"
-                onClicked: Logic.down()
-            }Button{
-                x:200
-                height: 20
-                anchors.bottom: parent.bottom
-                text:"left"
-                onClicked: Logic.left()
-            }Button{
-                height: 20
-                x:300
-                anchors.bottom: parent.bottom
-                text:"right"
-                onClicked: Logic.right()
-            }
+        Text {
+            id:scoreBoard
+            property int sc: 0
+            height: 30
+            text: "Score: " + sc.toString()
+        }
     }
     Window{
         id:helpWindow
