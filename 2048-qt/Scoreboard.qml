@@ -10,5 +10,14 @@ Text {
     Behavior on score{NumberAnimation{
         duration: 500
         easing.type: Easing.OutBack
+        easing.overshoot: 100
     }}
+
+    NumberAnimation on x{
+        duration: 700
+        from: 500
+        to: 0
+        easing.type: Easing.OutBounce
+        running: true
+    }
 }
