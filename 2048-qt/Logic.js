@@ -27,7 +27,7 @@ function setScore(sco, xa,ya){
     cells[xa][ya].score = sco;
 }
 
-function begin(where,scoreB){
+function begin(where){
     gameArea=where;
     for(var i=0; i<4; i++){
         cells[i] =[];

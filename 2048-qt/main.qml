@@ -38,7 +38,7 @@ Window {
             focus: true
             Keys.onReturnPressed:{
                 board.visible = true
-                Logic.begin(board,scoreBoard);
+                Logic.begin(board);
                 mainMenu.visible = false
             }
             onClicked: {
