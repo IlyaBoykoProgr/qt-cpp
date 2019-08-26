@@ -15,7 +15,7 @@ Text {
 
     SequentialAnimation on x{
         loops: Animation.Infinite
-        NumberAnimation{to: 300}
-        NumberAnimation{to: 0}
+        NumberAnimation{to: 300;duration: 2000}
+        NumberAnimation{to: 0;duration: 2000}
     }
 }
