@@ -9,13 +9,11 @@ Text {
     text: "Score: "+score.toString()
     Behavior on score{NumberAnimation{
         duration: 500
-        easing.type: Easing.OutBack
-        easing.overshoot: 100
     }}
 
     SequentialAnimation on x{
         loops: Animation.Infinite
-        NumberAnimation{to: 300;duration: 2000}
-        NumberAnimation{to: 0;duration: 2000}
+        NumberAnimation{to: 300;duration: 7000}
+        NumberAnimation{to: 0;duration: 7000}
     }
 }
