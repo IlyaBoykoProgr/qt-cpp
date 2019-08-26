@@ -13,11 +13,9 @@ Text {
         easing.overshoot: 100
     }}
 
-    NumberAnimation on x{
-        duration: 700
-        from: 500
-        to: 0
-        easing.type: Easing.OutBounce
-        running: true
+    SequentialAnimation on x{
+        loops: Animation.Infinite
+        NumberAnimation{to: 300}
+        NumberAnimation{to: 0}
     }
 }
