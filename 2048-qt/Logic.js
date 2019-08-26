@@ -34,6 +34,7 @@ function begin(where,scoreB){
         for(var j=0; j<4; j++)
             cells[i][j]=cell.createObject(gameArea, {"row": i, "col": j, "score": 0});
     }
+    scoreView=Qt.createComponent("Scoreboard.qml").createObject(gameArea);
     newCell();
 }
 
@@ -80,4 +81,8 @@ function right(){
         for(y=0;y<4;y++)
             if(!isEmpty(x,y))cells[x][y].move("right");
    newCell();
+}
+
+function add(sc){
+    scoreView.score+=sc;
 }

@@ -67,12 +67,6 @@ Window {
         visible: false
         x: mainMenu.x
         y: mainMenu.y
-        Text {
-            id:scoreBoard
-            property int sc: 0
-            height: 30
-            text: "Score: " + sc.toString()
-        }
     }
     Window{
         id:helpWindow

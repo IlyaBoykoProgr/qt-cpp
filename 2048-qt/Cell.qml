@@ -65,13 +65,14 @@ Rectangle{
             }
             if(Logic.cells[row+1][col].score===score){
                 Logic.setScore(score*2,row+1,col);
+                Logic.add(score*2);
                 Logic.setScore(0,row,col);
             }
         break;
         case "left":
             if(row-1==-1)return;
             if(Logic.isEmpty(row-1,col)){
-                Logic.setScore(score,row-1,col)
+                Logic.setScore(score,row-1,col);
                 Logic.setScore(0,row,col)
             }
             if(Logic.cells[row-1][col].score===score){
@@ -87,6 +88,7 @@ Rectangle{
             }
             if(Logic.cells[row][col+1].score===score){
                 Logic.setScore(score*2,row,col+1);
+                Logic.add(score*2);
                 Logic.setScore(0,row,col);
             }
         break;
@@ -98,7 +100,7 @@ Rectangle{
             }
             if(Logic.cells[row][col-1].score===score){
                 Logic.setScore(score*2,row,col-1);
-                Logic.scoreView.sc+=score*2;
+                Logic.add(score*2);
                 Logic.setScore(0,row,col);
             }
         break;
