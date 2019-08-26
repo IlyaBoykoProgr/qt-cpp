@@ -64,8 +64,8 @@ Rectangle{
                 Logic.setScore(0,row,col);
             }
             if(Logic.cells[row+1][col].score===score){
-                Logic.setScore(score*2,row+1,col);
                 Logic.add(score*2);
+                Logic.setScore(score*2,row+1,col);
                 Logic.setScore(0,row,col);
             }
         break;
@@ -76,6 +76,7 @@ Rectangle{
                 Logic.setScore(0,row,col)
             }
             if(Logic.cells[row-1][col].score===score){
+                Logic.add(score*2);
                 Logic.setScore(score*2,row-1,col);
                 Logic.setScore(0,row,col);
             }
@@ -87,8 +88,8 @@ Rectangle{
                 Logic.setScore(0,row,col)
             }
             if(Logic.cells[row][col+1].score===score){
-                Logic.setScore(score*2,row,col+1);
                 Logic.add(score*2);
+                Logic.setScore(score*2,row,col+1);
                 Logic.setScore(0,row,col);
             }
         break;
@@ -99,8 +100,8 @@ Rectangle{
                 Logic.setScore(0,row,col);
             }
             if(Logic.cells[row][col-1].score===score){
-                Logic.setScore(score*2,row,col-1);
                 Logic.add(score*2);
+                Logic.setScore(score*2,row,col-1);
                 Logic.setScore(0,row,col);
             }
         break;
