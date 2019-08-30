@@ -4,4 +4,7 @@
         <file>kosmos.jpg</file>
         <file>icon.jpg</file>
     </qresource>
+    <qresource prefix="/">
+        <file>лазер.ogg</file>
+    </qresource>
 </RCC>

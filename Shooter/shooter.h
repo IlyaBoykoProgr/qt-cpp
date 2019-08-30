@@ -5,6 +5,7 @@
 #include <QKeyEvent>
 #include <QLabel>
 #include <QMessageBox>
+#include <QSound>
 class block;
 
 namespace Ui {
@@ -16,7 +17,7 @@ public:
   Ui::shooter *ui;
   QString progPath;
   short rushed=0;
-  explicit shooter(QString programm,QWidget *parent = 0);
+  explicit shooter(QApplication* programm,QWidget *parent = 0);
   ~shooter();
   void keyPressEvent(QKeyEvent* ev);
 
@@ -32,6 +33,7 @@ private slots:
 
 private:
   block** kirpich;
+  QSound* sound;
 };
 
 
@@ -41,7 +43,7 @@ class block: public QLabel{
   Q_OBJECT
   short h;
 public:
-  block(int x, int y,int health,shooter* parent){
+  block(int x, int y,short health,shooter* parent){
     setParent(parent);
     connect(parent,SIGNAL(pif_paf(int)),this,SLOT(update()));
     setGeometry(x+3,y,94,40);

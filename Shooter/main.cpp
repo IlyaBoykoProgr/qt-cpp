@@ -1,4 +1,5 @@
 #include "shooter.h"
+#include "database.h"
 #include <QApplication>
 #include <QTime>
 #include <fstream>
@@ -10,10 +11,9 @@ int main(int argc, char *argv[])
   std::ifstream is("shooter-data");
   if(! is.is_open() ){
   is.close();
-  std::ofstream data("shooter-data");
-  data.close();
+  bin::set(0,0);
   }
-  shooter w(a.applicationFilePath());
+  shooter w(&a);
   w.show();
   return a.exec();
 }
