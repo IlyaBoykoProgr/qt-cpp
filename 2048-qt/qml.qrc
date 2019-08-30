@@ -6,5 +6,6 @@
         <file>Cell.qml</file>
         <file>errorDialog.qml</file>
         <file>Scoreboard.qml</file>
+        <file>кнут.ogg</file>
     </qresource>
 </RCC>
