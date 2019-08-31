@@ -18,8 +18,6 @@ shooter::shooter(QApplication* programm,QWidget *parent) :
       kirpich[i]=new block(i%5*100,rand()%(i+1)*50+300,rand()%9+1,this);
       connect(kirpich[i],SIGNAL(achieve(int)),this,SLOT(unlockAch(int)));
   }
-  QFile::copy(":/лазер.ogg",programm->applicationDirPath()+"/лазер.ogg");
-  sound= new QSound("лазер.ogg",this);
   unlockAch(bin::brokenBlocks());
 }
 
@@ -46,7 +44,6 @@ void shooter::keyPressEvent(QKeyEvent *ev){
 }
 
 void shooter::shoot(int x){
-  sound->play();
   QLabel pula(this);
   pula.setGeometry(x-3,40,6,20);
   pula.show(); pula.setStyleSheet("background:yellow");

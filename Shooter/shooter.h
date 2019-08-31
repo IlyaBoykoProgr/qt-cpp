@@ -5,7 +5,6 @@
 #include <QKeyEvent>
 #include <QLabel>
 #include <QMessageBox>
-#include <QSound>
 class block;
 
 namespace Ui {
@@ -33,7 +32,6 @@ private slots:
 
 private:
   block** kirpich;
-  QSound* sound;
 };
 
 
