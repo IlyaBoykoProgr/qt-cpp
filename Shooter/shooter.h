@@ -30,6 +30,8 @@ private slots:
 
   void on_actionProgress_triggered();
 
+  void on_actionChange_blocks_triggered();
+
 private:
   block** kirpich;
 };

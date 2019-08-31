@@ -50,6 +50,7 @@
     <property name="title">
      <string>&amp;Options</string>
     </property>
+    <addaction name="actionChange_blocks"/>
    </widget>
    <widget class="QMenu" name="menuGame">
     <property name="enabled">
@@ -87,6 +88,14 @@
    </property>
    <property name="text">
     <string>&amp;Progress</string>
+   </property>
+  </action>
+  <action name="actionChange_blocks">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Change bricks</string>
    </property>
   </action>
  </widget>

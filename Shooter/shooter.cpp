@@ -68,15 +68,14 @@ void shooter::unlockAch(int broken){
   if(broken==10)QMessageBox::information(this,"YaaaaY","You have just broken 10th block!\nNow you can see window icon!");
   if(broken>=50)ui->menuGame->setDisabled(false);
   if(broken==50)QMessageBox::information(this,"YaaaaY","You have just broken 50th block!\nMenu Game is unlocked!");
-  if(broken>=100)ui->actionAchievements->setDisabled(false);
-  if(broken==100)QMessageBox::information(this,"YaaaaY","100th block!\nNow you can see all achievements at the menu!");
-  if(broken>=140)ui->actionProgress->setDisabled(false);
-  if(broken==140)QMessageBox::information(this,"YaaaaY","140th block!\nNow you can see your progress at the menu!");
-}
-
-shooter::~shooter()
-{
-  delete ui;
+  if(broken>=70)ui->actionAchievements->setDisabled(false);
+  if(broken==70)QMessageBox::information(this,"YaaaaY","70th block!\nNow you can see all achievements at the menu!");
+  if(broken>=120)ui->actionProgress->setDisabled(false);
+  if(broken==120)QMessageBox::information(this,"YaaaaY","120th block!\nNow you can see your progress at the menu!");
+  if(broken>=160)ui->menuOptions->setDisabled(false);
+  if(broken==160)QMessageBox::information(this,"YaaaaY","160th block!\nMenu Options is unlocked!");
+  if(broken>=200)ui->actionProgress->setDisabled(false);
+  if(broken==200)QMessageBox::information(this,"YaaaaY","120th block!\nYou can change style of bricks!");
 }
 
 void shooter::on_actionAchievements_triggered()
@@ -84,8 +83,11 @@ void shooter::on_actionAchievements_triggered()
     QMessageBox::information(this,"Achievements","Prize   -- price\n"
     "1.Icon   10\n"
     "2.Game menu  50\n"
-    "3.Game->Achievements 100\n"
-    "4.Game->Progress 140\n");
+    "3.Game->Achievements 70\n"
+    "4.Game->Progress 120\n"
+    "5.Options menu 160\n"
+    "6.Options->Change brick's style 200"
+    );
 }
 
 void shooter::on_actionProgress_triggered()
@@ -95,4 +97,14 @@ void shooter::on_actionProgress_triggered()
   text+="\nLevels complete:";
   text+=QString::number(bin::mazesComplete());
   QMessageBox::information(this,"Your Progress:",text);
+}
+
+void shooter::on_actionChange_blocks_triggered()
+{
+
+}
+
+shooter::~shooter()
+{
+  delete ui;
 }
