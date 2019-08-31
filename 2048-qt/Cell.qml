@@ -10,7 +10,7 @@ Rectangle{
     property int score
     color: switch(score){
            case 0:
-            "white"
+            "transparent"
            break;
            case 2:
             "red"

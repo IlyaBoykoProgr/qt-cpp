@@ -18,6 +18,7 @@ Window{
  }
  Button{
      id: quit
+     height: 100
      anchors.top: loseText.bottom
      anchors.left: parent.left
      anchors.right: parent.right

@@ -57,7 +57,6 @@ Window {
             onClicked: helpWindow.show();
         }
     }
-
     Window{
         id: board
         title: qsTr("2048forPRO playing")
