@@ -32,6 +32,8 @@ private slots:
 
   void on_actionChange_blocks_triggered();
 
+  void on_actionNew_Game_triggered();
+
 private:
   block** kirpich;
 };
