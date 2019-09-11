@@ -63,7 +63,7 @@ public:
     h--;
     setNum(h);
     if(bin::styleBlocks())
-        setStyleSheet("background:orange;border:"+QString::number(h)+"px solid #666;");
+        setStyleSheet("background:#B30;border:"+QString::number(9-h)+"px solid #555;");
     else
         setStyleSheet("background:rgba(255,"+QString::number(h*20)+",0,230);border:4px solid #666;");
     }
