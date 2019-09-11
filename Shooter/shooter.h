@@ -56,13 +56,16 @@ public:
   void destroy(){
     if(h<1){
      move(-200,0);
-     bin::set(bin::brokenBlocks()+1, bin::mazesComplete());
+     bin::set(bin::brokenBlocks()+1);
      ((shooter*)parent())->rushed++;
      emit achieve(bin::brokenBlocks());
     }else{
     h--;
     setNum(h);
-    setStyleSheet("background:rgba(255,"+QString::number(h*20)+",0,230);border:4px solid #666;");
+    if(bin::styleBlocks())
+        setStyleSheet("background:orange;border:"+QString::number(h)+"px solid #666;");
+    else
+        setStyleSheet("background:rgba(255,"+QString::number(h*20)+",0,230);border:4px solid #666;");
     }
   }
 public slots:

@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
   std::ifstream is("shooter-data");
   if(! is.is_open() ){
   is.close();
-  bin::set(0,0);
+  bin::set(0,0,false);
   }
   shooter w(&a);
   w.show();

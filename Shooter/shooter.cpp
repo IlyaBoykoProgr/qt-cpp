@@ -105,7 +105,12 @@ void shooter::on_actionProgress_triggered()
 
 void shooter::on_actionChange_blocks_triggered()
 {
-
+    bin::set(
+        bin::brokenBlocks(),
+        bin::mazesComplete(),
+        !bin::styleBlocks()
+    );
+    QMessageBox::information(this,"All","is OK.\nPress OK");
 }
 
 void shooter::on_actionNew_Game_triggered()
