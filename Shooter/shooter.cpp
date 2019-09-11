@@ -74,8 +74,8 @@ void shooter::unlockAch(int broken){
   if(broken==120)QMessageBox::information(this,"YaaaaY","120th block!\nNow you can see your progress at the menu!");
   if(broken>=160)ui->menuOptions->setDisabled(false);
   if(broken==160)QMessageBox::information(this,"YaaaaY","160th block!\nMenu Options is unlocked!");
-  if(broken>=400)ui->actionChange_blocks->setDisabled(false);
-  if(broken==400)QMessageBox::information(this,"YaaaaY","120th block!\nYou can change style of bricks!");
+  if(broken>=220)ui->actionChange_blocks->setDisabled(false);
+  if(broken==220)QMessageBox::information(this,"YaaaaY","120th block!\nYou can change style of bricks!");
   if(bin::mazesComplete()>=15)ui->actionNew_Game->setDisabled(false);
   if(bin::mazesComplete()==15)QMessageBox::information(this,"YaaaaY","15th maze!\nYou can restart programm any time!");
 }
@@ -88,7 +88,7 @@ void shooter::on_actionAchievements_triggered()
     "3.Game->Achievements 70\n"
     "4.Game->Progress 120\n"
     "5.Options menu 160\n"
-    "6.Options->Change brick's style 400"
+    "6.Options->Change brick's style 220"
     );
     QMessageBox::information(this,"Achiewements","Unlock -- mazes\n"
     "1.Game->New game  15\n");
