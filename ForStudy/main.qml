@@ -17,7 +17,7 @@ ApplicationWindow{
         rows: 2
         SpinBox{id:widthX;prefix:"width:";value:640;maximumValue:1500;minimumValue:100;stepSize:1}
         SpinBox{id:heightY;prefix:"maxHeight:";value:480;maximumValue:1500;minimumValue:100;stepSize:1}
-        SpinBox{id:quality;prefix:"quality:";decimals:2;value:0.04;maximumValue:1;minimumValue:0.01;stepSize:0.01;width:widthX.width}
+        SpinBox{id:quality;prefix:"quality:";decimals:2;value:0.14;maximumValue:1;minimumValue:0.01;stepSize:0.01;width:widthX.width}
         Button{text:qsTr("complete");onClicked:settings.visible=false}
     }
     toolBar: ToolBar{Row{anchors.fill: parent
@@ -41,7 +41,7 @@ ApplicationWindow{
     function drawGraph(){
         all.width=widthX.value
         all.height=heightY.value
-        var x=0;
+        var x=-widthX.value/2;
         var points= [widthX.value/quality.value];
         for(var i=0; i<widthX.value/quality.value; i++){
             points[i]=Qt.createComponent("Point.qml").createObject(all,
