@@ -62,7 +62,7 @@ ApplicationWindow{
      color: "red"
      width: all.width
      height: 3
-     x:0; y: heightY.value/2-45
+     x:0; y: all.height/2-44
      z: 2
      Text {text:widthX.value/2;x:0;color:"red"}
      Text {text:-widthX.value/2;x:all.width-width;color:"red"}
@@ -74,7 +74,7 @@ ApplicationWindow{
      height: all.height
      x: all.width/2; y: 0
      z: 2
-     Text {text:heightY.value/2;y:0;color:"red"}
-     Text {text:-heightY.value/2;y:all.height-73;color:"red"}
+     Text {text:heightY.value/2;x:5;y:0;color:"red"}
+     Text {text:-heightY.value/2;x:5;y:all.height-73;color:"red"}
     }
 }
