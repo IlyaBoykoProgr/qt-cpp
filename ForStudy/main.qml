@@ -58,13 +58,17 @@ ApplicationWindow{
     function sin(i){return Math.sin(i)}
     function cos(i){return Math.cos(i)}
     Rectangle{
+     id: xbar
      color: "orange"
      width: all.width
      height: 3
      x:0; y: heightY.value/2-45
      z: 2
+     Text {text:widthX.value/2;x:0;color:"orange"}
+     Text {text:-widthX.value/2;x:all.width-width;color:"orange"}
     }
     Rectangle{
+     id: ybar
      color: "orange"
      width: 3
      height: all.height
