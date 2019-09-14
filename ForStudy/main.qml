@@ -20,7 +20,7 @@ ApplicationWindow{
         SpinBox{id:quality;prefix:"quality:";decimals:2;value:0.14;maximumValue:1;minimumValue:0.01;stepSize:0.01;width:widthX.width}
         Button{text:qsTr("complete");onClicked:settings.visible=false}
     }
-    toolBar: ToolBar{Row{anchors.fill: parent
+    toolBar: ToolBar{z:3;Row{anchors.fill: parent
         Text {
             text: qsTr("y=")
             x:0
@@ -29,13 +29,19 @@ ApplicationWindow{
         TextInput{
             id: func
             text: "2*x"
-            width: parent.width/2
-            onTextChanged: all.drawGraph()
+            width: parent.width/3
         }
         Button{
             text: qsTr("Settings")
             onClicked: settings.visible=true
-            width: parent.width/2-20
+            width: parent.width/3-20
+        }
+        Button{
+            onClicked: all.drawGraph()
+            text: "Ok"
+            focus: true
+            Keys.onReturnPressed: all.drawGraph()
+            width: parent.width/3
         }
     }}
     function drawGraph(){
@@ -49,5 +55,21 @@ ApplicationWindow{
                                                                    );
             x+=quality.value;
         }
+    }
+    function sin(i){return Math.sin(i)}
+    function cos(i){return Math.cos(i)}
+    Rectangle{
+     color: "orange"
+     width: all.width
+     height: 3
+     x:0; y: heightY.value/2-45
+     z: 2
+    }
+    Rectangle{
+     color: "orange"
+     width: 3
+     height: all.height
+     x: all.width/2; y: 0
+     z: 2
     }
 }

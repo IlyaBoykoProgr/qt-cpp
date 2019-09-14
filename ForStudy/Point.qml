@@ -5,10 +5,10 @@ Rectangle{
     color:"black"
     height: 2
     width: 2
-    x:0; y:0
+    x:0; y:0;
     Component.onCompleted:{
         an.running=true
-        if(y<40)root.visible=false
+        if(y<42)root.visible=false
     }
     NumberAnimation on x{
         running: false
