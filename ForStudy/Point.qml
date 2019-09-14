@@ -7,14 +7,7 @@ Rectangle{
     width: 2
     x:0; y:0;
     Component.onCompleted:{
-        an.running=true
         if(y<42)root.visible=false
-    }
-    NumberAnimation on x{
-        running: false
-        id: an
-        from: 0
-        to: x
-        duration: 500
+        root.z=0
     }
 }
