@@ -15,8 +15,8 @@ ApplicationWindow{
         y: parent.y
         columns: 2
         rows: 2
-        SpinBox{id:widthX;prefix:"width:";value:640;maximumValue:1500;minimumValue:100;stepSize:1}
-        SpinBox{id:heightY;prefix:"height:";value:480;maximumValue:1500;minimumValue:100;stepSize:1}
+        SpinBox{id:widthX;prefix:"width:";value:640;maximumValue:1500;minimumValue:1;stepSize:1}
+        SpinBox{id:heightY;prefix:"height:";value:480;maximumValue:1500;minimumValue:1;stepSize:1}
         SpinBox{id:quality;prefix:"quality:";decimals:2;value:0.14;maximumValue:1;minimumValue:0.01;stepSize:0.01;width:widthX.width}
         Button{text:qsTr("complete");onClicked:settings.visible=false}
     }
@@ -59,20 +59,22 @@ ApplicationWindow{
     function cos(i){return Math.cos(i)}
     Rectangle{
      id: xbar
-     color: "orange"
+     color: "red"
      width: all.width
      height: 3
      x:0; y: heightY.value/2-45
      z: 2
-     Text {text:widthX.value/2;x:0;color:"orange"}
-     Text {text:-widthX.value/2;x:all.width-width;color:"orange"}
+     Text {text:widthX.value/2;x:0;color:"red"}
+     Text {text:-widthX.value/2;x:all.width-width;color:"red"}
     }
     Rectangle{
      id: ybar
-     color: "orange"
+     color: "red"
      width: 3
      height: all.height
      x: all.width/2; y: 0
      z: 2
+     Text {text:heightY.value/2;y:0;color:"red"}
+     Text {text:-heightY.value/2;y:all.height-73;color:"red"}
     }
 }
