@@ -81,5 +81,7 @@ ApplicationWindow{
      z: 2
      Text {text:heightY.value/2;x:5;y:0;color:"red"}
      Text {text:-heightY.value/2;x:5;y:all.height-73;color:"red"}
+     Component.onCompleted: run.running=true;
+     NumberAnimation on rotation{id:run;from:-90;to:0;duration:1500;easing.type:Easing.OutBounce;running:false}
     }
 }
