@@ -5,6 +5,7 @@
 #include <QKeyEvent>
 #include <QLabel>
 #include <QMessageBox>
+#include <QApplication>
 class block;
 
 namespace Ui {
@@ -14,9 +15,8 @@ class shooter : public QMainWindow{
   Q_OBJECT
 public:
   Ui::shooter *ui;
-  QString progPath;
   short rushed=0;
-  explicit shooter(QApplication* programm,QWidget *parent = 0);
+  explicit shooter(QWidget *parent = 0);
   ~shooter();
   void keyPressEvent(QKeyEvent* ev);
 
@@ -31,7 +31,7 @@ private slots:
   void on_actionProgress_triggered();
 
   void on_actionChange_blocks_triggered();
-
+public slots:
   void on_actionNew_Game_triggered();
 
 private:
@@ -75,7 +75,7 @@ public slots:
         shooter* par=((shooter*)parent());
       if(QMessageBox::question(par,"Lose","GAME OVER",QMessageBox::Retry,QMessageBox::Ok)
            ==QMessageBox::Retry){
-        system((par->progPath+"&").toLocal8Bit().data());
+          par->on_actionNew_Game_triggered();
       }
       exit(0);
     }

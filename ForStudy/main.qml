@@ -29,19 +29,24 @@ ApplicationWindow{
         TextInput{
             id: func
             text: "2*x"
-            width: parent.width/3
+            width: parent.width/4
         }
         Button{
             text: qsTr("Settings")
             onClicked: settings.visible=true
-            width: parent.width/3-20
+            width: parent.width/4-20
         }
         Button{
             onClicked: all.drawGraph()
             text: "Ok"
             focus: true
             Keys.onReturnPressed: all.drawGraph()
-            width: parent.width/3
+            width: parent.width/4
+        }
+        Button{
+            text: qsTr("Clear")
+            width: parent.width/4
+            onClicked: appRestart.restart()
         }
     }}
     function drawGraph(){

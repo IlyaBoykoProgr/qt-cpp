@@ -2,9 +2,10 @@
 #include "ui_shooter.h"
 #include <QInputDialog>
 #include <QApplication>
+#include <QProcess>
 int BLOCKS;
 
-shooter::shooter(QApplication* programm,QWidget *parent) :
+shooter::shooter(QWidget *parent) :
   QMainWindow(parent),
   ui(new Ui::shooter)
 {
@@ -12,7 +13,6 @@ shooter::shooter(QApplication* programm,QWidget *parent) :
   BLOCKS=QInputDialog::getInt(this,"Difficulty","How many blocks do you want to break?",30,10);
   setFixedSize(500,600+ui->menuBar->height());
   connect(this,SIGNAL(pif_paf(int)),this,SLOT(shoot(int)));
-  progPath=programm->applicationFilePath();
   kirpich=new block*[BLOCKS];
   for(short i=0;i<BLOCKS;i++){
       kirpich[i]=new block(i%5*100,rand()%(i+1)*50+300,rand()%9+1,this);
@@ -57,9 +57,7 @@ void shooter::shoot(int x){
   if(rushed>=BLOCKS){
       QMessageBox::information(this,"You won!","You already broke all\n"+QString::number(BLOCKS)+" BLOCKS!!!");
       bin::set(bin::brokenBlocks(), bin::mazesComplete()+1);
-      system("sleep 1");
-      system((progPath+"&").toLocal8Bit().data());
-      exit(0);
+      on_actionNew_Game_triggered();
   }
 }
 
@@ -114,8 +112,9 @@ void shooter::on_actionChange_blocks_triggered()
 
 void shooter::on_actionNew_Game_triggered()
 {
-    system((progPath+"&").toLocal8Bit().data());
-    QApplication::exit(0);
+    QProcess y;
+    y.startDetached(QApplication::applicationFilePath(),QApplication::arguments());
+    QApplication::exit();
 }
 
 shooter::~shooter()
