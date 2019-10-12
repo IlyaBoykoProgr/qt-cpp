@@ -54,6 +54,7 @@ Rectangle{
     Text{
         text: parent.score==0 ? "" : parent.score.toString()
         anchors.centerIn: parent
+        scale: 6
     }
     function move(where){
         switch(where){

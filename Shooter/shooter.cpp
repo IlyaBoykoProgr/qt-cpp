@@ -113,7 +113,7 @@ void shooter::on_actionChange_blocks_triggered()
 void shooter::on_actionNew_Game_triggered()
 {
     QProcess y;
-    y.startDetached(QApplication::applicationFilePath(),QApplication::arguments());
+    y.startDetached(QApplication::applicationDirPath()+QApplication::applicationFilePath(),QApplication::arguments());
     QApplication::exit();
 }
 

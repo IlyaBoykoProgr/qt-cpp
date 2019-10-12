@@ -46,6 +46,8 @@ class block: public QLabel{
   short h;
 public:
   block(int x, int y,short health,shooter* parent){
+    setFont(QFont("Aerial",20));
+    setAlignment(Qt::AlignCenter);
     setParent(parent);
     connect(parent,SIGNAL(pif_paf(int)),this,SLOT(update()));
     setGeometry(x+3,y,94,40);

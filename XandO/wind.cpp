@@ -60,7 +60,7 @@ void wind::isWinner(){
     }
 }
 
-void wind::paintEvent(QPaintEvent *event){
+void wind::paintEvent(QPaintEvent *event){ Q_UNUSED(event);
     for(int i=0; i<9; i++) buts[i].myBut->setMinimumHeight(buts[i].myBut->width());
     resize(width(),width());
     show();
