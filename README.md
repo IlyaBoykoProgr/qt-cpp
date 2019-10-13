@@ -1,4 +1,4 @@
-*_Qt-C++_*
+*_Qt-C++_* :smiley:
 ===
 My projects on QtC++: 2048,Shooter,ForStudy,[XandO](https://github.com/IlyaBoykoProgr/qt-cpp/XandO "TicTacToe")
 ---
@@ -10,10 +10,10 @@ How to build:
 ===
 using linux:
 ---
- - [x] run this command at [the terminal](http:// "Ctrl+Alt+T"):
+ - [x] run this command at the terminal
  > sudo apt install qtcreator qt5-default qtdeclarative5-dev && git clone https://github.com/IlyaBoykoProgr/qt-cpp
 
- - [x] after running command, open .pro files. *Press Ctrl+R* 
+ - [x] after running command, open .pro files. *Press <kpd>Ctrl</kpd>+<kpd>R</kpd>* 
  
 using windows:
 ---
@@ -21,3 +21,5 @@ using windows:
 - [x] Open [.pro file]() at your explorer and press *Ctrl+R*
 
 ![2048-qt](https://raw.githubusercontent.com/IlyaBoykoProgr/qt-cpp/master/2048-qt/2048.png)
+![Qt-framework](https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Qt_logo_2016.svg/1200px-Qt_logo_2016.svg.png)
+![C++Language](https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg)
