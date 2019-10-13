@@ -13,7 +13,7 @@ using linux:
  - [x] run this command at the terminal
  > sudo apt install qtcreator qt5-default qtdeclarative5-dev && git clone https://github.com/IlyaBoykoProgr/qt-cpp
 
- - [x] after running command, open .pro files. *Press <kpd>Ctrl</kpd>+<kpd>R</kpd>* 
+ - [x] after running command, open .pro files. Press <kbd>Ctrl</kbd>+<kbd>R</kbd>
  
 using windows:
 ---
