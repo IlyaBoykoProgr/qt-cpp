@@ -1,6 +1,6 @@
 *_Qt-C++_*
 ===
-My projects on QtC++: 2048,Shooter,ForStudy,[XandO](http://https://github.com/IlyaBoykoProgr/qt-cpp/XandO "TicTacToe")
+My projects on QtC++: 2048,Shooter,ForStudy,[XandO](https://github.com/IlyaBoykoProgr/qt-cpp/XandO "TicTacToe")
 ---
 
 There in this folders are games and apps,writen using QtC++.
@@ -10,10 +10,10 @@ How to build:
 ===
 using linux:
 ---
- run this command at [the terminal]( "Ctrl+Alt+T"):
+ - [x] run this command at [the terminal](http:// "Ctrl+Alt+T"):
  > sudo apt install qtcreator qt5-default qtdeclarative5-dev && git clone https://github.com/IlyaBoykoProgr/qt-cpp
 
- after running command, open .pro files. *Press Ctrl+R* 
+ - [x] after running command, open .pro files. *Press Ctrl+R* 
  
 using windows:
 ---
