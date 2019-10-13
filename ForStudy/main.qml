@@ -15,10 +15,15 @@ Window{
         x: parent.x
         y: parent.y
         columns: 2
-        rows: 2
+        rows: 3
         SpinBox{id:widthX;prefix:"width:";value:640;maximumValue:1500;minimumValue:1;stepSize:1}
         SpinBox{id:heightY;prefix:"height:";value:480;maximumValue:1500;minimumValue:1;stepSize:1}
         SpinBox{id:quality;prefix:"quality:";decimals:2;value:1.00;maximumValue:1;minimumValue:0.01;stepSize:0.01;width:widthX.width}
+        Button{
+            text: qsTr("Clear  ")
+            width: parent.width/4
+            onClicked: Qt.quit()
+        }
         Button{text:qsTr("complete");onClicked:settings.visible=false}
     }
     ToolBar{x:parent.width-width;width: parent.width/2.5;Row{anchors.fill: parent
@@ -43,11 +48,10 @@ Window{
             focus: true
             Keys.onReturnPressed: all.drawGraph()
             width: parent.width/4-20
-        }
-        Button{
-            text: qsTr("Clear")
+        }Button{
+            text: qsTr("Exit   ")
             width: parent.width/4
-            onClicked: Qt.quit()
+            onClicked: all.visibility=6
         }
     }}
     function drawGraph(){
@@ -84,14 +88,5 @@ Window{
      Text {text:-heightY.value/2;x:5;y:all.height-73;color:"red"}
      Component.onCompleted: run.start();
      NumberAnimation on rotation{id:run;from:-90;to:0;duration:1500;easing.type:Easing.OutBounce;running:false}
-    }
-    Component.onCompleted: moveAll.start()
-    NumberAnimation{ id: moveAll
-        target: all
-        properties: "x,y"
-        from: 0
-        to: 200
-        duration: 1500
-        easing.type: Easing.OutBounce;
     }
 }

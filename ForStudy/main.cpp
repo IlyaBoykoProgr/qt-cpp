@@ -1,7 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
-#include <restarter.h>
+#include <QDebug>
 
 int main(int argc, char *argv[])
 {
@@ -10,13 +10,13 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     char code=0;
-    do{
+    while(code!=123){
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())return -1;
-    app.exec();
-
-    }while(!code==123);
+    code = app.exec();
+    qDebug()<<code;
+    };
     return 0;
 }
