@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.4
-import QtQuick.Window 2.0
+import QtQuick.Window 2.2
 
 Window{
     id: all
@@ -87,6 +87,7 @@ Window{
      Text {text:heightY.value/2;x:5;y:0;color:"red"}
      Text {text:-heightY.value/2;x:5;y:all.height-73;color:"red"}
      Component.onCompleted: run.start();
-     NumberAnimation on rotation{id:run;from:-90;to:0;duration:1500;easing.type:Easing.OutBounce;running:false}
+     RotationAnimation{id:run;from:-90;to:0;duration:1500;easing.type:Easing.OutBounce;running:false}
     }
+    onActiveChanged: all.visibility = (all.active)?1:3
 }
