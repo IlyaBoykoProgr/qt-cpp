@@ -1,5 +1,7 @@
-<h1>Qt-C++</h1>
-my projects on QtC++<br/>
+#Qt-C++
+---
+##My projects on QtC++: 2048,Shooter,ForStudy,<abbr title="Tic Tac Toe">XandO</abbr>
+---
 There in this folders are games and apps,writen using QtC++.<br/>
 Enjoy!<br/>
 <h1>How to use:</h1>
