@@ -1,11 +1,12 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.4
+import QtQuick.Window 2.0
 
-ApplicationWindow{
+Window{
     id: all
     visible: true
-    width: 640
-    height: 480
+    width: 600
+    height: 400
     title: qsTr("Function viewer")
     Grid{
         z: 2
@@ -17,10 +18,10 @@ ApplicationWindow{
         rows: 2
         SpinBox{id:widthX;prefix:"width:";value:640;maximumValue:1500;minimumValue:1;stepSize:1}
         SpinBox{id:heightY;prefix:"height:";value:480;maximumValue:1500;minimumValue:1;stepSize:1}
-        SpinBox{id:quality;prefix:"quality:";decimals:2;value:0.14;maximumValue:1;minimumValue:0.01;stepSize:0.01;width:widthX.width}
+        SpinBox{id:quality;prefix:"quality:";decimals:2;value:1.00;maximumValue:1;minimumValue:0.01;stepSize:0.01;width:widthX.width}
         Button{text:qsTr("complete");onClicked:settings.visible=false}
     }
-    toolBar: ToolBar{z:3;Row{anchors.fill: parent
+    ToolBar{x:parent.width-width;width: parent.width/2.5;Row{anchors.fill: parent
         Text {
             text: qsTr("y=")
             x:0
@@ -34,19 +35,19 @@ ApplicationWindow{
         Button{
             text: qsTr("Settings")
             onClicked: settings.visible=true
-            width: parent.width/4-20
+            width: parent.width/4
         }
         Button{
             onClicked: all.drawGraph()
             text: "Ok"
             focus: true
             Keys.onReturnPressed: all.drawGraph()
-            width: parent.width/4
+            width: parent.width/4-20
         }
         Button{
             text: qsTr("Clear")
             width: parent.width/4
-            onClicked: appRestart.restart()
+            onClicked: Qt.quit()
         }
     }}
     function drawGraph(){
@@ -67,7 +68,7 @@ ApplicationWindow{
      color: "red"
      width: all.width
      height: 3
-     x:0; y: all.height/2-44
+     x:0; y: all.height/2
      z: 2
      Text {text:widthX.value/2;x:0;color:"red"}
      Text {text:-widthX.value/2;x:all.width-width;color:"red"}
@@ -81,7 +82,16 @@ ApplicationWindow{
      z: 2
      Text {text:heightY.value/2;x:5;y:0;color:"red"}
      Text {text:-heightY.value/2;x:5;y:all.height-73;color:"red"}
-     Component.onCompleted: run.running=true;
+     Component.onCompleted: run.start();
      NumberAnimation on rotation{id:run;from:-90;to:0;duration:1500;easing.type:Easing.OutBounce;running:false}
+    }
+    Component.onCompleted: moveAll.start()
+    NumberAnimation{ id: moveAll
+        target: all
+        properties: "x,y"
+        from: 0
+        to: 200
+        duration: 1500
+        easing.type: Easing.OutBounce;
     }
 }
