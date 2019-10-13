@@ -19,3 +19,5 @@ using windows:
 ---
 - [x] download and install [it](http://download.qt.io/official_releases/qt/5.12/5.12.4/qt-opensource-windows-x86-5.12.4.exe)
 - [x] Open [.pro file]() at your explorer and press *Ctrl+R*
+
+![2048-qt](https://raw.githubusercontent.com/IlyaBoykoProgr/qt-cpp/master/2048-qt/2048.png)
