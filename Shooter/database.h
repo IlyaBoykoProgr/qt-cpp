@@ -6,33 +6,27 @@ typedef struct{
     int mazes=0;
     long blocks=0;
     bool style=0;
+
 } shData;
 
 class bin{
-public:
-  static int brokenBlocks(){
-    shData b;
-    FILE *f;
-    f=fopen("shooter-data", "rb");
-    fread(&b, sizeof(shData), 1, f);
-    fclose(f);
-    return b.blocks;
-  }
-  static int mazesComplete(){
-    shData b;
-    FILE *f;
-    f=fopen("shooter-data", "rb");
-    fread(&b, sizeof(shData), 1, f);
-    fclose(f);
-    return b.mazes;
-  }
-  static bool styleBlocks(){
+  static shData get(){
       shData b;
       FILE *f;
       f=fopen("shooter-data", "rb");
       fread(&b, sizeof(shData), 1, f);
       fclose(f);
-      return b.style;
+      return b;
+  }
+public:
+  static int brokenBlocks(){
+    return get().blocks;
+  }
+  static int mazesComplete(){
+    return get().mazes;
+  }
+  static bool styleBlocks(){
+      return get().style;
   }
   static void set(int blocks, int mazes=mazesComplete(), bool style=styleBlocks()){
     FILE *f;

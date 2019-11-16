@@ -11,10 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>shooter</string>
+   <string>Shooter game</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-image: url(:/images/kosmos.jpg);color:white;</string>
+   <string notr="true">background-image: url(:/backgs/backg1.jpg);
+color:white</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QLabel" name="tank">
@@ -27,7 +28,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-image: url(:/images/turrel.png);</string>
+     <string notr="true">background-image: url(:/tanks/tank1.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -40,7 +41,7 @@
      <x>0</x>
      <y>0</y>
      <width>500</width>
-     <height>36</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOptions">
@@ -63,8 +64,15 @@
     <addaction name="actionNew_Game"/>
     <addaction name="actionProgress"/>
    </widget>
+   <widget class="QMenu" name="menuQuit">
+    <property name="title">
+     <string>Quit</string>
+    </property>
+    <addaction name="actionQuit"/>
+   </widget>
    <addaction name="menuGame"/>
    <addaction name="menuOptions"/>
+   <addaction name="menuQuit"/>
   </widget>
   <action name="actionAchievements">
    <property name="enabled">
@@ -96,6 +104,11 @@
    </property>
    <property name="text">
     <string>Change bricks</string>
+   </property>
+  </action>
+  <action name="actionQuit">
+   <property name="text">
+    <string>Quit ((</string>
    </property>
   </action>
  </widget>

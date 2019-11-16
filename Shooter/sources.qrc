@@ -1,8 +1,11 @@
 <RCC>
-    <qresource prefix="/images">
-        <file>turrel.png</file>
-        <file>kosmos.jpg</file>
-        <file>icon.jpg</file>
+    <qresource prefix="/tanks">
+        <file>tank1.png</file>
     </qresource>
-    <qresource prefix="/"/>
+    <qresource prefix="/backgs">
+        <file>backg1.jpg</file>
+    </qresource>
+    <qresource prefix="/icons">
+        <file>icon1.jpg</file>
+    </qresource>
 </RCC>

@@ -1,14 +1,21 @@
 #include "shooter.h"
+#include "block.h"
 #include "ui_shooter.h"
+#include <fstream>
 #include <QInputDialog>
 #include <QApplication>
-#include <QProcess>
+#include <QPushButton>
 int BLOCKS;
 
 shooter::shooter(QWidget *parent) :
   QMainWindow(parent),
   ui(new Ui::shooter)
 {
+    std::ifstream is("shooter-data");
+    if(! is.is_open() ){
+      is.close();
+      bin::set(0,0,false);
+    }
   ui->setupUi(this);
   BLOCKS=QInputDialog::getInt(this,"Difficulty","How many blocks do you want to break?",30,10);
   setFixedSize(500,600+ui->menuBar->height());
@@ -62,7 +69,7 @@ void shooter::shoot(int x){
 }
 
 void shooter::unlockAch(int broken){
-  if(broken>=10)setWindowIcon(QIcon(":/images/icon.jpg"));
+  if(broken>=10)setWindowIcon(QIcon(":/icons/icon1.jpg"));
   if(broken==10)QMessageBox::information(this,"YaaaaY","You have just broken 10th block!\nNow you can see window icon!");
   if(broken>=50)ui->menuGame->setDisabled(false);
   if(broken==50)QMessageBox::information(this,"YaaaaY","You have just broken 50th block!\nMenu Game is unlocked!");
@@ -110,14 +117,22 @@ void shooter::on_actionChange_blocks_triggered()
     QMessageBox::information(this,"All","is OK.\nPress OK");
 }
 
+#include <QProcess>
 void shooter::on_actionNew_Game_triggered()
 {
-    QProcess y;
-    y.startDetached(QApplication::applicationDirPath()+QApplication::applicationFilePath(),QApplication::arguments());
+    QProcess::startDetached(
+        QApplication::arguments()[0],
+        QApplication::arguments()
+    );
     QApplication::exit();
 }
 
 shooter::~shooter()
 {
   delete ui;
+}
+
+void shooter::on_actionQuit_triggered()
+{
+    QApplication::exit(123);
 }

@@ -24,10 +24,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        shooter.cpp
+        shooter.cpp \
+    block.cpp
 
 HEADERS  += shooter.h \
-    database.h
+    database.h \
+    block.h
 
 FORMS    += shooter.ui
 
