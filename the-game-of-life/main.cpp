@@ -1,5 +1,5 @@
 //USER DEFINES
-    #define CELLS 15
+    #define CELLS 20
     #define SIZE 500
 //
 
