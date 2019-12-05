@@ -87,7 +87,6 @@ Window{
      Text {text:heightY.value/2;x:5;y:0;color:"red"}
      Text {text:-heightY.value/2;x:5;y:all.height-73;color:"red"}
      Component.onCompleted: run.start();
-     RotationAnimation{id:run;from:-90;to:0;duration:1500;easing.type:Easing.OutBounce;running:false}
+     NumberAnimation{id:run;from:-90;to:0;duration:1500;easing.type:Easing.OutBounce;running:false}
     }
-    onActiveChanged: all.visibility = (all.active)?1:3
 }

@@ -34,14 +34,14 @@ void shooter::keyPressEvent(QKeyEvent *ev){
     case 1042://D rus
     case Qt::Key_Right:
       if(ui->tank->x()<460)
-      ui->tank->move(ui->tank->x()+6,0);
+      ui->tank->move(ui->tank->x()+10,0);
     break;
 
     case 65://A
     case 1060://A rus
     case Qt::Key_Left:
       if(ui->tank->x()>0)
-      ui->tank->move(ui->tank->x()-6,0);
+      ui->tank->move(ui->tank->x()-10,0);
     break;
     case 32:
     case Qt::Key_Down:
