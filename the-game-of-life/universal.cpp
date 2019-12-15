@@ -9,13 +9,14 @@
 Universal::Universal(int count,int size)
 {
     this->size=size;  COUNT=count;  resize(size,size);
+    setAnimated(false);
     cells= new QPushButton**[COUNT];//Creating cells
     for(int i=0;i<COUNT;i++)cells[i]=new QPushButton*[COUNT];
     everyCell{
         cells[x][y]=new QPushButton(this);
         cells[x][y]->setGeometry(x*CELL,y*CELL,CELL,CELL);
         cells[x][y]->setCheckable(true);
-        cells[x][y]->setFlat(true);
+        cells[x][y]->setStyleSheet("background:black");
         cells[x][y]->show();
     }
     state= new bool*[COUNT];//Creating states of cells
@@ -32,6 +33,8 @@ void Universal::timerEvent(QTimerEvent *event){
         short n = neighbors(state,x,y);
         if(n==3||(n==2&&cells[x][y]->isLive))cells[x][y]->live;
         else cells[x][y]->die;
+        if(state[x][y]!=cells[x][y]->isLive)
+        cells[x][y]->setStyleSheet(cells[x][y]->isLive?"background:green":"background:black");
     }
 }
 

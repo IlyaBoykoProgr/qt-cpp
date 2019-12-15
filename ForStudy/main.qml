@@ -22,7 +22,9 @@ Window{
         Button{
             text: qsTr("Clear  ")
             width: parent.width/4
-            onClicked: Qt.quit()
+            objectName: "reset";
+            signal restart(int code);
+            onClicked: restart(1);
         }
         Button{text:qsTr("complete");onClicked:settings.visible=false}
     }
@@ -51,7 +53,7 @@ Window{
         }Button{
             text: qsTr("Exit   ")
             width: parent.width/4
-            onClicked: all.visibility=6
+            onClicked: Qt.quit();
         }
     }}
     function drawGraph(){

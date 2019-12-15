@@ -1,22 +1,21 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include <QQmlContext>
-#include <QDebug>
+#include <QQuickItem>
+#include "exiter.h"
 
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-
     QGuiApplication app(argc, argv);
+    exiter one;
 
-    char code=0;
-    while(code!=123){
-
-    QQmlApplicationEngine engine;
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
-    if (engine.rootObjects().isEmpty())return -1;
+    char code=1;
+    while(code!=0){
+    QQmlApplicationEngine engine(QUrl(QStringLiteral("qrc:/main.qml")));
+    QObject* restarter=engine.rootObjects()[0]->findChild<QObject*>("reset");
+    if(!restarter)return -1;
+    QObject::connect(restarter,SIGNAL(restart(int)),&one,SLOT(exit(int)));
     code = app.exec();
-    qDebug()<<code;
     };
     return 0;
 }
