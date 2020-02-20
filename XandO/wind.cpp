@@ -19,14 +19,15 @@ wind::wind(QWidget *parent) :
     buts[6].setBut(ui->but6,ui->statusBar);
     buts[7].setBut(ui->but7,ui->statusBar);
     buts[8].setBut(ui->but8,ui->statusBar);
-    for(int i=0; i<9; i++){
-        XO *now= &buts[i];
-        connect(now,SIGNAL(butChanged()),this,SLOT(isWinner()));
-    }
+    for(int i=0; i<9; i++)
+        connect(&buts[i],SIGNAL(butChanged()),this,SLOT(isWinner()));
 }
 wind::~wind()
 {
-    delete ui;
+    if(ui->statusBar->currentMessage()!=""){
+        QMessageBox::critical(nullptr,"Oh NO!","game not finished!");
+    }
+    else delete ui;
 }
 
 void wind::on_action_triggered()
@@ -41,7 +42,7 @@ void wind::isWinner(){
        (x[3]&&x[4]&&x[5])||(x[1]&&x[4]&&x[7])||
        (x[6]&&x[7]&&x[8])||(x[2]&&x[5]&&x[8])||(x[2]&&x[4]&&x[6])||(x[0]&&x[4]&&x[8])
     ){
-        QMessageBox::information(this,"Крестики!","Поздравляю победившего!\n\n\n\n                       (c)System");
+        QMessageBox::information(this,"Крестики!","Поздравляю победившего!\n\n\n\n(c)System");
         on_action_triggered();
 
     }

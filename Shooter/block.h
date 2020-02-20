@@ -6,10 +6,10 @@
 #include <QLabel>
 class block: public QLabel{
   Q_OBJECT
-  short h;
+  short health;
 public:
   block(int x, int y,short health,shooter* parent);
-  void destroy();
+  void hit();
 public slots:
   void update();
 signals:

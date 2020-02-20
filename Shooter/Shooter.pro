@@ -29,7 +29,8 @@ SOURCES += main.cpp\
 
 HEADERS  += shooter.h \
     database.h \
-    block.h
+    block.h \
+    bullet.h
 
 FORMS    += shooter.ui
 

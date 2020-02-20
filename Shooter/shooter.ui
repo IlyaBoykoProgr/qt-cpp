@@ -15,7 +15,8 @@
   </property>
   <property name="styleSheet">
    <string notr="true">background-image: url(:/backgs/backg1.jpg);
-color:white</string>
+color:white;
+QAction:!enabled,QMenu:!enabled{color:red;}</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QLabel" name="tank">
@@ -60,9 +61,8 @@ color:white</string>
     <property name="title">
      <string>&amp;Game</string>
     </property>
-    <addaction name="actionAchievements"/>
     <addaction name="actionNew_Game"/>
-    <addaction name="actionProgress"/>
+    <addaction name="actionPause"/>
    </widget>
    <widget class="QMenu" name="menuQuit">
     <property name="title">
@@ -70,7 +70,18 @@ color:white</string>
     </property>
     <addaction name="actionQuit"/>
    </widget>
+   <widget class="QMenu" name="menuStats">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="title">
+     <string>Stats</string>
+    </property>
+    <addaction name="actionAchievements"/>
+    <addaction name="actionProgress"/>
+   </widget>
    <addaction name="menuGame"/>
+   <addaction name="menuStats"/>
    <addaction name="menuOptions"/>
    <addaction name="menuQuit"/>
   </widget>
@@ -109,6 +120,14 @@ color:white</string>
   <action name="actionQuit">
    <property name="text">
     <string>Quit ((</string>
+   </property>
+   <property name="shortcut">
+    <string>Esc</string>
+   </property>
+  </action>
+  <action name="actionPause">
+   <property name="text">
+    <string>Pause</string>
    </property>
   </action>
  </widget>

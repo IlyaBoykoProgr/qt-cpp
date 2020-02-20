@@ -60,6 +60,7 @@ short Universal::neighbors(bool** cells,int x, int y){
 
 void Universal::mousePressEvent(QMouseEvent *event){
     if(event->button()==Qt::RightButton)isPlaying=!isPlaying;
+    statusBar()->showMessage(isPlaying?"Game isn't paused":"Game is paused");
 }
 
 Universal::~Universal()

@@ -4,8 +4,10 @@
 #include <QMainWindow>
 #include <QTimerEvent>
 #include <QMouseEvent>
+#include <QStatusBar>
 #include <QPushButton>
 #include <QMessageBox>
+#include <QGraphicsBlurEffect>
 
 class Universal : public QMainWindow
 {

@@ -9,6 +9,7 @@ int main(int argc, char *argv[])
   while(code!=123){
     srand(QTime::currentTime().msec());
     shooter w;
+    w.startTimer(1500);
     w.show();
     code =a.exec();
   }
