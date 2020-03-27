@@ -18,7 +18,7 @@ using linux:
 using windows:
 ---
 - [x] download and install [this](http://download.qt.io/official_releases/online_installers/qt-unified-windows-x86-online.exe)
-- [x] download this projects
+- [x] download this [projects](https://github.com/IlyaBoykoProgr/qt-cpp/archive/master.zip)
 - [x] Open [.pro file]() at your explorer and press <kbd>Ctrl</kbd>+<kbd>R</kbd>
 
 <img src="https://raw.githubusercontent.com/IlyaBoykoProgr/qt-cpp/master/2048-qt/2048.png" height="50"/>
