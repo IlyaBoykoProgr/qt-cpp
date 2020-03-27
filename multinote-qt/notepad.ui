@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Notepad</class>
+ <widget class="QMainWindow" name="Notepad">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>378</width>
+    <height>296</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Notepad</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout"/>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>378</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_File">
+    <property name="title">
+     <string>Файл</string>
+    </property>
+    <addaction name="act_Open"/>
+    <addaction name="act_Save"/>
+    <addaction name="act_NoSave"/>
+    <addaction name="act_Remove"/>
+    <addaction name="act_New"/>
+   </widget>
+   <widget class="QMenu" name="menu_App">
+    <property name="title">
+     <string>Приложение</string>
+    </property>
+    <addaction name="act_Quit"/>
+    <addaction name="act_NewWindow"/>
+    <addaction name="act_About"/>
+   </widget>
+   <addaction name="menu_File"/>
+   <addaction name="menu_App"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="act_Open">
+   <property name="text">
+    <string>Открыть</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="act_Save">
+   <property name="text">
+    <string>Сохранить</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="act_Remove">
+   <property name="text">
+    <string>Удалить</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Del</string>
+   </property>
+  </action>
+  <action name="act_Quit">
+   <property name="text">
+    <string>Выйти</string>
+   </property>
+   <property name="shortcut">
+    <string>Esc</string>
+   </property>
+  </action>
+  <action name="act_New">
+   <property name="text">
+    <string>Новый документ</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="act_NoSave">
+   <property name="text">
+    <string>Закрыть и забыть</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="act_About">
+   <property name="text">
+    <string>Это че?</string>
+   </property>
+   <property name="shortcut">
+    <string>F1</string>
+   </property>
+  </action>
+  <action name="act_NewWindow">
+   <property name="text">
+    <string>Новое окно</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+N</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
