@@ -28,5 +28,7 @@ private slots:
     void closeTab();
     void closeEvent(QCloseEvent* event);
     void on_act_NewWindow_triggered();
+    void on_act_Rename_triggered();
+    void on_act_Info_triggered();
 };
 #endif // NOTEPAD_H

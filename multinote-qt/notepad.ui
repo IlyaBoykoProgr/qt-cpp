@@ -31,9 +31,11 @@
     </property>
     <addaction name="act_Open"/>
     <addaction name="act_Save"/>
-    <addaction name="act_NoSave"/>
+    <addaction name="act_Rename"/>
     <addaction name="act_Remove"/>
+    <addaction name="act_NoSave"/>
     <addaction name="act_New"/>
+    <addaction name="act_Info"/>
    </widget>
    <widget class="QMenu" name="menu_App">
     <property name="title">
@@ -109,6 +111,22 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+N</string>
+   </property>
+  </action>
+  <action name="act_Rename">
+   <property name="text">
+    <string>Переименовать</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="act_Info">
+   <property name="text">
+    <string>Информация</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
    </property>
   </action>
  </widget>

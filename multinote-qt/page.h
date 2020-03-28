@@ -1,11 +1,14 @@
 #ifndef PAGE_H
 #define PAGE_H
+#include <QDebug>
 #include <QTabWidget>
-#include <QFileDialog>
 #include <QVBoxLayout>
-#include <QTextEdit>
-#include <QFile>
+#include <QFileDialog>
+#include <QInputDialog>
 #include <QMessageBox>
+#include <QTextEdit>
+#include <QTextStream>
+#include <QFile>
 #include "notepad.h"
 using namespace std;
 
@@ -14,7 +17,7 @@ class Page : public QWidget{
     QTabWidget* tabs;
  public:
     int index;
-    QString file;
+    QString adress,filename,dir;
     Page(QTabWidget* parent=nullptr):QWidget(parent){
         tabs=parent;
         tabs->addTab(this,"Новый документ");
@@ -24,28 +27,52 @@ class Page : public QWidget{
         edit.show();
     }
     bool save(){
-        if(file.isEmpty()){
-            file= QFileDialog::getSaveFileUrl(this,"Выберите место для сохранения").toString().right(8);
+        if(adress.isEmpty()){
+            adress= QFileDialog::getSaveFileUrl(this,"Выберите место для сохранения").toString().right(8);
         }
-        if(file.isEmpty())return false;
-        QFile f(file);
+        if(adress.isEmpty())return false;
+        QFile f(adress);
         if(!f.open(QIODevice::Truncate|QIODevice::ReadWrite))
             return false;
         f.write(edit.toPlainText().toLocal8Bit());
-        tabs->setTabText(index,f.fileName());
+        tabs->setTabText(index,filename);
         f.close();
         return true;
     }
-    void open(QUrl adress){
-        file=adress.toString().right(8);
-        QFile f(file);
-        f.open(QIODevice::ReadWrite|QIODevice::Text);
-        tabs->setTabText(index,f.fileName());
-        edit.setText(QString(f.readAll()));
-        f.close();
+    void open(QUrl NewAdress){
+        adress=NewAdress.toString().replace("file:///","");
+        filename= NewAdress.fileName();
+        dir=adress;dir.replace(filename,"");
+        QFile qf(adress);
+        qf.open(QIODevice::ReadOnly|QIODevice::Text);
+        QTextStream in(&qf);
+        in.setAutoDetectUnicode(true);
+        tabs->setTabText(index,filename);
+        if(!(qf.isOpen()&&qf.isReadable())){
+            QMessageBox::critical(this,"Ошибка","Ошибка чтения файла");
+            qf.close();
+            tabs->setTabEnabled(index,false);
+            return;
+        }
+        edit.setText(in.readAll());
+        qf.close();
     }
-    ~Page(){
-        tabs->removeTab(index);
+    bool rename(){
+        QFile qf(adress);
+        qf.open(QIODevice::ReadWrite);
+        QString newName=QInputDialog::getText(this,"Переименование","Введите новое имя файла\n"
+                         "Старое: "+filename,QLineEdit::Normal,filename);
+        bool succ= qf.rename(newName);
+        QUrl url=QUrl("file:///"+dir+'/'+newName);
+        qf.close();
+        open(url);
+        return succ;
+    }
+    void showInfo(){
+        QMessageBox::information(this,"Информация о файле: ",
+                                 "Папка: "+dir+"\n"
+                                 "Имя файла: "+filename+"\n"
+                                 "Полный путь: "+adress);
     }
 };
 

@@ -13,6 +13,7 @@ Notepad::Notepad(QWidget *parent)
     files->setTabShape(QTabWidget::Rounded);
     ui->verticalLayout->addWidget(files);
     connect(files,SIGNAL(tabCloseRequested(int)),this,SLOT(closeTab()));
+    on_act_Open_triggered();
 }
 
 Notepad::~Notepad()
@@ -31,9 +32,10 @@ void Notepad::on_act_Save_triggered()
     Page* cur=(Page*)(files->currentWidget());
     while(!cur->save()){
         if(QMessageBox::critical(this,"Ошибка!","Не удалось сохранить файл\nПопробовать еще раз?",
-           QMessageBox::Retry,QMessageBox::No)==QMessageBox::No)break;
+           QMessageBox::Retry,QMessageBox::No)==QMessageBox::No)return;
         ui->statusbar->showMessage("Файл не сохранен");
     }
+    ui->statusbar->showMessage("Файл сохранен");
 }
 
 void Notepad::on_act_Open_triggered()
@@ -42,11 +44,11 @@ void Notepad::on_act_Open_triggered()
     p->open(
          QFileDialog::getOpenFileUrl(this,"Выберите файл для открытия")
     );
-    if(p->file.isEmpty()){
+    if(p->adress.isEmpty()){
         delete p;
         ui->statusbar->showMessage("Вкладка не открыта: файл не выбран");
     }else
-        ui->statusbar->showMessage("Документ "+files->tabText(p->index)+" открыта");
+        ui->statusbar->showMessage("Документ "+files->tabText(p->index)+" открыт");
 }
 
 void Notepad::on_act_Remove_triggered()
@@ -55,7 +57,7 @@ void Notepad::on_act_Remove_triggered()
     Page* cur=(Page*)(files->currentWidget());
     if(QMessageBox::question(this,"Подтверждение","Вы действительно хотите удалить "+files->tabText(cur->index)+" ?")
             ==QMessageBox::Yes){
-        remove(cur->file.toStdString().c_str());
+        remove(cur->adress.toStdString().c_str());
         delete cur;
         ui->statusbar->showMessage("Документ удален");
     }else{
@@ -77,7 +79,26 @@ void Notepad::on_act_NewWindow_triggered()
     QProcess::startDetached(QApplication::applicationFilePath());
 }
 
+void Notepad::on_act_Rename_triggered()
+{
+    if(((Page*)(files->currentWidget()))->rename())
+        ui->statusbar->showMessage("Файл успешно переименован");
+    else{
+        QMessageBox::critical(this,"Ошибка","Файл не получилось переименовать");
+        ui->statusbar->showMessage("Файл не переименован");
+    }
+}
+
+void Notepad::on_act_Info_triggered()
+{
+    ((Page*)(files->currentWidget()))->showInfo();
+}
+
+
 void Notepad::closeTab(){
+    if(!files->isTabEnabled(((Page*)(files->currentWidget()))->index)){
+        on_act_NoSave_triggered();return;
+    }
     switch(QMessageBox::question(this,"Закрытие вкладки","Вы пытаетесь закрыть вкладку\nСохранить документ?",
            QMessageBox::Yes,QMessageBox::No,QMessageBox::Cancel)){
         case QMessageBox::Cancel:return;
@@ -101,10 +122,9 @@ void Notepad::on_act_About_triggered()
 }
 
 void Notepad::closeEvent(QCloseEvent* event){
-    if(files->count()!=0){
-        if(QMessageBox::question(this,"Внимание!","Не все вкладки закрыты.\n"
-           "Действительно закрыть приложение?")==QMessageBox::Yes)exit(0);
-        else event->ignore();
-    }else
-    exit(0);
+    event->accept();
+    if(files->count()!=0&& QMessageBox::question(this,
+           "Внимание!","Не все вкладки закрыты.\n"
+           "Действительно закрыть приложение?")==QMessageBox::No)
+    event->ignore();
 }
