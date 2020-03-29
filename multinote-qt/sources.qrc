@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/acions">
+        <file>pictures/windowIcon.png</file>
+    </qresource>
+</RCC>

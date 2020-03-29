@@ -1,6 +1,6 @@
 #ifndef PAGE_H
 #define PAGE_H
-#include <QDebug>
+#include <QThread>
 #include <QTabWidget>
 #include <QVBoxLayout>
 #include <QFileDialog>
@@ -17,7 +17,7 @@ class Page : public QWidget{
     QTabWidget* tabs;
  public:
     int index;
-    QString adress,filename,dir;
+    QString adress,filename,dir,type;
     Page(QTabWidget* parent=nullptr):QWidget(parent){
         tabs=parent;
         tabs->addTab(this,"Новый документ");
@@ -27,6 +27,17 @@ class Page : public QWidget{
         edit.show();
     }
     bool save(){
+        if(edit.toPlainText()=="пасхалка"){
+            QWidget* ten[10];
+            for (int i=0;i<10;i++){
+                ten[i]= new QWidget;
+                ten[i]->setGeometry(i*100,i*80,400,100);
+                ten[i]->setWindowTitle("ПАСХАЛОЧКА");
+                ten[i]->show();
+                QThread::msleep(200);
+            }QThread::sleep(1);
+            for(int i=0;i<10;i++)delete ten[i];
+        }
         if(adress.isEmpty()){
             adress= QFileDialog::getSaveFileUrl(this,"Выберите место для сохранения").toString().right(8);
         }
@@ -40,14 +51,17 @@ class Page : public QWidget{
         return true;
     }
     void open(QUrl NewAdress){
+        if(NewAdress.isEmpty())return;
         adress=NewAdress.toString().replace("file:///","");
         filename= NewAdress.fileName();
         dir=adress;dir.replace(filename,"");
+        type=filename.right(filename.lastIndexOf('.')-1);
+        tabs->setTabText(index,filename);
+
         QFile qf(adress);
         qf.open(QIODevice::ReadOnly|QIODevice::Text);
         QTextStream in(&qf);
         in.setAutoDetectUnicode(true);
-        tabs->setTabText(index,filename);
         if(!(qf.isOpen()&&qf.isReadable())){
             QMessageBox::critical(this,"Ошибка","Ошибка чтения файла");
             qf.close();
@@ -72,7 +86,8 @@ class Page : public QWidget{
         QMessageBox::information(this,"Информация о файле: ",
                                  "Папка: "+dir+"\n"
                                  "Имя файла: "+filename+"\n"
-                                 "Полный путь: "+adress);
+                                 "Полный путь: "+adress+"\n"
+                                 "Расширение: "+type);
     }
 };
 

@@ -30,5 +30,6 @@ private slots:
     void on_act_NewWindow_triggered();
     void on_act_Rename_triggered();
     void on_act_Info_triggered();
+    void on_act_Restart_triggered();
 };
 #endif // NOTEPAD_H

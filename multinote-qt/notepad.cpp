@@ -10,9 +10,9 @@ Notepad::Notepad(QWidget *parent)
     files= new QTabWidget(this);
     files->setMovable(true);
     files->setTabsClosable(true);
-    files->setTabShape(QTabWidget::Rounded);
     ui->verticalLayout->addWidget(files);
     connect(files,SIGNAL(tabCloseRequested(int)),this,SLOT(closeTab()));
+    show();
     on_act_Open_triggered();
 }
 
@@ -29,6 +29,7 @@ void Notepad::on_act_New_triggered()
 
 void Notepad::on_act_Save_triggered()
 {
+    if(files->count()==0)return;
     Page* cur=(Page*)(files->currentWidget());
     while(!cur->save()){
         if(QMessageBox::critical(this,"Ошибка!","Не удалось сохранить файл\nПопробовать еще раз?",
@@ -75,7 +76,6 @@ void Notepad::on_act_NoSave_triggered()
 
 void Notepad::on_act_NewWindow_triggered()
 {
-    QApplication::beep();
     QProcess::startDetached(QApplication::applicationFilePath());
 }
 
@@ -92,6 +92,12 @@ void Notepad::on_act_Rename_triggered()
 void Notepad::on_act_Info_triggered()
 {
     ((Page*)(files->currentWidget()))->showInfo();
+}
+
+void Notepad::on_act_Restart_triggered()
+{
+    on_act_NewWindow_triggered();
+    QApplication::exit();
 }
 
 
