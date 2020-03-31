@@ -36,6 +36,7 @@ void Notepad::on_act_Save_triggered()
            QMessageBox::Retry,QMessageBox::No)==QMessageBox::No)return;
         ui->statusbar->showMessage("Файл не сохранен");
     }
+    cur->open(cur->adress);
     ui->statusbar->showMessage("Файл сохранен");
 }
 

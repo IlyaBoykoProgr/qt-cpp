@@ -27,7 +27,7 @@ class Page : public QWidget{
         edit.show();
     }
     bool save(){
-        if(edit.toPlainText()=="пасхалка"){
+        if(edit.toPlainText().contains("пасхалка")){
             QWidget* ten[10];
             for (int i=0;i<10;i++){
                 ten[i]= new QWidget;
@@ -55,7 +55,7 @@ class Page : public QWidget{
         adress=NewAdress.toString().replace("file:///","");
         filename= NewAdress.fileName();
         dir=adress;dir.replace(filename,"");
-        type=filename.right(filename.lastIndexOf('.')-1);
+        type=filename.right(filename.length()-(filename.lastIndexOf('.')+1));
         tabs->setTabText(index,filename);
 
         QFile qf(adress);
