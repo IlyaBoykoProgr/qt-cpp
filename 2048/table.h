@@ -2,7 +2,7 @@
 #define TABLE_H
 #include <QMainWindow>
 #include <QPushButton>
-#include <QScreen>
+#include <QThread>
 #include <QMessageBox>
 #include <QInputDialog>
 

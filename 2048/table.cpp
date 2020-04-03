@@ -8,74 +8,59 @@ table::table(QWidget *parent) :
 {
     ui->setupUi(this);
     resize(0,0);
-    cols= QInputDialog::getInt(this,"How many columns?","How many columns?",4,2,30);
-    rows= QInputDialog::getInt(this,"How many rows?","How many rows?",4,2,30);
-    if(cols<6 && rows<6)coff=0.5;
-    else if(cols<10 && rows<10)coff=1;
-    else if(cols<15 && rows<15)coff=2;
-    setFixedSize(cols*70/coff,rows*70/coff+30);
-     move(qrand()%2000,qrand()%1000);
-        scores= new short int*[cols];
-        for(int i=0; i<cols; i++)scores[i]= new short int[rows];
-        myNum= new QPushButton**[cols];
-        for(int i=0; i<rows; i++)myNum[i]= new QPushButton*[rows];
-        for(int c=0; c<cols; c++)for(int r=0; r<rows; r++){
-            myNum[c][r]=new QPushButton(this);
-            myNum[c][r]->resize(70/coff,70/coff);
-            myNum[c][r]->move(c*70/coff,r*70/coff);
-            myNum[c][r]->show();
-            setScore(0,c,r);
-        }
-        create();
-        create();
-        show();
-    QSize screen=QApplication::screens().at(0)->availableSize();
-    moveWidget(this,screen.width()/2-400, screen.height()/2-400, 400);
+    rows= QInputDialog::getInt(this,"Size of the table:","Write size of the table",4,2,30);
+    if(rows<6)coff=0.5;
+    else if(rows<=10)coff=1;
+    else if(rows<=15)coff=2;
+    else if(rows<=30)coff=4;
+    setStyleSheet("QPushButton{border:"+QString::number(5/coff)+"px solid #CF9E52;font-size:"+QString::number(20/coff)+"px;}");
+    setFixedSize(rows*70/coff,rows*70/coff+30);
+    move(qrand()%2000,qrand()%1000);
+    scores= new short int*[rows];
+    for(int i=0; i<rows; i++)scores[i]= new short int[rows];
+    myNum= new QPushButton**[rows];
+    for(int i=0; i<rows; i++)myNum[i]= new QPushButton*[rows];
+    for(int c=0; c<rows; c++)for(int r=0; r<rows; r++){
+        myNum[c][r]=new QPushButton(this);
+        myNum[c][r]->resize(70/coff,70/coff);
+        myNum[c][r]->move(c*70/coff,r*70/coff);
+        setScore(0,c,r);
+        myNum[c][r]->repaint();
+    }
+    create();
+    create();
+    move(200,50);
+    show();
 }
 
 void table::setScore(int score, int col, int row){
     scores[col][row]=score;
-    QString border="border:10px solid #CF9E52;";
+    switch(score){
+        case 0: myNum[col][row]->setStyleSheet("background:#EFBE72;");break;
+        case 2: myNum[col][row]->setStyleSheet("background:red;background-image:url(:/gems/gem3.png);");break;
+        case 4: myNum[col][row]->setStyleSheet("background:orange;background-image:url(:/gems/gem7.png);");break;
+        case 8: myNum[col][row]->setStyleSheet("background:yellow;background-image:url(:/gems/gem4.png);");break;
+        case 16: myNum[col][row]->setStyleSheet("background:lime;background-image:url(:/gems/gem2.png);");break;
+        case 32: myNum[col][row]->setStyleSheet("background:green;background-image:url(:/gems/gem2.png);");break;
+        case 64: myNum[col][row]->setStyleSheet("background:aqua;background-image:url(:/gems/gem6.png);");break;
+        case 128: myNum[col][row]->setStyleSheet("background:blue;background-image:url(:/gems/gem1.png);");break;
+        case 256: myNum[col][row]->setStyleSheet("background:purple;background-image:url(:/gems/gem5.png);");break;
+        case 512: myNum[col][row]->setStyleSheet("background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 blue, stop:1 purple);");break;
+        case 1024: myNum[col][row]->setStyleSheet("background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 green, stop:0.5 blue, stop:1 purple);");break;
+        case 2048: myNum[col][row]->setStyleSheet("background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 red, stop:0.5 yellow, stop:1 green);");break;
+    }
     if(score==0){
-        myNum[col][row]->setStyleSheet(border+"background:#EFBE72;");
-        myNum[col][row]->setFlat(true);
         myNum[col][row]->setText("");
         return;
     }
-    myNum[col][row]->setFlat(false);
     myNum[col][row]->setText(QString::number(score));
-    QString backg=border+
-            "background:";
-    switch (score){
-    case 2:backg.append("red");break;
-    case 4:backg.append("orange");break;
-    case 8:backg.append("yellow");break;
-    case 16:backg.append("lime");break;
-    case 32:backg.append("green");break;
-    case 64:backg.append("aqua");break;
-    case 128:backg.append("blue");break;
-    case 256:backg.append("purple");break;
-    case 512:backg.append("qconicalgradient(cx:0.5, cy:0.5, angle:0, stop:0 rgba(35, 40, 3, 255), stop:0.16 rgba(136, 106, 22, 255), stop:0.225 rgba(166, 140, 41, 255), stop:0.285 rgba(204, 181, 74, 255), stop:0.345 rgba(235, 219, 102, 255), stop:0.415 rgba(245, 236, 112, 255), stop:0.52 rgba(209, 190, 76, 255), stop:0.57 rgba(187, 156, 51, 255), stop:0.635 rgba(168, 142, 42, 255), stop:0.695 rgba(202, 174, 68, 255), stop:0.75 rgba(218, 202, 86, 255), stop:0.815 rgba(208, 187, 73, 255), stop:0.88 rgba(187, 156, 51, 255), stop:0.935 rgba(137, 108, 26, 255), stop:1 rgba(35, 40, 3, 255))");break;
-    case 1024:backg.append("qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(245, 224, 176, 255), stop:0.09 rgba(246, 189, 237, 255), stop:0.14 rgba(194, 207, 246, 255), stop:0.19 rgba(184, 160, 168, 255), stop:0.25 rgba(171, 186, 248, 255), stop:0.32 rgba(243, 248, 224, 255), stop:0.385 rgba(249, 162, 183, 255), stop:0.47 rgba(100, 115, 124, 255), stop:0.58 rgba(251, 205, 202, 255), stop:0.65 rgba(170, 128, 185, 255), stop:0.75 rgba(252, 222, 204, 255), stop:0.805 rgba(206, 122, 218, 255), stop:0.86 rgba(254, 223, 175, 255), stop:0.91 rgba(254, 236, 244, 255), stop:1 rgba(255, 191, 221, 255))");break;
-    case 2048:
-        backg.append("qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 red, stop:0.166 rgba(255, 255, 0, 255), stop:0.333 green, stop:0.5 rgba(0, 255, 255, 255), stop:0.666 blue, stop:0.833 purple, stop:1 red)");
+    myNum[col][row]->repaint();
+    if(score==2048){
         int answer=
-                QMessageBox::question(this,"2048 found winner!","My congratulations!!!\nYou have been played for a long time I think.\nDo you want to exit or continue?","Continue","Exit");
+                QMessageBox::question(this,"2048: winner!","My congratulations!!!\nYou have been played for a long time I think.\nDo you want to exit or continue?","Continue","Exit");
         if(answer==1)QApplication::exit();
-        break;
     }
-    backg.append(";background-image:url(");
-    switch (score){
-    case 2:backg.append(":/gems/gem3.png)");break;
-    case 4:backg.append(":/gems/gem7.png)");break;
-    case 8:backg.append(":/gems/gem4.png)");break;
-    case 16:backg.append(":/gems/gem2.png)");break;
-    case 32:backg.append(":/gems/gem2.png)");break;
-    case 64:backg.append(":/gems/gem6.png)");break;
-    case 128:backg.append(":/gems/gem1.png)");break;
-    case 256:backg.append(":/gems/gem5.png)");break;
-    }
-    myNum[col][row]->setStyleSheet(backg+";font-size:30px;");
+    if(coff!=4)QThread::msleep(16/coff);
 }
 
 void table::create(){
@@ -83,14 +68,14 @@ void table::create(){
     if((qrand()%10)==0)add=4;
     bool complete=0;
     for(int r=0; r<rows; r++){
-        for(int c=0; c<cols; c++){
-            if(c==cols-1 && r==rows-1){
+        for(int c=0; c<rows; c++){
+            if(c==rows-1 && r==rows-1){
                 QMessageBox::critical(this,"Big ERROR!!!","You have losed!                                 ");
                 for(int i=0;i<30;i++)moveWidget(this,qrand()%800,qrand()%400,20);
                 QApplication::exit(100);
                 break;
             }
-            int col,row; col=qrand()%cols;row=qrand()%rows;
+            int col,row; col=qrand()%rows;row=qrand()%rows;
             if(scores[col][row]==0){
                 setScore(add,col,row);
                 complete=1;
@@ -138,10 +123,10 @@ void table::left(int c, int r){
     }
 }
 void table::right(int c, int r){
-    if(c<cols-1 && scores[c+1][r]==0){
+    if(c<rows-1 && scores[c+1][r]==0){
         setScore(scores[c][r],c+1,r);
         setScore(0,c,r);
-    }else if(c<cols-1 && scores[c+1][r]==scores[c][r]){
+    }else if(c<rows-1 && scores[c+1][r]==scores[c][r]){
         setScore(scores[c][r]*2,c+1,r);
         setScore(0,c,r);
     }
@@ -149,7 +134,7 @@ void table::right(int c, int r){
 
 void table::on_Up_triggered()
 {
-    for(int how=0;how<rows;how++)for(int c=0; c<cols; c++){
+    for(int how=0;how<rows;how++)for(int c=0; c<rows; c++){
         for(int r=0; r<rows; r++)up(c,r);
     }
     create();
@@ -157,7 +142,7 @@ void table::on_Up_triggered()
 
 void table::on_Down_triggered()
 {
-    for(int how=0;how<rows;how++)for(int c=cols-1; c>=0; c--){
+    for(int how=0;how<rows;how++)for(int c=rows-1; c>=0; c--){
         for(int r=rows-1; r>=0; r--)down(c,r);
     }
     create();
@@ -165,15 +150,15 @@ void table::on_Down_triggered()
 
 void table::on_Left_triggered()
 {
-    for(int how=0;how<cols;how++)for(int r=0; r<rows; r++){
-        for(int c=0; c<cols; c++)left(c,r);
+    for(int how=0;how<rows;how++)for(int r=0; r<rows; r++){
+        for(int c=0; c<rows; c++)left(c,r);
     }
     create();
 }
 void table::on_Right_triggered()
 {
-    for(int how=0;how<cols;how++)for(int r=rows-1; r>=0; r--){
-        for(int c=cols-1; c>=0; c--)right(c,r);
+    for(int how=0;how<rows;how++)for(int r=rows-1; r>=0; r--){
+        for(int c=rows-1; c>=0; c--)right(c,r);
     }
     create();
 }
