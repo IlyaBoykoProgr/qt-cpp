@@ -15,9 +15,8 @@ class table : public QMainWindow
     Q_OBJECT
 public:
     float coff=1;
-    short cols;
-    short rows;
-    short** scores;
+    bool is2048created=false,is4096created=false;
+    short cols,rows,** scores;
     QPushButton ***myNum;
     explicit table(QWidget *parent = 0);
     void setScore(int score,int col,int row);

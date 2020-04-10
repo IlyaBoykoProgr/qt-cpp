@@ -48,7 +48,7 @@ void table::setScore(int score, int col, int row){
         case 512: myNum[col][row]->setStyleSheet("background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 blue, stop:1 purple);");break;
         case 1024: myNum[col][row]->setStyleSheet("background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 green, stop:0.5 blue, stop:1 purple);");break;
         case 2048: myNum[col][row]->setStyleSheet("background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 red, stop:0.5 yellow, stop:1 green);");break;
-        case 4096:myNum[col][row]->setStyleSheet("background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 red, stop:0.2 yellow, stop:0.4 green, stop:0.6 lightblue, stop:0.8 blue, stop:1 purple);");break;
+        case 4096:myNum[col][row]->setStyleSheet("background:qlineargradient(spread:pad, x1:0, y1:1, x2:1, y2:0, stop:0 red, stop:0.2 yellow, stop:0.4 green, stop:0.6 lightblue, stop:0.8 blue, stop:1 purple);");break;
     }
     if(score==0){
         myNum[col][row]->setText("");
@@ -56,16 +56,25 @@ void table::setScore(int score, int col, int row){
     }
     myNum[col][row]->setText(QString::number(score));
     myNum[col][row]->repaint();
-    if(score==2048){
-        setStyleSheet("QPushButton{border:"+QString::number(5/coff)+"px solid qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 red, stop:0.5 yellow, stop:1 green);font-size:"+QString::number(20/coff)+"px;}");
+    if(score==2048&&!is2048created){
+        QString style= myNum[col][row]->styleSheet();
+        is2048created=true;
+        setStyleSheet("QPushButton{border:"+QString::number(5/coff)+"px solid "+style.right(style.length()-11)+";font-size:"+QString::number(20/coff)+"px;}");
         int answer=
                 QMessageBox::question(this,"2048: winner!","My congratulations!!!\nYou have just complete game.\nDo you want to exit or continue?","Continue","Exit");
         if(answer==1)QApplication::exit();
     }
-    if(score==4096){
-        QMessageBox::critical(this,"OH MY GOD!!!","You're unstopppable, arn't you?\nHow did you make this?\nImpossible...");
+    if(score==4096&&!is4096created){
+        QString style= myNum[col][row]->styleSheet();
+        is4096created=true;
+        setStyleSheet("QPushButton{border:"+QString::number(5/coff)+"px solid "+style.right(style.length()-11)+";font-size:"+QString::number(20/coff)+"px;}");
+        QMessageBox::critical(this,"OH MY GOD!!!","You're unstopppable, aren't you?\nHow did you make this?\nImpossible...");
     }
-    if(score==8192)QApplication::exit();
+    if(score==8192){
+        for(int i=0;i<40;i++){show();QThread::msleep(10);hide();}
+        QMessageBox::critical(this,"stop doing this!","8192 is the largest number!");
+        QApplication::exit(-1);
+    }
 
     if(coff!=4)QThread::msleep(16/coff);
 }
