@@ -48,6 +48,7 @@ void table::setScore(int score, int col, int row){
         case 512: myNum[col][row]->setStyleSheet("background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 blue, stop:1 purple);");break;
         case 1024: myNum[col][row]->setStyleSheet("background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 green, stop:0.5 blue, stop:1 purple);");break;
         case 2048: myNum[col][row]->setStyleSheet("background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 red, stop:0.5 yellow, stop:1 green);");break;
+        case 4096:myNum[col][row]->setStyleSheet("background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 red, stop:0.2 yellow, stop:0.4 green, stop:0.6 lightblue, stop:0.8 blue, stop:1 purple);");break;
     }
     if(score==0){
         myNum[col][row]->setText("");
@@ -56,10 +57,16 @@ void table::setScore(int score, int col, int row){
     myNum[col][row]->setText(QString::number(score));
     myNum[col][row]->repaint();
     if(score==2048){
+        setStyleSheet("QPushButton{border:"+QString::number(5/coff)+"px solid qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 red, stop:0.5 yellow, stop:1 green);font-size:"+QString::number(20/coff)+"px;}");
         int answer=
-                QMessageBox::question(this,"2048: winner!","My congratulations!!!\nYou have been played for a long time I think.\nDo you want to exit or continue?","Continue","Exit");
+                QMessageBox::question(this,"2048: winner!","My congratulations!!!\nYou have just complete game.\nDo you want to exit or continue?","Continue","Exit");
         if(answer==1)QApplication::exit();
     }
+    if(score==4096){
+        QMessageBox::critical(this,"OH MY GOD!!!","You're unstopppable, arn't you?\nHow did you make this?\nImpossible...");
+    }
+    if(score==8192)QApplication::exit();
+
     if(coff!=4)QThread::msleep(16/coff);
 }
 
@@ -70,9 +77,10 @@ void table::create(){
     for(int r=0; r<rows; r++){
         for(int c=0; c<rows; c++){
             if(c==rows-1 && r==rows-1){
-                QMessageBox::critical(this,"Big ERROR!!!","You have losed!                                 ");
+                if(QMessageBox::critical(this,"Big ERROR!!!","You have losed!",
+                                      QMessageBox::Ok,QMessageBox::Cancel)==QMessageBox::Cancel)break;
                 for(int i=0;i<30;i++)moveWidget(this,qrand()%800,qrand()%400,20);
-                QApplication::exit(100);
+                QApplication::exit();
                 break;
             }
             int col,row; col=qrand()%rows;row=qrand()%rows;
@@ -99,7 +107,7 @@ void table::up(int c, int r){
         setScore(scores[c][r]*2,c,r-1);
         setScore(0,c,r);
         for(short i=2;i<=(scores[c][r]*2);i+=i){
-            setScore(i,c,r-1);QThread::msleep(500);
+            setScore(i,c,r-1);
             repaint();
         }
     }
