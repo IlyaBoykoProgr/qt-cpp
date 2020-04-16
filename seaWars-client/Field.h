@@ -6,7 +6,7 @@
 #include <QDebug>
 
 enum Cell{
-  CL_NONE, CL_BOAT, CL_MISS
+  CL_NONE, CL_BOAT, CL_MISS, CL_DESTROYED
 };
 
 class Field:public QWidget{
@@ -43,11 +43,14 @@ public:
         case CL_MISS:
             boats[x][y].setStyleSheet("background-image:url(:/images/miss.png)");
             break;
-
+        case CL_DESTROYED:
+            boats[x][y].setStyleSheet("background:red");
+            break;
         }
     }
     bool isABoat(int x, int y){
-        return boats[x][y].styleSheet()=="background-image:url(:/images/boat.png)";
+        return boats[x][y].styleSheet()=="background-image:url(:/images/boat.png)" ||
+               boats[x][y].styleSheet()=="background:red";
     }
     bool isEmpty(int x, int y){
         return boats[x][y].styleSheet()==" ";

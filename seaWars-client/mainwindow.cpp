@@ -61,15 +61,24 @@ void MainWindow::on_act_Shoot_triggered()
     State=ST_PROTECT;
 }
 void MainWindow::hitted(){field2->setBoat(field2->clickX,field2->clickY,CL_BOAT);
-                         ui->statusbar->showMessage("Вы попали!");}
+                         ui->statusbar->showMessage("Вы попали! За это вы можете ещё раз стрелять.");
+                         ui->act_Shoot->setDisabled(false);
+                         State=ST_ATTACK;}
 void MainWindow::missed(){field2->setBoat(field2->clickX,field2->clickY,CL_MISS);
     ui->statusbar->showMessage("Вы промазали..");}
 
 void MainWindow::Shoot_recieved(int x, int y){
     socket->write(field1->isABoat(x,y)?"hit":"miss");
-    ui->statusbar->showMessage("Вы атакуете");
-    ui->act_Shoot->setDisabled(false);
-    State=ST_ATTACK;
+    if(field1->isABoat(x,y)){
+        field1->setBoat(x,y,CL_DESTROYED);
+        ui->statusbar->showMessage("Противник бьёт ещё раз");
+    }
+    else{
+        field1->setBoat(x,y,CL_MISS);
+        ui->statusbar->showMessage("Вы атакуете");
+        ui->act_Shoot->setDisabled(false);
+        State=ST_ATTACK;
+    }
 }
 
 void MainWindow::field2_clicked(){

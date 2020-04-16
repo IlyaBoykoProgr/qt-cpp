@@ -4,6 +4,7 @@
 #include <QApplication>
 #include <QTcpSocket>
 #include <QMessageBox>
+#include <QInputDialog>
 #include <QNetworkInterface>
 
 class Client : public QTcpSocket

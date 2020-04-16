@@ -2,8 +2,14 @@
 
 Server::Server(QObject* parent):QTcpServer(parent)
 {
-    if(this->listen(QNetworkInterface::allAddresses().at(0),8080))
+    QString address;
+    for(int i=QNetworkInterface::allAddresses().length()-1;i>-1;i--)
+        if(QNetworkInterface::allAddresses()[i].toString().left(8)=="192.168.")
+            address=QNetworkInterface::allAddresses()[i].toString();
+    if(this->listen(QHostAddress(address),8080)){
         qDebug()<<"Listening";
+        if(address.isNull())qDebug()<<"SERVER WORKS ONLY AT THIS MASHINE because no public adresses left";
+    }
     else {
         qDebug()<<"Don't listening. Error: "+errorString();
         QCoreApplication::quit();
@@ -57,6 +63,7 @@ void Server::player2Writing(){
     QString data=sock2->readAll();
     qDebug()<<"2nd player sent "<<data;
     if(data.startsWith("ready ")){
+        if(data.length()!=106)return;
         qDebug()<<"2nd player is ready";
         parseTable(data.right(100),boats2);
         qDebug()<<"2nd player's boats recieved";
