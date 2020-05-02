@@ -20,53 +20,6 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout"/>
   </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>BottomToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-   <addaction name="Up"/>
-   <addaction name="Down"/>
-   <addaction name="Left"/>
-   <addaction name="Right"/>
-  </widget>
-  <action name="Up">
-   <property name="text">
-    <string>Up.</string>
-   </property>
-   <property name="shortcut">
-    <string>Up</string>
-   </property>
-  </action>
-  <action name="Down">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Down.</string>
-   </property>
-   <property name="shortcut">
-    <string>Down</string>
-   </property>
-  </action>
-  <action name="Left">
-   <property name="text">
-    <string>Left.</string>
-   </property>
-   <property name="shortcut">
-    <string>Left</string>
-   </property>
-  </action>
-  <action name="Right">
-   <property name="text">
-    <string>Right.</string>
-   </property>
-   <property name="shortcut">
-    <string>Right</string>
-   </property>
-  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

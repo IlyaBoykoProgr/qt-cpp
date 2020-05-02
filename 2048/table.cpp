@@ -1,21 +1,17 @@
 #include "table.h"
-#include "ui_table.h"
 #include "../animate.h"
+#include <QDebug>
 
 table::table(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::table)
+    QMainWindow(parent)
 {
-    ui->setupUi(this);
-    resize(0,0);
     rows= QInputDialog::getInt(this,"Size of the table:","Write size of the table",4,2,30);
     if(rows<6)coff=0.5;
     else if(rows<=10)coff=1;
     else if(rows<=15)coff=2;
     else if(rows<=30)coff=4;
-    setStyleSheet("QPushButton{border:"+QString::number(5/coff)+"px solid #CF9E52;font-size:"+QString::number(20/coff)+"px;}");
-    setFixedSize(rows*70/coff,rows*70/coff+30);
-    move(qrand()%2000,qrand()%1000);
+    setStyleSheet("QPushButton{border:"+QString::number(5/coff)+"px solid #CF9E52;font-size:"+QString::number(30/coff)+"px;}");
+    setFixedSize(rows*70/coff,rows*70/coff);
     scores= new short int*[rows];
     for(int i=0; i<rows; i++)scores[i]= new short int[rows];
     myNum= new QPushButton**[rows];
@@ -31,6 +27,21 @@ table::table(QWidget *parent) :
     create();
     move(200,50);
     show();
+    setFocus(Qt::FocusReason::ActiveWindowFocusReason);
+}
+
+void table::keyPressEvent(QKeyEvent* ev){
+    switch(ev->key()){
+    case Qt::Key_Up:on_Up_triggered(); break;
+    case Qt::Key_Down:on_Down_triggered(); break;
+    case Qt::Key_Left:on_Left_triggered(); break;
+    case Qt::Key_Right:on_Right_triggered(); break;
+    }
+}
+
+void table::focusOutEvent(QFocusEvent *ev){
+    Q_UNUSED(ev);
+    setFocus(Qt::FocusReason::ActiveWindowFocusReason);
 }
 
 void table::setScore(int score, int col, int row){
@@ -51,7 +62,7 @@ void table::setScore(int score, int col, int row){
         case 4096:myNum[col][row]->setStyleSheet("background:qlineargradient(spread:pad, x1:0, y1:1, x2:1, y2:0, stop:0 red, stop:0.2 yellow, stop:0.4 green, stop:0.6 lightblue, stop:0.8 blue, stop:1 purple);");break;
     }
     if(score==0){
-        myNum[col][row]->setText("");
+        myNum[col][row]->setText(" ");
         return;
     }
     myNum[col][row]->setText(QString::number(score));
@@ -101,11 +112,6 @@ void table::create(){
         }
         if(complete)break;
     }
-}
-
- table::~table()
-{
-    delete ui;
 }
 
 void table::up(int c, int r){

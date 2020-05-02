@@ -2,9 +2,11 @@
 #define TABLE_H
 #include <QMainWindow>
 #include <QPushButton>
+#include <QKeyEvent>
 #include <QThread>
 #include <QMessageBox>
 #include <QInputDialog>
+#include <QApplication>
 
 namespace Ui {
 class table;
@@ -25,14 +27,14 @@ public:
     void down(int c, int r);
     void left(int c, int r);
     void right(int c, int r);
-    ~table();
 private slots:
     void on_Up_triggered();
     void on_Down_triggered();
     void on_Left_triggered();
     void on_Right_triggered();
-private:
-    Ui::table *ui;
+protected:
+    void keyPressEvent(QKeyEvent* ev);
+    void focusOutEvent(QFocusEvent *ev);
 };
 
 #endif // TABLE_H
