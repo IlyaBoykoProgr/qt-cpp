@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>InfoWindow</class>
+ <widget class="QMainWindow" name="InfoWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>451</width>
+    <height>230</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="window_name">
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLabel" name="label_hwnd">
+        <property name="font">
+         <font>
+          <pointsize>13</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>HWND (номер окна):</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLCDNumber" name="hWnd_view">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>200</height>
+         </size>
+        </property>
+        <property name="digitCount">
+         <number>6</number>
+        </property>
+        <property name="mode">
+         <enum>QLCDNumber::Hex</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_y">
+        <property name="text">
+         <string>Y:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="pos_x">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QLabel" name="height">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QPushButton" name="minimize_wnd">
+        <property name="text">
+         <string>Свернуть окно</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="label_width">
+        <property name="text">
+         <string>Width:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QPushButton" name="maximize_wnd">
+        <property name="text">
+         <string>На весь экран</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QLabel" name="width">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLabel" name="pos_y">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_x">
+        <property name="text">
+         <string>X:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QLabel" name="label_height">
+        <property name="text">
+         <string>Height:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QCheckBox" name="visibility">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="cursor">
+         <cursorShape>ForbiddenCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string>видимо ли окно?</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="3">
+       <widget class="QPushButton" name="show_wnd">
+        <property name="text">
+         <string>Показать окно</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

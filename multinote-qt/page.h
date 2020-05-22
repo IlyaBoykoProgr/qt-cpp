@@ -21,10 +21,19 @@ class Page : public QWidget{
     Page(QTabWidget* parent=nullptr):QWidget(parent){
         tabs=parent;
         tabs->addTab(this,"Новый документ");
+        setMinimumSize(0,0);
         index=tabs->indexOf(this);
         setLayout(new QVBoxLayout(this));
         layout()->addWidget(&edit);
         edit.show();
+    }
+    bool isSaved(){
+        QFile qf(adress);
+        qf.open(QIODevice::ReadOnly|QIODevice::Text);
+        QTextStream in(&qf);
+        in.setAutoDetectUnicode(true);
+        if(adress.isEmpty())return false;
+        return qf.isOpen()&&qf.isReadable()&&edit.toPlainText()==in.readAll();
     }
     bool save(){
         if(edit.toPlainText().contains("пасхалка")){

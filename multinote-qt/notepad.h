@@ -12,6 +12,16 @@ QT_END_NAMESPACE
 
 class Notepad : public QMainWindow{
     Q_OBJECT
+    void anim(){
+        int h=height();
+        for(int i=h;i<h*1.5;i+=2){resize(width(),i);move(x(),y()-1);}
+        for(int i=h*1.5;i>=h;i-=2){resize(width(),i);move(x(),y()+1);repaint();}
+    }
+    void animErr(){
+        int w=width();
+        for(int i=w;i<w*1.5;i+=4){resize(i,height());move(x()-2,y());repaint();}
+        for(int i=w*1.5;i>=w;i-=4){resize(i,height());move(x()+2,y());repaint();}
+    }
 public:
     Notepad(QWidget *parent = nullptr);
     ~Notepad();
