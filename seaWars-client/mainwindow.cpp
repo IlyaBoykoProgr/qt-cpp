@@ -31,7 +31,7 @@ void MainWindow::on_act_NewGame_triggered()
 void MainWindow::on_act_EndPlacing_triggered()
 {
     if(field1->getCode().count('1')!=20){
-        QMessageBox::information(this,"Чую подставу...","Ну видно же, что корабли стоят неправильно");
+        QMessageBox::information(this,"Чую подставу...","Корабли стоят неправильно");
         return;
     }
     ui->act_EndPlacing->setVisible(false);
@@ -44,7 +44,7 @@ void MainWindow::on_act_EndPlacing_triggered()
         ui->statusbar->showMessage("Ваша очередь стрелять, выберите клетку на карте противника и нажмите 'Стрелять'");
     }
     if(State==ST_PROTECT){
-        ui->statusbar->showMessage("Вас будут атаковать");
+        QMessageBox::warning(this,"Ой-ей!","Вас будут атаковать!");
         ui->act_Shoot->setDisabled(true);
     }
 }
@@ -52,30 +52,33 @@ void MainWindow::on_act_EndPlacing_triggered()
 void MainWindow::on_act_Shoot_triggered()
 {
     if(field2->isEmpty(field2->clickX,field2->clickY))
-       socket->write(("shoot "+QString::number(field2->clickX)+" "+QString::number(field2->clickY)).toStdString().c_str());
+       socket->write(("shoot "+QString::number(field2->clickX)+" "+QString::number(field2->clickY)) .toStdString().c_str());
     else{
         QMessageBox::critical(this,"Вы ошиблись!","Здесь нельзя стрелять, клетка уже известна!");
         return;
     }
+}
+void MainWindow::hitted(){
+    field2->setBoat(field2->clickX,field2->clickY,CL_BOAT);
+    ui->statusbar->showMessage("Вы попали! За это вы можете ещё раз стрелять.");
+    State=ST_ATTACK;
+}
+void MainWindow::missed(){
+    field2->setBoat(field2->clickX,field2->clickY,CL_MISS);
+    ui->statusbar->showMessage("Вы промазали..");
     ui->act_Shoot->setDisabled(true);
     State=ST_PROTECT;
 }
-void MainWindow::hitted(){field2->setBoat(field2->clickX,field2->clickY,CL_BOAT);
-                         ui->statusbar->showMessage("Вы попали! За это вы можете ещё раз стрелять.");
-                         ui->act_Shoot->setDisabled(false);
-                         State=ST_ATTACK;}
-void MainWindow::missed(){field2->setBoat(field2->clickX,field2->clickY,CL_MISS);
-    ui->statusbar->showMessage("Вы промазали..");}
 
 void MainWindow::Shoot_recieved(int x, int y){
     socket->write(field1->isABoat(x,y)?"hit":"miss");
     if(field1->isABoat(x,y)){
         field1->setBoat(x,y,CL_DESTROYED);
-        ui->statusbar->showMessage("Противник бьёт ещё раз");
+        QMessageBox::warning(this,"Ой-ей!","Противник бьёт ещё раз, потому что он попал!");
     }
     else{
         field1->setBoat(x,y,CL_MISS);
-        ui->statusbar->showMessage("Вы атакуете");
+        QMessageBox::information(this,"Ура","Вы атакуете, по вашим кораблям не попали!");
         ui->act_Shoot->setDisabled(false);
         State=ST_ATTACK;
     }

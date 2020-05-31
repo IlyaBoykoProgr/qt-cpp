@@ -9,19 +9,18 @@ Client::Client()
 
 bool Client::start(){
     QString address;
-    for(int i=QNetworkInterface::allAddresses().length()-1;i>-1;i--)
-        if(QNetworkInterface::allAddresses()[i].toString().left(8)=="192.168.")
-            address=QNetworkInterface::allAddresses()[i].toString();
-    this->connectToHost(address,8080);
-    while(!waitForConnected()){
-        QString newAddr=QInputDialog::getText(nullptr,"Неудача","Не удалось подключится к серверу SeaWars.\n"
+    for(int i=100;i<150;i++){
+        address="192.168.0."+QString::number(i);
+        this->connectToHost(address,8080);
+        if(waitForConnected(500))return 1;
+    }
+    QString newAddr=QInputDialog::getText(nullptr,"Неудача","Не удалось подключится к серверу SeaWars.\n"
                               "Возможно, он не запущен или вы не имеете подключения к интернету.\n"
                               "Ошибка: "+errorString()+".Адрес: "+address+"\n"
                               "Если вы хотите подключится к другому адресу, введите его в поле ниже:",
-                              QLineEdit::Normal,address);
-        if(newAddr==address)return 0;
-        else this->connectToHost(address=newAddr,8080);
-    }
+                              QLineEdit::Normal);
+    if(newAddr==address)return 0;
+    else this->connectToHost(address=newAddr,8080);
     return 1;
 }
 
@@ -51,6 +50,8 @@ void Client::serverSending(){
         QProcess::startDetached(QApplication::applicationFilePath());
         QApplication::quit();
     }
+    if(data=="enemyready")QMessageBox::warning(nullptr,"Он готов драться насмерть...","Ваш противник расставил корабли!");
+    if(data=="noenemy")QMessageBox::critical(nullptr,"Ну е-мое!","Оппонент еще не подключился к серверу!");
 }
 
 Client::~Client()
@@ -62,7 +63,7 @@ Client::~Client()
 
 void Client::onDisconnect(){
     isOpened=false;
-    QMessageBox::information(nullptr,"Важная информация","Вы отключились от сервера!Попытка переподключения...");
+    QMessageBox::information(nullptr,"Вот зараза!","Вы отключились от сервера!");
 }
 
 bool Client::isOpen(){

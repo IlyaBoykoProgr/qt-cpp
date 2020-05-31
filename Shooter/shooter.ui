@@ -64,12 +64,6 @@ QAction:!enabled,QMenu:!enabled{color:red;}</string>
     <addaction name="actionNew_Game"/>
     <addaction name="actionPause"/>
    </widget>
-   <widget class="QMenu" name="menuQuit">
-    <property name="title">
-     <string>Quit</string>
-    </property>
-    <addaction name="actionQuit"/>
-   </widget>
    <widget class="QMenu" name="menuStats">
     <property name="enabled">
      <bool>false</bool>
@@ -83,7 +77,6 @@ QAction:!enabled,QMenu:!enabled{color:red;}</string>
    <addaction name="menuGame"/>
    <addaction name="menuStats"/>
    <addaction name="menuOptions"/>
-   <addaction name="menuQuit"/>
   </widget>
   <action name="actionAchievements">
    <property name="enabled">
@@ -91,6 +84,9 @@ QAction:!enabled,QMenu:!enabled{color:red;}</string>
    </property>
    <property name="text">
     <string>&amp;Achievements</string>
+   </property>
+   <property name="shortcut">
+    <string>F3</string>
    </property>
   </action>
   <action name="actionNew_Game">
@@ -100,6 +96,9 @@ QAction:!enabled,QMenu:!enabled{color:red;}</string>
    <property name="text">
     <string>&amp;New Game</string>
    </property>
+   <property name="shortcut">
+    <string>F5</string>
+   </property>
   </action>
   <action name="actionProgress">
    <property name="enabled">
@@ -107,6 +106,9 @@ QAction:!enabled,QMenu:!enabled{color:red;}</string>
    </property>
    <property name="text">
     <string>&amp;Progress</string>
+   </property>
+   <property name="shortcut">
+    <string>F1</string>
    </property>
   </action>
   <action name="actionChange_blocks">
@@ -116,18 +118,16 @@ QAction:!enabled,QMenu:!enabled{color:red;}</string>
    <property name="text">
     <string>Change bricks</string>
    </property>
-  </action>
-  <action name="actionQuit">
-   <property name="text">
-    <string>Quit ((</string>
-   </property>
    <property name="shortcut">
-    <string>Esc</string>
+    <string>F2</string>
    </property>
   </action>
   <action name="actionPause">
    <property name="text">
     <string>Pause</string>
+   </property>
+   <property name="shortcut">
+    <string>F9</string>
    </property>
   </action>
  </widget>

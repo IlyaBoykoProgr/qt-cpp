@@ -3,8 +3,8 @@
 
 #include <QMainWindow>
 #include <QKeyEvent>
-#include <QLabel>
 #include <QMessageBox>
+#include <QProgressBar>
 #include <QApplication>
 #include "ui_shooter.h"
 class block;
@@ -17,6 +17,7 @@ class shooter : public QMainWindow{
 public:
   Ui::shooter *ui;
   block** kirpich;
+  QProgressBar* progress;
   int rushed=0;
   int BLOCKS;
   explicit shooter(QWidget *parent = 0);
@@ -27,14 +28,12 @@ public slots:
   void keyPressEvent(QKeyEvent* ev);
   void timerEvent(QTimerEvent *ev);
   void on_actionNew_Game_triggered();
-signals:
-  void pif_paf(int x);
-private slots:
   void on_actionAchievements_triggered();
   void on_actionProgress_triggered();
   void on_actionChange_blocks_triggered();
-  void on_actionQuit_triggered();
   void on_actionPause_triggered();
+signals:
+  void pif_paf(int x);
 };
 
 #endif // SHOOTER_H
