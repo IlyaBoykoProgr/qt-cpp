@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>494</width>
-    <height>328</height>
+    <width>500</width>
+    <height>310</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>494</width>
-    <height>311</height>
+    <height>310</height>
    </size>
   </property>
   <property name="maximumSize">
@@ -27,7 +27,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="source.qrc">
-    <normaloff>:/images/boat.png</normaloff>:/images/boat.png</iconset>
+    <normaloff>:/images/miss.png</normaloff>:/images/miss.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">*#centralwidget{background-image: url(:/images/field.png);}</string>
@@ -38,7 +38,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>494</width>
+     <width>500</width>
      <height>21</height>
     </rect>
    </property>

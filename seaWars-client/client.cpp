@@ -12,7 +12,7 @@ bool Client::start(){
     for(int i=100;i<150;i++){
         address="192.168.0."+QString::number(i);
         this->connectToHost(address,8080);
-        if(waitForConnected(500))return 1;
+        if(waitForConnected(200))return 1;
     }
     QString newAddr=QInputDialog::getText(nullptr,"Неудача","Не удалось подключится к серверу SeaWars.\n"
                               "Возможно, он не запущен или вы не имеете подключения к интернету.\n"
@@ -58,7 +58,6 @@ Client::~Client()
 {
     this->write("disconnected");
     this->disconnectFromHost();
-    this->waitForDisconnected();
 }
 
 void Client::onDisconnect(){

@@ -21,7 +21,7 @@ public:
     Ui::MainWindow *ui;
     Field* field1;
     Field* field2;
-    Client* socket;
+    Client* socket=0;
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 private slots:

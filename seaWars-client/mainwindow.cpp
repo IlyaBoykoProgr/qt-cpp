@@ -16,13 +16,14 @@ MainWindow::MainWindow(QWidget *parent) :
 void MainWindow::on_act_NewGame_triggered()
 {
     connect(field2,SIGNAL(clicked()),this,SLOT(field2_clicked()));
-    if(!socket)delete socket;
+    if(socket!=0)delete socket;
     socket= new Client;
     connect(socket,SIGNAL(disconnected()),this,SLOT(on_act_NewGame_triggered()));
     connect(socket,SIGNAL(youWereShooted(int,int)),this,SLOT(Shoot_recieved(int,int)));
     connect(socket,SIGNAL(youHitted()),this,SLOT(hitted()));
     connect(socket,SIGNAL(youMissed()),this,SLOT(missed()));
     ui->toolBar->setVisible(socket->isOpen());
+    setWindowIcon(QIcon(socket->isOpen()?":/images/boat.png":":/images/miss.png"));
     ui->act_Shoot->setVisible(false);
     field1->clickable=true;
     State= ST_PLACE;
