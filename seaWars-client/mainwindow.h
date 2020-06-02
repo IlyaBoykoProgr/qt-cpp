@@ -27,6 +27,7 @@ public:
 private slots:
     void on_act_NewGame_triggered();
     void on_act_EndPlacing_triggered();
+    void on_action_Msg_triggered();
     void field2_clicked();
     void on_act_Shoot_triggered();
     void Shoot_recieved(int x, int y);

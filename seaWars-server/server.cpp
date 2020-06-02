@@ -60,9 +60,10 @@ void Server::player1Writing(){
         sock2->write(("shooted "+QString::number(x)+" "+QString::number(y)).toStdString().c_str());
         qDebug()<<"Player 1 shoots at "<<x<<" "<<y;
     }
+    if(data.startsWith("msg "))sock2->write(data.toStdString().c_str());
     if(data=="miss")sock2->write("miss");
     if(data=="hit"){sock2->write("hit");hits2++;
-        if(hits2==20){sock2->write("win");sock1->write("lose");}
+        if(hits2==20)sock2->write("win");
     }
 }
 void Server::player2Writing(){
@@ -82,9 +83,10 @@ void Server::player2Writing(){
         sock1->write(("shooted "+QString::number(x)+" "+QString::number(y)).toStdString().c_str());
         qDebug()<<"Player 2 shoots at "<<x<<" "<<y;
     }
+    if(data.startsWith("msg "))sock1->write(data.toStdString().c_str());
     if(data=="miss")sock1->write("miss");
     if(data=="hit"){sock1->write("hit");hits1++;
-        if(hits1==20){sock1->write("win");sock2->write("lose");}
+        if(hits1==20)sock1->write("win");
     }
 }
 

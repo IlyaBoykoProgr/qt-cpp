@@ -32,8 +32,8 @@ public:
         if(!clickable)return;
         setBoat(clickX,clickY,isEmpty(clickX,clickY)?CL_BOAT:CL_NONE);
     }
-    void setBoat(int x, int y, Cell exist){
-        switch(exist){
+    void setBoat(int x, int y, Cell which){
+        switch(which){
         case CL_NONE:
             boats[x][y].setStyleSheet(" ");
             break;
@@ -49,8 +49,10 @@ public:
         }
     }
     bool isABoat(int x, int y){
-        return boats[x][y].styleSheet()=="background-image:url(:/images/boat.png)" ||
-               boats[x][y].styleSheet()=="background:red";
+        return boats[x][y].styleSheet()=="background-image:url(:/images/boat.png)";
+    }
+    bool isDestroyed(int x, int y){
+        return boats[x][y].styleSheet()=="background:red";
     }
     bool isEmpty(int x, int y){
         return boats[x][y].styleSheet()==" ";
@@ -58,7 +60,9 @@ public:
     QString getCode(){
         QString code="";
         for(int x=0;x<10;x++)for(int y=0;y<10;y++){
-            code+=QString::number(isABoat(x,y));
+            if(isABoat(x,y))code+="1";
+            else if(isEmpty(x,y))code+="0";
+            else if(isDestroyed(x,y))code+="2";
         }
         return code;
     }

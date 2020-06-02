@@ -66,6 +66,7 @@
    </attribute>
    <addaction name="act_EndPlacing"/>
    <addaction name="act_Shoot"/>
+   <addaction name="action_Msg"/>
   </widget>
   <action name="act_NewGame">
    <property name="text">
@@ -97,7 +98,15 @@
     <string>Сначала выберите место на карте противника, затем стреляйте!</string>
    </property>
    <property name="shortcut">
-    <string>W</string>
+    <string>Return</string>
+   </property>
+  </action>
+  <action name="action_Msg">
+   <property name="text">
+    <string>Написать противнику</string>
+   </property>
+   <property name="shortcut">
+    <string>M</string>
    </property>
   </action>
  </widget>

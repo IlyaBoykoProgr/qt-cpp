@@ -24,5 +24,6 @@ signals:
     void youWereShooted(int x, int y);
     void youHitted();
     void youMissed();
+    void newMessage();
 };
 #endif // CLIENT_H

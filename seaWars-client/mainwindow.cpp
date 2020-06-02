@@ -20,6 +20,7 @@ void MainWindow::on_act_NewGame_triggered()
     socket= new Client;
     connect(socket,SIGNAL(disconnected()),this,SLOT(on_act_NewGame_triggered()));
     connect(socket,SIGNAL(youWereShooted(int,int)),this,SLOT(Shoot_recieved(int,int)));
+    connect(socket,SIGNAL(newMessage()),this,SLOT(on_action_Msg_triggered()));
     connect(socket,SIGNAL(youHitted()),this,SLOT(hitted()));
     connect(socket,SIGNAL(youMissed()),this,SLOT(missed()));
     ui->toolBar->setVisible(socket->isOpen());
@@ -76,6 +77,11 @@ void MainWindow::Shoot_recieved(int x, int y){
     if(field1->isABoat(x,y)){
         field1->setBoat(x,y,CL_DESTROYED);
         QMessageBox::warning(this,"Ой-ей!","Противник бьёт ещё раз, потому что он попал!");
+        if(field1->getCode().count('2')==20){
+            QMessageBox::information(nullptr,"Вы проиграли","Противник уничтожил ваши корабли\nВы проиграли.\nНичего, еще выиграете!");
+            QProcess::startDetached(QApplication::applicationFilePath());
+            QApplication::quit();
+        }
     }
     else{
         field1->setBoat(x,y,CL_MISS);
@@ -83,6 +89,13 @@ void MainWindow::Shoot_recieved(int x, int y){
         ui->act_Shoot->setDisabled(false);
         State=ST_ATTACK;
     }
+}
+
+void MainWindow::on_action_Msg_triggered()
+{
+    QString msg=QInputDialog::getText(this,"Письмо","Напишите короткое послание противнику");
+    msg="msg "+msg;
+    socket->write(msg.toStdString().c_str());
 }
 
 void MainWindow::field2_clicked(){
@@ -107,3 +120,4 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
