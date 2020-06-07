@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QGraphicsOpacityEffect>
+using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -17,12 +19,12 @@ void MainWindow::on_act_NewGame_triggered()
 {
     connect(field2,SIGNAL(clicked()),this,SLOT(field2_clicked()));
     if(socket!=0)delete socket;
-    socket= new Client;
+    socket= new Client();
     connect(socket,SIGNAL(disconnected()),this,SLOT(on_act_NewGame_triggered()));
     connect(socket,SIGNAL(youWereShooted(int,int)),this,SLOT(Shoot_recieved(int,int)));
-    connect(socket,SIGNAL(newMessage()),this,SLOT(on_action_Msg_triggered()));
     connect(socket,SIGNAL(youHitted()),this,SLOT(hitted()));
     connect(socket,SIGNAL(youMissed()),this,SLOT(missed()));
+    connect(socket,SIGNAL(newMessage(QString)),this,SLOT(addMessage(QString)));
     ui->toolBar->setVisible(socket->isOpen());
     setWindowIcon(QIcon(socket->isOpen()?":/images/boat.png":":/images/miss.png"));
     ui->act_Shoot->setVisible(false);
@@ -33,7 +35,7 @@ void MainWindow::on_act_NewGame_triggered()
 void MainWindow::on_act_EndPlacing_triggered()
 {
     if(field1->getCode().count('1')!=20){
-        QMessageBox::information(this,"Чую подставу...","Корабли стоят неправильно");
+        addMessage("Корабли стоят неправильно");
         return;
     }
     ui->act_EndPlacing->setVisible(false);
@@ -43,7 +45,7 @@ void MainWindow::on_act_EndPlacing_triggered()
     socket->write(field1->getCode().toStdString().c_str());
     State= socket->index==1?ST_ATTACK:ST_PROTECT;
     if(State==ST_ATTACK){
-        ui->statusbar->showMessage("Ваша очередь стрелять, выберите клетку на карте противника и нажмите 'Стрелять'");
+        addMessage("Ваша очередь стрелять,\n выберите клетку на карте\n противника и нажмите 'Стрелять'");
     }
     if(State==ST_PROTECT){
         QMessageBox::warning(this,"Ой-ей!","Вас будут атаковать!");
@@ -56,18 +58,21 @@ void MainWindow::on_act_Shoot_triggered()
     if(field2->isEmpty(field2->clickX,field2->clickY))
        socket->write(("shoot "+QString::number(field2->clickX)+" "+QString::number(field2->clickY)) .toStdString().c_str());
     else{
-        QMessageBox::critical(this,"Вы ошиблись!","Здесь нельзя стрелять, клетка уже известна!");
+        QMessageBox::critical(this,"Вы ошиблись!","Здесь нельзя стрелять,\n клетка уже известна!");
         return;
     }
 }
 void MainWindow::hitted(){
     field2->setBoat(field2->clickX,field2->clickY,CL_BOAT);
-    ui->statusbar->showMessage("Вы попали! За это вы можете ещё раз стрелять.");
+    addMessage("Вы попали! За это вы\n можете ещё раз стрелять.");
+    if(field2->getCode().count('1')==20){
+        addMessage("Победааа!!!!\nКорабли противника уничтожены!");
+    }
     State=ST_ATTACK;
 }
 void MainWindow::missed(){
     field2->setBoat(field2->clickX,field2->clickY,CL_MISS);
-    ui->statusbar->showMessage("Вы промазали..");
+    addMessage("Вы промазали..");
     ui->act_Shoot->setDisabled(true);
     State=ST_PROTECT;
 }
@@ -76,24 +81,44 @@ void MainWindow::Shoot_recieved(int x, int y){
     socket->write(field1->isABoat(x,y)?"hit":"miss");
     if(field1->isABoat(x,y)){
         field1->setBoat(x,y,CL_DESTROYED);
-        QMessageBox::warning(this,"Ой-ей!","Противник бьёт ещё раз, потому что он попал!");
+        addMessage("Противник бьёт ещё раз,\n потому что он попал!");
         if(field1->getCode().count('2')==20){
-            QMessageBox::information(nullptr,"Вы проиграли","Противник уничтожил ваши корабли\nВы проиграли.\nНичего, еще выиграете!");
-            QProcess::startDetached(QApplication::applicationFilePath());
-            QApplication::quit();
+            addMessage("Противник уничтожил ваши корабли\nВы проиграли.\nНичего, еще выиграете!");
         }
     }
     else{
         field1->setBoat(x,y,CL_MISS);
-        QMessageBox::information(this,"Ура","Вы атакуете, по вашим кораблям не попали!");
+        addMessage("Ура! Вы атакуете, по вашим\n кораблям не попали!");
         ui->act_Shoot->setDisabled(false);
         State=ST_ATTACK;
     }
 }
 
-void MainWindow::on_action_Msg_triggered()
+void MainWindow::addMessage(QString msg){
+    QLabel* box= new QLabel(msg,this);
+    box->setStyleSheet("background:lightblue");
+    box->setAlignment(Qt::AlignCenter);
+    QGraphicsOpacityEffect* oeff=new QGraphicsOpacityEffect(this);
+    connect(oeff,SIGNAL(opacityChanged(qreal)),this,SLOT(repaint()));
+    oeff->setOpacity(0.0);
+    box->setGraphicsEffect(oeff);
+    box->setGeometry(150,42*msg_count,200,40);
+    box->show();
+    box->raise();
+    msg_count++;
+    std::thread th([this,box,oeff]{
+        this_thread::sleep_for(2s);
+        box->deleteLater();
+        msg_count--;
+    });
+    th.detach();
+}
+
+void MainWindow::on_msg_edit_returnPressed()
 {
-    QString msg=QInputDialog::getText(this,"Письмо","Напишите короткое послание противнику");
+    if(socket==0|| !socket->isOpen())return;
+    QString msg=ui->msg_edit->text();
+    ui->msg_edit->clear();
     msg="msg "+msg;
     socket->write(msg.toStdString().c_str());
 }
@@ -120,4 +145,3 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-

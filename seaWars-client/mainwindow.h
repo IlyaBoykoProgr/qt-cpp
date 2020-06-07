@@ -2,7 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QThread>
+#include <QLabel>
+#include <thread>
 #include "client.h"
 #include "Field.h"
 
@@ -13,6 +14,7 @@ class MainWindow;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
+    unsigned msg_count=0;
 public:
     enum state{
         ST_PLACE, ST_ATTACK, ST_PROTECT
@@ -24,15 +26,17 @@ public:
     Client* socket=0;
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+public slots:
+    void addMessage(QString msg);
 private slots:
     void on_act_NewGame_triggered();
     void on_act_EndPlacing_triggered();
-    void on_action_Msg_triggered();
     void field2_clicked();
     void on_act_Shoot_triggered();
     void Shoot_recieved(int x, int y);
     void missed();
     void hitted();
+    void on_msg_edit_returnPressed();
 };
 
 #endif // MAINWINDOW_H

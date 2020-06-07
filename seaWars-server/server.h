@@ -11,7 +11,6 @@ class Server : public QTcpServer
     Q_OBJECT
     QTcpSocket *sock1=0,*sock2=0;
     bool boats1[10][10], boats2[10][10];
-    unsigned short hits1=0,hits2=0;
     void parseTable(QString boats,bool array[10][10]);
 public:
     Server(QObject* parent=nullptr);

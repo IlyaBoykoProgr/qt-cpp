@@ -21,6 +21,7 @@ public:
             boats[x][y].setGeometry(x*21,y*21,21,21);
             boats[x][y].setParent(this);
             boats[x][y].show();
+            boats[x][y].lower();
             setBoat(x,y,CL_NONE);
         }
     }

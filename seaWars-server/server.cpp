@@ -51,6 +51,7 @@ void Server::player1Writing(){
         parseTable(data.right(100),boats1);
         qDebug()<<"1st player's boats recieved";
         if(sock2!=0)sock2->write("enemyready");
+        else sock1->write("noenemy");
     }
     if(data.startsWith("shoot ")){
         if(sock2==0){sock1->write("noenemy");return;}
@@ -60,11 +61,12 @@ void Server::player1Writing(){
         sock2->write(("shooted "+QString::number(x)+" "+QString::number(y)).toStdString().c_str());
         qDebug()<<"Player 1 shoots at "<<x<<" "<<y;
     }
-    if(data.startsWith("msg "))sock2->write(data.toStdString().c_str());
-    if(data=="miss")sock2->write("miss");
-    if(data=="hit"){sock2->write("hit");hits2++;
-        if(hits2==20)sock2->write("win");
+    if(data.startsWith("msg ")){
+        if(sock2!=0)sock2->write(data.toStdString().c_str());
+        else sock1->write("noenemy");
     }
+    if(data=="miss")sock2->write("miss");
+    if(data=="hit")sock2->write("hit");
 }
 void Server::player2Writing(){
     QString data=sock2->readAll();
@@ -74,6 +76,7 @@ void Server::player2Writing(){
         parseTable(data.right(100),boats2);
         qDebug()<<"2nd player's boats recieved";
         if(sock1!=0)sock1->write("enemyready");
+        else sock2->write("noenemy");
     }
     if(data.startsWith("shoot ")){
         if(sock1==0){sock2->write("noenemy");return;}
@@ -83,11 +86,12 @@ void Server::player2Writing(){
         sock1->write(("shooted "+QString::number(x)+" "+QString::number(y)).toStdString().c_str());
         qDebug()<<"Player 2 shoots at "<<x<<" "<<y;
     }
-    if(data.startsWith("msg "))sock1->write(data.toStdString().c_str());
-    if(data=="miss")sock1->write("miss");
-    if(data=="hit"){sock1->write("hit");hits1++;
-        if(hits1==20)sock1->write("win");
+    if(data.startsWith("msg ")){
+        if(sock1!=0)sock1->write(data.toStdString().c_str());
+        else sock2->write("noenemy");
     }
+    if(data=="miss")sock1->write("miss");
+    if(data=="hit")sock1->write("hit");
 }
 
 void Server::parseTable(QString boats,bool array[10][10]){

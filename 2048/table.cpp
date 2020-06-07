@@ -32,9 +32,13 @@ table::table(QWidget *parent) :
 
 void table::keyPressEvent(QKeyEvent* ev){
     switch(ev->key()){
+    case Qt::Key_W:
     case Qt::Key_Up:on_Up_triggered(); break;
+    case Qt::Key_S:
     case Qt::Key_Down:on_Down_triggered(); break;
+    case Qt::Key_A:
     case Qt::Key_Left:on_Left_triggered(); break;
+    case Qt::Key_D:
     case Qt::Key_Right:on_Right_triggered(); break;
     }
 }

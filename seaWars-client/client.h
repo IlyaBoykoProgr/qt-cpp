@@ -24,6 +24,6 @@ signals:
     void youWereShooted(int x, int y);
     void youHitted();
     void youMissed();
-    void newMessage();
+    void newMessage(QString);
 };
 #endif // CLIENT_H

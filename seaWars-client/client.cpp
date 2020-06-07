@@ -41,16 +41,11 @@ void Client::serverSending(){
         int y=parse.right(parse.length()-parse.indexOf(' ')-1).toInt();
         emit youWereShooted(x,y);
     }
-    if(data=="hit"){emit youHitted();QMessageBox::information(nullptr,"Успех!","Вы попали!");}
-    if(data=="miss"){emit youMissed();QMessageBox::information(nullptr,"Неудача","Вы не попали.");}
-    if(data=="hitwin"){
-        QMessageBox::information(nullptr,"Вы победили!","Победааа!!!!\nКорабли противника уничтожены!");
-        QProcess::startDetached(QApplication::applicationFilePath());
-        QApplication::quit();
-    }
+    if(data=="hit")emit youHitted();
+    if(data=="miss")emit youMissed();
     if(data.startsWith("msg ")){
-        int ans=QMessageBox::information(nullptr,"SMS","Новое сообщение от врага:\n\""+data.remove(0,4)+"\"\nОтветить?",QMessageBox::Yes,QMessageBox::No);
-        if(ans==QMessageBox::Yes)emit newMessage();
+        if(data.length()==4)return;
+        emit newMessage("Сообщение от противника:\n\""+data.remove(0,4)+"\"");
     }
     if(data=="enemyready")QMessageBox::warning(nullptr,"Он готов драться насмерть...","Ваш противник расставил корабли!");
     if(data=="noenemy")QMessageBox::critical(nullptr,"Ну е-мое!","Оппонент еще не подключился к серверу!");
