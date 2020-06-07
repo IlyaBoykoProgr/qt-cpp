@@ -57,8 +57,8 @@ void table::setScore(int score, int col, int row){
         case 8: myNum[col][row]->setStyleSheet("background:yellow;background-image:url(:/gems/gem4.png);");break;
         case 16: myNum[col][row]->setStyleSheet("background:lime;background-image:url(:/gems/gem2.png);");break;
         case 32: myNum[col][row]->setStyleSheet("background:green;background-image:url(:/gems/gem2.png);");break;
-        case 64: myNum[col][row]->setStyleSheet("background:aqua;background-image:url(:/gems/gem6.png);");break;
-        case 128: myNum[col][row]->setStyleSheet("background:blue;background-image:url(:/gems/gem1.png);");break;
+        case 64: myNum[col][row]->setStyleSheet("background:aqua;background-image:url(:/gems/gem6.png);color:white;");break;
+        case 128: myNum[col][row]->setStyleSheet("background:blue;background-image:url(:/gems/gem1.png);color:white;");break;
         case 256: myNum[col][row]->setStyleSheet("background:purple;background-image:url(:/gems/gem5.png);");break;
         case 512: myNum[col][row]->setStyleSheet("background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 blue, stop:1 purple);");break;
         case 1024: myNum[col][row]->setStyleSheet("background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 green, stop:0.5 blue, stop:1 purple);");break;
@@ -76,7 +76,7 @@ void table::setScore(int score, int col, int row){
         is2048created=true;
         setStyleSheet("QPushButton{border:"+QString::number(5/coff)+"px solid "+style.right(style.length()-11)+";font-size:"+QString::number(20/coff)+"px;}");
         int answer=
-                QMessageBox::question(this,"2048: winner!","My congratulations!!!\nYou have just complete game.\nDo you want to exit or continue?","Continue","Exit");
+                QMessageBox::question(this,"2048: winner!","My congratulations!!!\nYou have just complete the game.\nDo you want to exit or continue?","Continue","Exit");
         if(answer==1)QApplication::exit();
     }
     if(score==4096&&!is4096created){
