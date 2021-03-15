@@ -22,9 +22,9 @@ void MainView::on_showVisible_stateChanged(int on){
     ui->tableWidget->setRowCount(0);
     ui->tableWidget->setHorizontalHeaderLabels(QStringList()<<"Заголовок"<<"Класс");
     wchar_t className[100], title[100];
-    for(HWND wnd=0;(int)wnd<=0xffffff;wnd++){
-        if((int)wnd%0xffff==0){
-            ui->progress->setValue((int)wnd);
+    for(HWND wnd=0;(UINT_PTR)wnd<=65536;wnd++){
+        if((UINT_PTR)wnd%(int)0xffff==0){
+            ui->progress->setValue((UINT_PTR)wnd);
             repaint();
         }
         if(!IsWindow(wnd))continue;
@@ -38,7 +38,7 @@ void MainView::on_showVisible_stateChanged(int on){
         GetClassNameW(wnd,className,100);
 
         ui->tableWidget->setVerticalHeaderItem(row,new
-            QTableWidgetItem(QString::number((int)wnd))
+            QTableWidgetItem(QString::number((UINT_PTR)wnd))
         );
         ui->tableWidget->setCellWidget(row,0,new
             QLabel(QString::fromWCharArray(title,100))

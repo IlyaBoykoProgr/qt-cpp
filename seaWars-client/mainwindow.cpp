@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QGraphicsOpacityEffect>
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -98,16 +97,12 @@ void MainWindow::addMessage(QString msg){
     QLabel* box= new QLabel(msg,this);
     box->setStyleSheet("background:lightblue");
     box->setAlignment(Qt::AlignCenter);
-    QGraphicsOpacityEffect* oeff=new QGraphicsOpacityEffect(this);
-    connect(oeff,SIGNAL(opacityChanged(qreal)),this,SLOT(repaint()));
-    oeff->setOpacity(0.0);
-    box->setGraphicsEffect(oeff);
     box->setGeometry(150,42*msg_count,200,40);
     box->show();
     box->raise();
     msg_count++;
-    std::thread th([this,box,oeff]{
-        this_thread::sleep_for(2s);
+    std::thread th([this,box]{
+        this_thread::sleep_for(chrono::seconds(2));
         box->deleteLater();
         msg_count--;
     });

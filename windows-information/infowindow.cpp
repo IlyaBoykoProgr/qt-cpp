@@ -1,10 +1,10 @@
 #include "infowindow.h"
 
-InfoWindow::InfoWindow(int hwnd) :wnd((HWND)hwnd),
+InfoWindow::InfoWindow(UINT_PTR hwnd) :wnd((HWND)hwnd),
     ui(new Ui::InfoWindow)
 {
     ui->setupUi(this);
-    this->setWindowTitle("Информация об окне номер "+QString::number((int)wnd));
+    this->setWindowTitle("Информация об окне номер "+QString::number((UINT_PTR)wnd));
     wchar_t className[100], title[100];
     for(int i=0;i<100;i++){className[i]=0;title[i]=0;}
     GetWindowTextW(wnd,title,100);
@@ -13,7 +13,7 @@ InfoWindow::InfoWindow(int hwnd) :wnd((HWND)hwnd),
         "Имя окна: "+(title[0]==0?"(У окна нет имени)":QString::fromWCharArray(title))+'\n'+
         "Класс окна: "+QString::fromWCharArray(className)
     );
-    ui->hWnd_view->display((int)wnd);
+    ui->hWnd_view->display((int)(UINT_PTR)wnd);
     timer=startTimer(1);
     where = new QWidget;
     where->setWindowFlag(Qt::WindowType::Tool);

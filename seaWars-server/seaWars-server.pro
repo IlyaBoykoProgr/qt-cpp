@@ -26,3 +26,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     server.h
+
+ANDROID_ABIS = armeabi-v7a

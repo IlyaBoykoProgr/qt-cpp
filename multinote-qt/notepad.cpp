@@ -30,7 +30,10 @@ void Notepad::on_act_New_triggered()
 
 void Notepad::on_act_Save_triggered()
 {
-    if(files->count()==0)return;
+    if(files->count()==0){
+        animErr();
+        return;
+    }
     while(!currentPage->save()){
         if(QMessageBox::critical(this,"Ошибка!","Не удалось сохранить файл\nПопробовать еще раз?",
            QMessageBox::Retry,QMessageBox::No)==QMessageBox::No)return;
@@ -56,7 +59,10 @@ void Notepad::on_act_Open_triggered()
 
 void Notepad::on_act_Remove_triggered()
 {
-    if(files->count()==0)return;
+    if(files->count()==0){
+        animErr();
+        return;
+    }
     if(QMessageBox::question(this,"Подтверждение","Вы действительно хотите удалить "+currentPage->filename+" ?")
             ==QMessageBox::Yes){
         remove(currentPage->adress.toStdString().c_str());
@@ -69,7 +75,10 @@ void Notepad::on_act_Remove_triggered()
 
 void Notepad::on_act_NoSave_triggered()
 {
-    if(files->count()==0)return;
+    if(files->count()==0){
+        animErr();
+        return;
+    }
     Page* cur=(Page*)(files->currentWidget());
     ui->statusbar->showMessage("Вкладка закрыта безвозвратно");
     delete cur;
@@ -77,13 +86,16 @@ void Notepad::on_act_NoSave_triggered()
 
 void Notepad::on_act_NewWindow_triggered()
 {
-    QProcess::startDetached(QApplication::applicationFilePath());
+    QProcess::startDetached(QApplication::applicationFilePath(),QStringList());
     anim();
 }
 
 void Notepad::on_act_Rename_triggered()
 {
-    if(files->count()==0)return;
+    if(files->count()==0){
+        animErr();
+        return;
+    }
     if(currentPage->rename()){
         ui->statusbar->showMessage("Файл успешно переименован");
         anim();
@@ -96,6 +108,10 @@ void Notepad::on_act_Rename_triggered()
 
 void Notepad::on_act_Info_triggered()
 {
+    if(files->count()==0){
+        animErr();
+        return;
+    }
     anim();
     currentPage->showInfo();
 }
@@ -128,8 +144,8 @@ void Notepad::on_act_About_triggered()
     QMessageBox::aboutQt(this,"Этого фреймворка");
     QMessageBox::about(this,"Об авторе)","Это произведение искусства написано юным программистом\n"
                                          "Мои соц.сети: \n"
-                                         "VK: http://vk.com/ilya.boyko\n"
-                                         "Discord: @Iluha168\n"
+                                         "VK: http://vk.com/ilyaboykoprogr\n"
+                                         "Discord: @IlyaBoykoProgr#3460\n"
                                          "Telegram:@IlyaBoykoProgr\n"
                                          "GitHub:http://github.com/IlyaBoykoProgr\n"
                                          "Дальше не буду");

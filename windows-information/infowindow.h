@@ -8,7 +8,7 @@
 class InfoWindow : public QMainWindow{
     Q_OBJECT
 public:
-    explicit InfoWindow(int hwnd);
+    explicit InfoWindow(UINT_PTR hwnd);
     ~InfoWindow(){delete ui;delete where;}
 private slots:
     void on_minimize_wnd_clicked();

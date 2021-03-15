@@ -18,9 +18,10 @@ class Notepad : public QMainWindow{
         for(int i=h*1.5;i>=h;i-=2){resize(width(),i);move(x(),y()+1);repaint();}
     }
     void animErr(){
-        int w=width();
-        for(int i=w;i<w*1.5;i+=4){resize(i,height());move(x()-2,y());repaint();}
-        for(int i=w*1.5;i>=w;i-=4){resize(i,height());move(x()+2,y());repaint();}
+        for(int j=0;j<10;j++){
+            for(int i=0;i<20;i++)move(x()+1,y());
+            for(int i=0;i<20;i++)move(x()-1,y());
+        }
     }
 public:
     Notepad(QWidget *parent = nullptr);
