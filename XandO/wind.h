@@ -13,7 +13,6 @@ class wind : public QMainWindow
 public:
     explicit wind(QWidget *parent = 0);
     Ui::wind *ui;
-    ~wind();
 
 private slots:
     void on_action_triggered();

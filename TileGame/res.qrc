@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>pixmap/life.png</file>
+        <file>pixmap/weapon1.png</file>
+        <file>pixmap/weapon2.png</file>
+        <file>pixmap/monster1.png</file>
+        <file>pixmap/monster2.png</file>
+        <file>pixmap/monster3.png</file>
+        <file>pixmap/monster4.png</file>
+        <file>pixmap/monster5.png</file>
+        <file>pixmap/monster6.png</file>
+        <file>pixmap/coin.png</file>
+    </qresource>
+</RCC>

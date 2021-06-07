@@ -22,13 +22,6 @@ wind::wind(QWidget *parent) :
     for(int i=0; i<9; i++)
         connect(&buts[i],SIGNAL(butChanged()),this,SLOT(isWinner()));
 }
-wind::~wind()
-{
-    if(ui->statusBar->currentMessage()!=""){
-        QMessageBox::critical(nullptr,"Oh NO!","game not finished!");
-    }
-    else delete ui;
-}
 
 void wind::on_action_triggered()
 {

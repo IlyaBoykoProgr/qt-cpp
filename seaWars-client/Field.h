@@ -26,7 +26,7 @@ public:
         }
     }
     void mousePressEvent(QMouseEvent* event){
-        clickX=event->x()+5;clickY=event->y()+5;
+        clickX=event->position().x()+5;clickY=event->position().y()+5;
         clickX= floor(clickX/22.0);
         clickY= floor(clickY/22.0);
         emit clicked();
