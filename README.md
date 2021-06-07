@@ -1,11 +1,3 @@
-*_Qt-C++_* :smiley:
-===
-My projects on QtC++: 2048,Shooter,ForStudy,[XandO](https://github.com/IlyaBoykoProgr/qt-cpp/tree/master/XandO "TicTacToe")
----
-
-There in this folders are games and apps,writen using QtC++.
-~~Enjoy!~~)
-
 How to build:
 ===
 using linux:
