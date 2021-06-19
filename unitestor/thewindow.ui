@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TheWindow</class>
+ <widget class="QMainWindow" name="TheWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>519</width>
+    <height>293</height>
+   </rect>
+  </property>
+  <property name="acceptDrops">
+   <bool>true</bool>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QWidget" name="intestScreen" native="true">
+      <layout class="QVBoxLayout" name="_3">
+       <item>
+        <widget class="QLabel" name="tip_1">
+         <property name="toolTip">
+          <string>Это означает что в другом окне выполняется тест</string>
+         </property>
+         <property name="text">
+          <string>Сейчас вы выполняете тест. Прогресс:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QProgressBar" name="testProgress">
+         <property name="toolTip">
+          <string>Прогресс выполнения теста</string>
+         </property>
+         <property name="value">
+          <number>0</number>
+         </property>
+         <property name="format">
+          <string>%v/%m</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QWidget" name="mainScreen" native="true">
+      <layout class="QHBoxLayout" name="_4">
+       <item>
+        <layout class="QVBoxLayout" name="_2">
+         <item>
+          <widget class="QLabel" name="searchStatus">
+           <property name="toolTip">
+            <string>Выполняется поиск тестов на вашем компьютере...</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="butt_research">
+           <property name="toolTip">
+            <string>Эта кнопка будет искать
+тесты на вашем компьютере</string>
+           </property>
+           <property name="text">
+            <string>Обновить</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="listTests">
+           <property name="toolTip">
+            <string>Здесь отображены тесты, найденные на компьютере</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="l_1">
+         <item>
+          <widget class="QLabel" name="LOGO">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="toolTip">
+            <string>Название и версия программы</string>
+           </property>
+           <property name="text">
+            <string>UniTestor 1.0</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="LOGO2">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Программа для тестирования и проверки знаний.
+Вы можете создать свой собственный тест
+и дать пройти его любому другому
+человеку!</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="butt_open">
+           <property name="toolTip">
+            <string>Открывает окно с выбором теста из файловой системы</string>
+           </property>
+           <property name="text">
+            <string>Открыть тест</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="butt_create">
+           <property name="toolTip">
+            <string>Открывает меню создания теста</string>
+           </property>
+           <property name="text">
+            <string>Создать свой тест</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>519</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>Тест</string>
+    </property>
+    <addaction name="test_open"/>
+    <addaction name="test_create"/>
+    <addaction name="result_open"/>
+   </widget>
+   <addaction name="menu"/>
+  </widget>
+  <action name="test_open">
+   <property name="text">
+    <string>Открыть</string>
+   </property>
+   <property name="toolTip">
+    <string>Открывает выбранный вами тест с диска</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+  </action>
+  <action name="test_create">
+   <property name="text">
+    <string>Создать</string>
+   </property>
+   <property name="toolTip">
+    <string>Открывает интерфейс создания теста</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+  </action>
+  <action name="result_open">
+   <property name="text">
+    <string>Открыть отчет</string>
+   </property>
+   <property name="toolTip">
+    <string>Считывает данные отчета и выводит на экран</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+O</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

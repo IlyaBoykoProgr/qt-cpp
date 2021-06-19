@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>pageCreationDialog</class>
+ <widget class="QDialog" name="pageCreationDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>375</width>
+    <height>357</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Создание вопроса для теста</string>
+  </property>
+  <property name="modal">
+   <bool>true</bool>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>1</number>
+   </property>
+   <item>
+    <widget class="QLabel" name="tip_1">
+     <property name="toolTip">
+      <string>Напишите вопрос в поле ниже</string>
+     </property>
+     <property name="text">
+      <string>Напишите вопрос:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPlainTextEdit" name="question">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>40</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Это поле, в которое нужно вводить вопрос</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="_3">
+     <item>
+      <widget class="QLabel" name="tip_2">
+       <property name="maximumSize">
+        <size>
+         <width>90</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>Вопросы бывают трех типов, выберите его из списка справа</string>
+       </property>
+       <property name="text">
+        <string>Тип вопроса:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="page_type">
+       <property name="toolTip">
+        <string>В этом списке нужно выбирать тип вопроса</string>
+       </property>
+       <property name="maxVisibleItems">
+        <number>3</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="tip_3">
+     <property name="toolTip">
+      <string>Описание типа вопроса</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="_2">
+     <item>
+      <widget class="QLineEdit" name="answer_input">
+       <property name="toolTip">
+        <string>В это поле можно вводить варианты ответа</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="butt_addAnswer">
+       <property name="toolTip">
+        <string>Добавляет в список вариант ответа слева и очищает
+поле ввода для нового варианта ответа</string>
+       </property>
+       <property name="text">
+        <string>Добавить вариант ответа</string>
+       </property>
+       <property name="default">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="tip_4">
+     <property name="text">
+      <string>Нажмите на ответ, чтобы сделать его верным/неверным
+Нажмите дважды, чтобы удалить вариант ответа</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QListWidget" name="list_answers">
+     <property name="toolTip">
+      <string>Здесь отображены варианты ответов
+Зеленые - верные
+Красные -неверные
+(При типе вопроса открытый все варианты в списке верны)</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="butt_done">
+     <property name="toolTip">
+      <string>Завершить создание вопроса
+Если что-то неправильно задано - появится подсказка</string>
+     </property>
+     <property name="text">
+      <string>Готово</string>
+     </property>
+     <property name="autoDefault">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

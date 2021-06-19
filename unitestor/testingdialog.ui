@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>testingDialog</class>
+ <widget class="QDialog" name="testingDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>309</width>
+    <height>293</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>1</number>
+   </property>
+   <item>
+    <widget class="QLabel" name="l_question">
+     <property name="toolTip">
+      <string>Это вопрос, на него нужно ответить</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="l_tip"/>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="form_input">
+     <property name="toolTip">
+      <string>Введите сюда ответ и нажмите далее</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QListWidget" name="form">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>200</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Выберайте ответ(ы) из этого списка</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="butt_next">
+       <property name="toolTip">
+        <string>По нажатию этой кнопки вы сообщите свой ответ программе</string>
+       </property>
+       <property name="text">
+        <string>Далее&gt;&gt;</string>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+       <property name="default">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
