@@ -29,7 +29,8 @@ public:
 public slots:
     void addMessage(QString msg);
 private slots:
-    void on_act_NewGame_triggered();
+    void onGameEnd();
+    void on_act_server_triggered();
     void on_act_EndPlacing_triggered();
     void field2_clicked();
     void on_act_Shoot_triggered();

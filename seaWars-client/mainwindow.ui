@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>SeaWars</string>
   </property>
   <property name="windowIcon">
    <iconset resource="source.qrc">
@@ -57,6 +57,9 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QLabel" name="pin"/>
+     </item>
     </layout>
    </widget>
    <widget class="QWidget" name="verticalLayoutWidget">
@@ -81,14 +84,14 @@
      <x>0</x>
      <y>0</y>
      <width>500</width>
-     <height>21</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
     <property name="title">
      <string>Меню</string>
     </property>
-    <addaction name="act_NewGame"/>
+    <addaction name="act_server"/>
    </widget>
    <addaction name="menu"/>
   </widget>
@@ -109,9 +112,9 @@
    <addaction name="act_EndPlacing"/>
    <addaction name="act_Shoot"/>
   </widget>
-  <action name="act_NewGame">
+  <action name="act_server">
    <property name="text">
-    <string>Новая игра</string>
+    <string>Подключиться к серверу</string>
    </property>
    <property name="toolTip">
     <string>Запускает новую игру, заново подключаясь к серверу</string>
@@ -128,7 +131,7 @@
     <string>Нажимайте если корабли расставлены и вы готовы к бою!</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+R</string>
+    <string>Ctrl+A</string>
    </property>
   </action>
   <action name="act_Shoot">

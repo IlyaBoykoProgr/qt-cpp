@@ -13,6 +13,7 @@ class Client : public QTcpSocket
     bool isOpened;
 public:
     int index;
+    int gamePin;
     Client();
     ~Client();
     bool start();

@@ -2,6 +2,7 @@
 #include <QCoreApplication>
 int main(int argc,char** argv)
 {
+   srand(time(nullptr));
    QCoreApplication a(argc,argv);
    Server serv;
    qDebug()<<"\a\a";

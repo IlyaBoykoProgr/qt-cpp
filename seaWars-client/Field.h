@@ -4,16 +4,17 @@
 #include <QWidget>
 #include <QMouseEvent>
 #include <QDebug>
+#define Server_Debug 0
 
 enum Cell{
-  CL_NONE, CL_BOAT, CL_MISS, CL_DESTROYED
+  CL_NONE, CL_BOAT, CL_MISS, CL_DESTROYED, CL_SELECTION
 };
 
 class Field:public QWidget{
     Q_OBJECT
     QWidget boats[10][10];
 public:
-    bool clickable=true;
+    bool isEnemyField=true;
     int clickX, clickY;
     Field(QWidget* parent,int newX,int newY):QWidget(parent){
         setGeometry(newX,newY,220,220);
@@ -30,13 +31,22 @@ public:
         clickX= floor(clickX/22.0);
         clickY= floor(clickY/22.0);
         emit clicked();
-        if(!clickable)return;
-        setBoat(clickX,clickY,isEmpty(clickX,clickY)?CL_BOAT:CL_NONE);
+        if(!isEnemyField)
+            setBoat(clickX,clickY,isEmpty(clickX,clickY)?CL_BOAT:CL_NONE);
+        else setBoat(clickX,clickY,CL_SELECTION);
     }
     void setBoat(int x, int y, Cell which){
         switch(which){
+        case CL_SELECTION:{
+            QString selectionSS("background:rgba(255,255,0,80)");
+            for(int i=0;i<10;i++)for(int j=0;j<10;j++)
+                if(boats[i][j].styleSheet()==selectionSS)
+                    boats[i][j].setStyleSheet("");
+            if(boats[x][y].styleSheet()=="")
+                boats[x][y].setStyleSheet(selectionSS);}
+            break;
         case CL_NONE:
-            boats[x][y].setStyleSheet(" ");
+            boats[x][y].setStyleSheet("");
             break;
         case CL_BOAT:
             boats[x][y].setStyleSheet("background-image:url(:/images/boat.png)");
@@ -56,15 +66,21 @@ public:
         return boats[x][y].styleSheet()=="background:red";
     }
     bool isEmpty(int x, int y){
-        return boats[x][y].styleSheet()==" ";
+        return boats[x][y].styleSheet()==""
+        ||boats[x][y].styleSheet()=="background:rgba(255,255,0,80)";
     }
     QString getCode(){
         QString code="";
+#if Server_Debug == 1
+        for(int i=0;i<20;i++)code+='1';
+        for(int i=0;i<80;i++)code+='0';
+#else
         for(int x=0;x<10;x++)for(int y=0;y<10;y++){
             if(isABoat(x,y))code+="1";
             else if(isEmpty(x,y))code+="0";
             else if(isDestroyed(x,y))code+="2";
         }
+#endif
         return code;
     }
 signals:

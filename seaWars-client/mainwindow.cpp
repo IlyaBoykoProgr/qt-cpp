@@ -7,27 +7,35 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->toolBar->hide();
+    ui->act_EndPlacing->setDisabled(true);
+    ui->act_Shoot->setVisible(false);
     field1= new Field(this,40,72);
     field2= new Field(this,262,72);
-    field2->clickable= false;
-    field1->clickable=false;
+    field2->isEnemyField= true;
+    field1->isEnemyField= false;
 }
 
-void MainWindow::on_act_NewGame_triggered()
+void MainWindow::on_act_server_triggered()
 {
     connect(field2,SIGNAL(clicked()),this,SLOT(field2_clicked()));
     if(socket!=0)delete socket;
-    socket= new Client();
-    connect(socket,SIGNAL(disconnected()),this,SLOT(on_act_NewGame_triggered()));
-    connect(socket,SIGNAL(youWereShooted(int,int)),this,SLOT(Shoot_recieved(int,int)));
-    connect(socket,SIGNAL(youHitted()),this,SLOT(hitted()));
-    connect(socket,SIGNAL(youMissed()),this,SLOT(missed()));
-    connect(socket,SIGNAL(newMessage(QString)),this,SLOT(addMessage(QString)));
-    ui->toolBar->setVisible(socket->isOpen());
+    socket= new Client;
+    connect(socket,&QTcpSocket::disconnected,this,&MainWindow::onGameEnd);
+    connect(socket,&Client::youWereShooted,this,&MainWindow::Shoot_recieved);
+    connect(socket,&Client::youHitted,this,&MainWindow::hitted);
+    connect(socket,&Client::youMissed,this,&MainWindow::missed);
+    connect(socket,&Client::newMessage,this,&MainWindow::addMessage);
+    field1->setEnabled(true);
+    ui->act_EndPlacing->setEnabled(socket->isOpen());
     setWindowIcon(QIcon(socket->isOpen()?":/images/boat.png":":/images/miss.png"));
-    ui->act_Shoot->setVisible(false);
-    field1->clickable=true;
+    if(socket->index==1){
+        setDisabled(true);
+        while(!socket->waitForReadyRead(1000));
+        setEnabled(true);
+    }
+    if(socket->isOpen()){
+        ui->pin->setNum(socket->gamePin);
+    }
     State= ST_PLACE;
 }
 
@@ -39,15 +47,14 @@ void MainWindow::on_act_EndPlacing_triggered()
     }
     ui->act_EndPlacing->setVisible(false);
     ui->act_Shoot->setVisible(true);
-    field1->clickable=false;
-    socket->write("ready ");
-    socket->write(field1->getCode().toStdString().c_str());
-    State= socket->index==1?ST_ATTACK:ST_PROTECT;
+    field1->setDisabled(true);
+    socket->write("ready");
+    State= socket->index==2?ST_ATTACK:ST_PROTECT;
     if(State==ST_ATTACK){
         addMessage("Ваша очередь стрелять,\n выберите клетку на карте\n противника и нажмите 'Стрелять'");
     }
     if(State==ST_PROTECT){
-        QMessageBox::warning(this,"Ой-ей!","Вас будут атаковать!");
+        addMessage("Вас будут атаковать!");
         ui->act_Shoot->setDisabled(true);
     }
 }
@@ -57,7 +64,7 @@ void MainWindow::on_act_Shoot_triggered()
     if(field2->isEmpty(field2->clickX,field2->clickY))
        socket->write(("shoot "+QString::number(field2->clickX)+" "+QString::number(field2->clickY)) .toStdString().c_str());
     else{
-        QMessageBox::critical(this,"Вы ошиблись!","Здесь нельзя стрелять,\n клетка уже известна!");
+        addMessage("Здесь нельзя стрелять,\n клетка уже известна!");
         return;
     }
 }
@@ -97,16 +104,15 @@ void MainWindow::addMessage(QString msg){
     QLabel* box= new QLabel(msg,this);
     box->setStyleSheet("background:lightblue");
     box->setAlignment(Qt::AlignCenter);
-    box->setGeometry(150,42*msg_count,200,40);
+    box->setGeometry(150,50*msg_count,300,50);
     box->show();
     box->raise();
     msg_count++;
-    std::thread th([this,box]{
+    std::thread([this,box]{
         this_thread::sleep_for(chrono::seconds(2));
         box->deleteLater();
         msg_count--;
-    });
-    th.detach();
+    }).detach();
 }
 
 void MainWindow::on_msg_edit_returnPressed()
@@ -134,6 +140,14 @@ void MainWindow::field2_clicked(){
     case 10:message+="К";break;
     }
     ui->statusbar->showMessage(message+" "+QString::number(field2->clickY+1));
+}
+
+void MainWindow::onGameEnd(){
+    ui->pin->clear();
+    QApplication::exit(
+        QMessageBox::warning(this,"Внимание!","Вы отключились от сервера!\nИграть заново?",QMessageBox::Reset|QMessageBox::No)
+        ==QMessageBox::Reset
+    );
 }
 
 MainWindow::~MainWindow()
