@@ -25,6 +25,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    fieldParser.h \
     server.h
 
 ANDROID_ABIS = armeabi-v7a

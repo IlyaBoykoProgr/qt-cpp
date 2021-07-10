@@ -2,11 +2,12 @@
 #include <QCoreApplication>
 int main(int argc,char** argv)
 {
-   srand(time(nullptr));
+   srand(clock());
    QCoreApplication a(argc,argv);
    Server serv;
-   qDebug()<<"\a\a";
-   qDebug()<<"Port   :"<<serv.serverPort();
-   qDebug()<<"Address:"<<serv.serverAddress().toString();
+   if(serv.isListening()){
+       qDebug()<<"Port   :"<<serv.serverPort();
+       qDebug()<<"Address:"<<serv.serverAddress().toString();
+   }
    return a.exec();
 }

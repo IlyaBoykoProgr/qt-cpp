@@ -5,10 +5,12 @@
 #include <QNetworkInterface>
 #include <QCoreApplication>
 #include <iostream>
+#include "fieldParser.h"
 
 typedef struct player{
     QTcpSocket* sock=0;
     int pin;
+    bool turn = false;
 } player;
 
 class Server : public QTcpServer
