@@ -1,7 +1,0 @@
-<RCC>
-    <qresource prefix="/images">
-        <file>field.png</file>
-        <file>boat.png</file>
-        <file>miss.png</file>
-    </qresource>
-</RCC>
