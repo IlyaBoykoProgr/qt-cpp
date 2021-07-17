@@ -35,7 +35,6 @@ void Server::newPlayerConnecting(){
         players.last()->sock->write("1");
     }else{
         players.last()->pin = available_pins.takeAt(0);
-        players.last()->turn = true;
         players.last()->sock->write("2");
         if(pair(players.last())==nullptr){
             players.last()->sock->write("enemydis");
@@ -57,7 +56,7 @@ void Server::playerWriting(){
     if(data.startsWith("enemyready")){
         bool valid = fieldParser::isValid(data.replace("enemyready","").toStdString().c_str());
         p1->sock->write(valid?"fieldaccept":"fieldwrong");
-        if(p2!=nullptr){
+        if(p2!=nullptr&&valid){
             p2->sock->write("enemyready");
             return;
         }
@@ -68,12 +67,10 @@ void Server::playerWriting(){
         return;
     }
     if(data.startsWith("shoot ")){
-        if(!p1->turn)return;
         p2->sock->write(data.replace("shoot","shooted").toStdString().c_str());
     }
     if(data=="miss"||data=="hit"){
-        p1->turn = data=="hit";
-        p2->turn = !p1->turn;
+        p2->sock->write(data.toStdString().c_str());
     }
     if(data.startsWith("msg "))
         p2->sock->write(data.toStdString().c_str());
